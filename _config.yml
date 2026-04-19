@@ -1,0 +1,33 @@
+title: "Matt Ruggio"
+description: "Tech learnings, code, pop culture, and thoughts from the 80s/90s kid who never stopped tinkering."
+baseurl: ""
+url: "https://mattruggio.github.io"
+author:
+  name: "Matt Ruggio"
+  email: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .gitignore
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# Social links (optional — fill in as desired)
+github_username: mattruggio
+
+# Theme — using custom layout (no gem theme)
+theme: ~
