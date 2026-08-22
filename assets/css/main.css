@@ -55,7 +55,22 @@ a {
   text-decoration: none;
   transition: color 0.15s;
 }
+/* Links inside prose signal hover with an underline, since colour alone is a
+   weak cue in a paragraph. Chrome links — brackets, arrows, titles — signal
+   with colour instead: they are already set apart by font and colour, and an
+   underline would run through the gaps their brackets, icons, and arrows sit
+   in, breaking into disconnected segments. */
 a:hover { color: var(--amber); text-decoration: underline; }
+
+.home-links a:hover,
+.section-link:hover,
+.project-links a:hover,
+.arrow-link:hover,
+.site-footer a:hover,
+.post-list-item .post-link:hover,
+.project-title a:hover {
+  text-decoration: none;
+}
 
 /* Vendored Font Awesome artwork, inlined rather than loaded as an icon font so
    it inherits currentColor and costs no extra request. See
@@ -71,9 +86,7 @@ a:hover { color: var(--amber); text-decoration: underline; }
 }
 
 /* Bracketed link chrome. white-space: pre stops the padding space inside the
-   pseudo-element from collapsing against the label. These links signal hover
-   with colour rather than an underline, matching post and project titles — an
-   underline would otherwise run under the brackets and the icon gap. */
+   pseudo-element from collapsing against the label. */
 .home-links a::before,
 .home-links a::after,
 .section-link::before,
@@ -86,7 +99,8 @@ a:hover { color: var(--amber); text-decoration: underline; }
 
 .home-links a:hover,
 .section-link:hover,
-.project-links a:hover {
+.project-links a:hover,
+.arrow-link:hover {
   color: var(--green);
   text-decoration: none;
 }
@@ -333,7 +347,7 @@ main { flex: 1; }
   margin-bottom: 0.35rem;
 }
 
-.post-list-item .post-link:hover { color: var(--green); text-decoration: none; }
+.post-list-item .post-link:hover { color: var(--green); }
 
 .post-meta {
   font-family: var(--font-mono);
@@ -439,7 +453,7 @@ main { flex: 1; }
 }
 
 .site-footer a { color: var(--green); }
-.site-footer a:hover { color: var(--amber); text-decoration: none; }
+.site-footer a:hover { color: var(--amber); }
 
 /* ── Blinking cursor ────────────────────────────────── */
 .cursor::after {
@@ -489,7 +503,7 @@ main { flex: 1; }
 }
 
 .project-title a { color: var(--text); }
-.project-title a:hover { color: var(--green); text-decoration: none; }
+.project-title a:hover { color: var(--green); }
 
 .project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0; }
 
