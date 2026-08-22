@@ -5,7 +5,6 @@
 :root {
   --bg:        #0d0d0d;
   --bg-card:   #141414;
-  --bg-hover:  #1a1a1a;
   --green:     #39ff14;
   --green-dim: #1a7a08;
   --amber:     #ffb000;
@@ -260,19 +259,25 @@ main { flex: 1; }
 /* ── Home — post list ───────────────────────────────── */
 .post-list { list-style: none; margin: 0; padding: 0; }
 
-.post-list-item {
+.post-list-item,
+.project-item {
   border-bottom: 1px solid var(--border);
   padding: 1.5rem 0;
 }
 
-.post-list-item:last-child { border-bottom: none; }
+.post-list-item:first-child,
+.project-item:first-child { padding-top: 0.35rem; }
+
+.post-list-item:last-child,
+.project-item:last-child { border-bottom: none; }
 
 .post-list-item .post-link {
   font-family: var(--font-head);
   font-size: 1.9rem;
+  line-height: 1.15;
   color: var(--text);
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 .post-list-item .post-link:hover { color: var(--green); text-decoration: none; }
@@ -284,18 +289,16 @@ main { flex: 1; }
   margin-bottom: 0.5rem;
 }
 
-.post-meta .tag {
-  font-family: var(--font-mono);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  padding: 0.1em 0.5em;
-  border-radius: var(--radius);
-  font-size: 0.78rem;
-  margin-right: 0.3rem;
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
 }
 
-.post-excerpt { color: var(--muted); font-size: 0.94rem; }
+.tag-row .tag { margin-right: 0; }
+
+.post-excerpt { color: var(--muted); font-size: 0.94rem; margin-bottom: 0; }
 
 .tag {
   font-family: var(--font-mono);
@@ -311,7 +314,7 @@ main { flex: 1; }
 .read-more {
   font-family: var(--font-mono);
   display: inline-block;
-  margin-top: 0.5rem;
+  margin-top: 0;
   font-size: 0.82rem;
   color: var(--amber);
 }
@@ -410,18 +413,6 @@ main { flex: 1; }
 /* ── Projects ───────────────────────────────────────── */
 .project-list { list-style: none; margin: 0; padding: 0; }
 
-.project-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--green-dim);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.25rem;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.project-card:hover { background: var(--bg-hover); border-left-color: var(--green); }
-
 .project-thumb {
   display: block;
   width: 100%;
@@ -439,7 +430,7 @@ main { flex: 1; }
 .project-title a { color: var(--text); }
 .project-title a:hover { color: var(--green); text-decoration: none; }
 
-.project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0.5rem; }
+.project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0; }
 
 .project-links { font-family: var(--font-mono); margin: 0; font-size: 0.82rem; }
 .project-links a { color: var(--amber); margin-right: 1.25rem; }

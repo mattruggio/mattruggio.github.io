@@ -32,12 +32,16 @@ layout: default
           <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
           <p class="post-meta">
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+          </p>
+          {% if post.excerpt %}
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
+          {% endif %}
+          {% if post.tags.size > 0 %}
+          <p class="tag-row">
             {% for tag in post.tags %}
             <span class="tag">{{ tag }}</span>
             {% endfor %}
           </p>
-          {% if post.excerpt %}
-          <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
           {% endif %}
           <a class="read-more" href="{{ post.url | relative_url }}">read more</a>
         </li>
@@ -54,7 +58,7 @@ layout: default
 
       <ul class="project-list">
         {% for project in site.data.projects %}
-        <li class="project-card">
+        <li class="project-item">
           {% if project.image %}
           <a href="{{ project.site }}" target="_blank" rel="noopener">
             <img class="project-thumb" src="{{ project.image | relative_url }}"
@@ -62,21 +66,21 @@ layout: default
                  width="1200" height="630" />
           </a>
           {% endif %}
-          <div class="project-body">
-            <h3 class="project-title">
-              <a href="{{ project.site }}" target="_blank" rel="noopener">{{ project.title }}</a>
-            </h3>
-            <p class="project-description">{{ project.description }}</p>
-            <p class="post-meta">
-              {% for item in project.tech %}
-              <span class="tag">{{ item }}</span>
-              {% endfor %}
-            </p>
-            <p class="project-links">
-              {% if project.site %}<a href="{{ project.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
-              {% if project.repo %}<a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
-            </p>
-          </div>
+          <h3 class="project-title">
+            <a href="{{ project.site }}" target="_blank" rel="noopener">{{ project.title }}</a>
+          </h3>
+          <p class="project-description">{{ project.description }}</p>
+          {% if project.tech.size > 0 %}
+          <p class="tag-row">
+            {% for item in project.tech %}
+            <span class="tag">{{ item }}</span>
+            {% endfor %}
+          </p>
+          {% endif %}
+          <p class="project-links">
+            {% if project.site %}<a href="{{ project.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
+            {% if project.repo %}<a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
+          </p>
         </li>
         {% endfor %}
       </ul>
