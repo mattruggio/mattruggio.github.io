@@ -14,7 +14,8 @@
   --accent:    #00d4ff;
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
   --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-head: 'VT323', 'Courier New', monospace;
+  --font-head: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-mark: 'VT323', 'Courier New', monospace;
   --max-width: 860px;
   --radius:    2px;
 }
@@ -73,16 +74,17 @@ a:hover { color: var(--amber); text-decoration: underline; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-head);
+  font-weight: 700;
   color: var(--green);
-  letter-spacing: 0.04em;
-  line-height: 1.2;
+  letter-spacing: 0;
+  line-height: 1.25;
   margin: 1.5em 0 0.5em;
 }
 
-h1 { font-size: 2.8rem; }
-h2 { font-size: 2.2rem; }
-h3 { font-size: 1.8rem; }
-h4 { font-size: 1.4rem; }
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1.05rem; }
 
 p { margin-bottom: 1rem; }
 
@@ -174,7 +176,8 @@ main { flex: 1; }
 }
 
 .site-title {
-  font-family: var(--font-head);
+  font-family: var(--font-mark);
+  font-weight: 400;
   font-size: 1.8rem;
   color: var(--green) !important;
   letter-spacing: 0.06em;
@@ -191,6 +194,9 @@ main { flex: 1; }
 }
 
 .page-hero .page-title {
+  font-family: var(--font-mark);
+  font-weight: 400;
+  letter-spacing: 0.06em;
   font-size: 3.2rem;
   margin: 0;
 }
@@ -267,7 +273,7 @@ main { flex: 1; }
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.05rem;
   color: var(--muted);
   margin: 0 0 1rem;
   padding-bottom: 0.5rem;
@@ -300,8 +306,9 @@ main { flex: 1; }
 
 .post-list-item .post-link {
   font-family: var(--font-head);
-  font-size: 1.9rem;
-  line-height: 1.15;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.3;
   color: var(--text);
   display: block;
   margin-bottom: 0.35rem;
@@ -364,7 +371,7 @@ main { flex: 1; }
 }
 
 .post-title {
-  font-size: 3rem;
+  font-size: 2.1rem;
   margin: 0 0 0.75rem;
   color: var(--green);
 }
@@ -437,7 +444,7 @@ main { flex: 1; }
 /* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 600px) {
   h1 { font-size: 2.2rem; }
-  .post-title { font-size: 2.2rem; }
+  .post-title { font-size: 1.7rem; }
   .page-hero .page-title { font-size: 2.4rem; }
 
   .home-intro dl { grid-template-columns: 1fr; gap: 0; }
@@ -458,7 +465,7 @@ main { flex: 1; }
 }
 
 .project-title {
-  font-size: 1.35rem;
+  font-size: 1.05rem;
   margin: 0 0 0.35rem;
 }
 
