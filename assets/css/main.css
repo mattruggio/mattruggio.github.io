@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
-
 /* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,10 +10,11 @@
   --green-dim: #1a7a08;
   --amber:     #ffb000;
   --text:      #c8c8c8;
-  --muted:     #666;
+  --muted:     #909090;
   --border:    #2a2a2a;
   --accent:    #00d4ff;
-  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-head: 'VT323', 'Courier New', monospace;
   --max-width: 860px;
   --radius:    2px;
@@ -27,7 +26,7 @@ html { font-size: 16px; scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
   min-height: 100vh;
@@ -44,8 +43,8 @@ body::after {
     to bottom,
     transparent 0px,
     transparent 2px,
-    rgba(0, 0, 0, 0.06) 2px,
-    rgba(0, 0, 0, 0.06) 4px
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
   );
   pointer-events: none;
   z-index: 9999;
@@ -96,6 +95,7 @@ hr {
 
 /* ── Code ───────────────────────────────────────────── */
 code {
+  font-family: var(--font-mono);
   background: #1e1e1e;
   color: var(--amber);
   padding: 0.1em 0.4em;
@@ -104,6 +104,7 @@ code {
 }
 
 pre {
+  font-family: var(--font-mono);
   background: #111;
   border: 1px solid var(--border);
   border-left: 3px solid var(--green-dim);
@@ -169,6 +170,7 @@ main { flex: 1; }
 .site-title::before { content: '> '; color: var(--amber); }
 
 .site-nav a {
+  font-family: var(--font-mono);
   margin-left: 1.5rem;
   font-size: 0.9rem;
   color: var(--muted);
@@ -217,12 +219,14 @@ main { flex: 1; }
 .post-list-item .post-link:hover { color: var(--green); text-decoration: none; }
 
 .post-meta {
+  font-family: var(--font-mono);
   font-size: 0.82rem;
   color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
 .post-meta .tag {
+  font-family: var(--font-mono);
   background: var(--bg-card);
   border: 1px solid var(--border);
   color: var(--accent);
@@ -234,7 +238,19 @@ main { flex: 1; }
 
 .post-excerpt { color: var(--muted); font-size: 0.94rem; }
 
+.tag {
+  font-family: var(--font-mono);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 0.1em 0.5em;
+  border-radius: var(--radius);
+  font-size: 0.78rem;
+  margin-right: 0.3rem;
+}
+
 .read-more {
+  font-family: var(--font-mono);
   display: inline-block;
   margin-top: 0.5rem;
   font-size: 0.82rem;
@@ -257,7 +273,11 @@ main { flex: 1; }
 }
 
 .post-content {
-  max-width: 720px;
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  position: relative;
+  z-index: 10000;
 }
 
 .post-content h2, .post-content h3 { color: var(--amber); }
@@ -269,16 +289,25 @@ main { flex: 1; }
 }
 
 /* ── About / Static pages ───────────────────────────── */
-.page-content { padding: 2.5rem 0; }
+.page-content {
+  padding: 2.5rem 0;
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  position: relative;
+  z-index: 10000;
+}
 
 /* ── Terminal prompt decoration ─────────────────────── */
 .prompt::before {
+  font-family: var(--font-mono);
   content: '$ ';
   color: var(--green);
 }
 
 /* ── Footer ─────────────────────────────────────────── */
 .site-footer {
+  font-family: var(--font-mono);
   border-top: 1px solid var(--border);
   padding: 1.5rem 0;
   text-align: center;
@@ -286,7 +315,7 @@ main { flex: 1; }
   font-size: 0.82rem;
 }
 
-.site-footer a { color: var(--green-dim); }
+.site-footer a { color: var(--green); }
 .site-footer a:hover { color: var(--amber); }
 
 /* ── Blinking cursor ────────────────────────────────── */
@@ -341,7 +370,7 @@ main { flex: 1; }
 
 .project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0.5rem; }
 
-.project-links { margin: 0; font-size: 0.82rem; }
+.project-links { font-family: var(--font-mono); margin: 0; font-size: 0.82rem; }
 .project-links a { color: var(--amber); margin-right: 1.25rem; }
 .project-links a::before { content: '[ '; color: var(--muted); }
 .project-links a::after  { content: ' ]'; color: var(--muted); }
@@ -382,4 +411,17 @@ dd {
   padding-left: 1rem;
   border-left: 1px solid var(--border);
   color: var(--text);
+}
+
+/* ── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .cursor::after { animation: none; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
