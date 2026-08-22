@@ -50,6 +50,4 @@ Table Stakes
 
 ## Further Reading
 
-Michael Porter's *What Is Strategy?* explores the distinction between operational effectiveness and strategic positioning, which overlaps with the idea in this essay that necessary capabilities do not always create strategic advantage.
-
-[Michael Porter, *What Is Strategy?*](https://hbr.org/1996/11/what-is-strategy)
+Michael Porter's [*What Is Strategy?*](https://hbr.org/1996/11/what-is-strategy) explores the distinction between operational effectiveness and strategic positioning, which overlaps with the idea in this essay that necessary capabilities do not always create strategic advantage.
