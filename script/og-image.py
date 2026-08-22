@@ -96,7 +96,7 @@ def scanlines(img):
     return Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
 
 
-def card(title=None, subtitle="mattruggio.github.io"):
+def card(title=None, subtitle="rugg.io"):
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
 

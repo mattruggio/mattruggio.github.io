@@ -1,7 +1,11 @@
 # mattruggio.github.io
 
 Personal blog and projects site, built with [Jekyll](https://jekyllrb.com) and deployed to
-GitHub Pages at <https://mattruggio.github.io>.
+GitHub Pages at <https://rugg.io>.
+
+The repository keeps its `mattruggio.github.io` name; the site is served from the custom
+apex domain `rugg.io`, configured by the `CNAME` file at the repository root. See
+[Custom domain](#custom-domain) below.
 
 ## Requirements
 
@@ -154,3 +158,45 @@ publishes it to GitHub Pages.
 
 One-time setup: in the repository's **Settings → Pages**, set **Source** to
 **GitHub Actions**.
+
+## Custom domain
+
+The site is served from the apex domain `rugg.io`. Two things make that work:
+
+1. The `CNAME` file at the repository root, containing `rugg.io`. Jekyll copies it into
+   `_site/` on every build, and GitHub Pages reads it to set the custom domain. **Deleting
+   it unsets the domain**, so leave it in place.
+2. `url:` in `_config.yml`, which must match. Canonical tags, Open Graph URLs, the
+   sitemap, and the feed are all built from it — DNS alone is not enough.
+
+### DNS records
+
+Apex domains cannot use a `CNAME` record, so they point at GitHub's Pages IPs directly:
+
+| Type | Name | Value |
+|------|------|-------|
+| A    | `@`  | `185.199.108.153` |
+| A    | `@`  | `185.199.109.153` |
+| A    | `@`  | `185.199.110.153` |
+| A    | `@`  | `185.199.111.153` |
+| AAAA | `@`  | `2606:50c0:8000::153` |
+| AAAA | `@`  | `2606:50c0:8001::153` |
+| AAAA | `@`  | `2606:50c0:8002::153` |
+| AAAA | `@`  | `2606:50c0:8003::153` |
+| CNAME | `www` | `mattruggio.github.io.` |
+
+All four A records are needed — they are redundant endpoints, not alternatives. The AAAA
+records add IPv6 and are optional but recommended. The `www` record is optional; with it,
+GitHub redirects `www.rugg.io` to the apex automatically.
+
+After DNS propagates, set the domain under **Settings → Pages → Custom domain** and enable
+**Enforce HTTPS** once the certificate is issued (this can take up to 24 hours).
+
+`mattruggio.github.io` keeps working: GitHub redirects it to the custom domain, so old
+links and any existing search results are preserved.
+
+### Subdomains stay available
+
+Serving the blog from the apex does not consume `rugg.io` for other uses. Any subdomain
+(`retro.rugg.io`, and so on) can point somewhere else entirely. What the apex costs is the
+option of using `rugg.io` itself as a landing page for several properties.

@@ -6,7 +6,7 @@ tagline: "Software engineering and technical strategy"
 # `description` drives the meta description and the RSS subtitle, not the title.
 description: "Writing about software engineering, system design, and the strategy behind technical decisions."
 baseurl: ""
-url: "https://mattruggio.github.io"
+url: "https://rugg.io"
 author:
   name: "Matt Ruggio"
   email: ""
@@ -35,7 +35,7 @@ defaults:
         path: /assets/images/og-default.png
         width: 1200
         height: 630
-        alt: "mattruggio.github.io"
+        alt: "rugg.io"
   - scope:
       path: ""
       type: "posts"
