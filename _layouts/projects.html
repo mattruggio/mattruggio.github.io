@@ -17,6 +17,11 @@ layout: default
   <ul class="project-list">
     {% for project in projects %}
     <li class="project-card">
+      {% if project.image %}
+      <a href="{{ project.url | relative_url }}">
+        <img class="project-image" src="{{ project.image | relative_url }}" alt="{{ project.image_alt | default: project.title }}" loading="lazy" />
+      </a>
+      {% endif %}
       <h2 class="project-title">
         <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
       </h2>
@@ -28,8 +33,8 @@ layout: default
       </p>
       <p class="project-links">
         <a href="{{ project.url | relative_url }}">details</a>
+        {% if project.site %}<a href="{{ project.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
         {% if project.repo %}<a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
-        {% if project.demo %}<a href="{{ project.demo }}" target="_blank" rel="noopener">demo</a>{% endif %}
       </p>
     </li>
     {% endfor %}

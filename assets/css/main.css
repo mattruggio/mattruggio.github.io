@@ -313,7 +313,7 @@ main { flex: 1; }
   .site-nav a { margin-left: 1rem; }
 }
 
-/* ── Portfolio ──────────────────────────────────────── */
+/* ── Projects ───────────────────────────────────────── */
 .project-list { list-style: none; margin: 0; padding: 0; }
 
 .project-card {
@@ -342,3 +342,14 @@ main { flex: 1; }
 .project-links a { color: var(--amber); margin-right: 1.25rem; }
 .project-links a::before { content: '[ '; color: var(--muted); }
 .project-links a::after  { content: ' ]'; color: var(--muted); }
+
+.project-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.post-header + .project-image { margin-bottom: 2.5rem; }

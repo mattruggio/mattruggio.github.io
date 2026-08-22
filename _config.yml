@@ -16,11 +16,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# Portfolio projects live in _projects/ as one Markdown file each.
+# Projects live in _projects/ as one Markdown file each.
 collections:
   projects:
     output: true
-    permalink: /portfolio/:name/
+    permalink: /projects/:name/
 
 defaults:
   - scope:

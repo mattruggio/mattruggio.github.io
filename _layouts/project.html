@@ -13,10 +13,14 @@ layout: default
     <p class="page-subtitle">{{ page.description }}</p>
     {% endif %}
     <p class="project-links">
+      {% if page.site %}<a href="{{ page.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
       {% if page.repo %}<a href="{{ page.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
-      {% if page.demo %}<a href="{{ page.demo }}" target="_blank" rel="noopener">demo</a>{% endif %}
     </p>
   </header>
+
+  {% if page.image %}
+  <img class="project-image" src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" />
+  {% endif %}
 
   <article class="post-content">
     {{ content }}
@@ -24,6 +28,6 @@ layout: default
 
   <hr />
   <p class="text-muted" style="font-size:0.85rem;">
-    <a href="{{ '/portfolio/' | relative_url }}">&larr; Back to portfolio</a>
+    <a href="{{ '/projects/' | relative_url }}">&larr; Back to projects</a>
   </p>
 </div>

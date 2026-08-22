@@ -1,6 +1,6 @@
 # mattruggio.github.io
 
-Personal blog and portfolio, built with [Jekyll](https://jekyllrb.com) and deployed to
+Personal blog and projects site, built with [Jekyll](https://jekyllrb.com) and deployed to
 GitHub Pages at <https://mattruggio.github.io>.
 
 ## Requirements
@@ -54,16 +54,18 @@ Work-in-progress posts go in `_drafts/` with no date in the filename (e.g.
 `_drafts/my-idea.md`). They are excluded from builds until you move them into `_posts/`
 with a dated filename.
 
-## Adding a portfolio project
+## Adding a project
 
 Create `_projects/project-name.md`:
 
 ```markdown
 ---
 title: "Project Name"
-description: "One-line summary shown on the portfolio index."
-repo: "https://github.com/mattruggio/project-name"
-demo: "https://example.com"   # optional
+description: "One-line summary shown on the projects index."
+site: "https://example.com"                        # optional
+repo: "https://github.com/mattruggio/project-name" # optional
+image: "/assets/images/project-name.png"           # optional
+image_alt: "Screenshot of Project Name"            # optional
 tech: [ruby, cli]
 order: 1
 ---
@@ -71,8 +73,9 @@ order: 1
 Longer write-up in Markdown.
 ```
 
-Projects are listed on `/portfolio/` sorted by `order`, and each gets its own page at
-`/portfolio/project-name/`. `layout: project` is applied automatically.
+Projects are listed on `/projects/` sorted by `order`, and each gets its own page at
+`/projects/project-name/`. `layout: project` is applied automatically. If `image` is set,
+it renders as a banner on both the index card and the project page.
 
 ## Structure
 
@@ -80,13 +83,14 @@ Projects are listed on `/portfolio/` sorted by `order`, and each gets its own pa
 _config.yml            site configuration
 _drafts/               unpublished posts
 _posts/                published blog posts
-_projects/             portfolio entries (one file per project)
-_layouts/              page templates (default, home, page, post, portfolio, project)
+_projects/             project entries (one file per project)
+_layouts/              page templates (default, home, page, post, projects, project)
 _includes/             header and footer partials
 assets/css/main.css    retro-terminal theme
+assets/images/         project graphics
 index.md               home page (post list)
 about.md               about page
-portfolio.md           portfolio index
+projects.md            projects index
 ```
 
 ## Deployment
