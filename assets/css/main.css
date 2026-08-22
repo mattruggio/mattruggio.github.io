@@ -249,12 +249,25 @@ main { flex: 1; }
 
 /* ── Section headings ───────────────────────────────── */
 .section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
   font-size: 1.5rem;
   color: var(--muted);
   margin: 0 0 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
 }
+
+.section-link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--amber);
+}
+
+.section-link::before { content: '[ '; color: var(--muted); }
+.section-link::after  { content: ' ]'; color: var(--muted); }
 
 /* ── Home — post list ───────────────────────────────── */
 .post-list { list-style: none; margin: 0; padding: 0; }

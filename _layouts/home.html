@@ -17,14 +17,16 @@ layout: default
       {%- if site.linkedin_url and site.linkedin_url != '' %}
       <a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">linkedin</a>
       {%- endif %}
-      <a href="{{ '/feed.xml' | relative_url }}">rss</a>
     </p>
   </section>
   {% endif %}
 
   <div class="home-columns">
     <section class="home-col">
-      <h2 class="section-heading">Writing</h2>
+      <h2 class="section-heading">
+        Writing
+        <a class="section-link" href="{{ '/feed.xml' | relative_url }}">rss</a>
+      </h2>
 
       <ul class="post-list">
         {% for post in site.posts %}
