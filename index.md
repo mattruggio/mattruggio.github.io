@@ -10,6 +10,3 @@ role
 
 stack
 : Ruby, Go, JavaScript
-
-writing
-: System design, technical strategy, and the occasional tangent
