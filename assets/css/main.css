@@ -47,7 +47,7 @@ body::after {
     rgba(0, 0, 0, 0.03) 4px
   );
   pointer-events: none;
-  z-index: 9999;
+  z-index: 1;
 }
 
 a {
@@ -277,7 +277,7 @@ main { flex: 1; }
   font-size: 1.0625rem;
   line-height: 1.75;
   position: relative;
-  z-index: 10000;
+  z-index: 2;
 }
 
 .post-content h2, .post-content h3 { color: var(--amber); }
@@ -295,7 +295,7 @@ main { flex: 1; }
   font-size: 1.0625rem;
   line-height: 1.75;
   position: relative;
-  z-index: 10000;
+  z-index: 2;
 }
 
 /* ── Terminal prompt decoration ─────────────────────── */
