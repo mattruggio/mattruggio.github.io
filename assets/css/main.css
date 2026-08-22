@@ -56,6 +56,21 @@ a {
 }
 a:hover { color: var(--amber); text-decoration: underline; }
 
+/* Bracketed link chrome. Rendering the brackets as atomic inline-level boxes
+   keeps the hover underline on the label alone — text-decoration does not
+   propagate into an inline-block, and white-space: pre stops the padding
+   space inside the pseudo-element from collapsing. */
+.home-links a::before,
+.home-links a::after,
+.section-link::before,
+.section-link::after,
+.project-links a::before,
+.project-links a::after {
+  display: inline-block;
+  white-space: pre;
+  color: var(--muted);
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-head);
   color: var(--green);
@@ -232,8 +247,8 @@ main { flex: 1; }
 }
 
 .home-links a { color: var(--amber); margin-right: 1.25rem; }
-.home-links a::before { content: '[ '; color: var(--muted); }
-.home-links a::after  { content: ' ]'; color: var(--muted); }
+.home-links a::before { content: '[ '; }
+.home-links a::after  { content: ' ]'; }
 
 /* ── Home — two-column body ─────────────────────────── */
 .home-columns {
@@ -266,8 +281,8 @@ main { flex: 1; }
   color: var(--amber);
 }
 
-.section-link::before { content: '[ '; color: var(--muted); }
-.section-link::after  { content: ' ]'; color: var(--muted); }
+.section-link::before { content: '[ '; }
+.section-link::after  { content: ' ]'; }
 
 /* ── Home — post list ───────────────────────────────── */
 .post-list { list-style: none; margin: 0; padding: 0; }
@@ -447,8 +462,8 @@ main { flex: 1; }
 
 .project-links { font-family: var(--font-mono); margin: 0; font-size: 0.82rem; }
 .project-links a { color: var(--amber); margin-right: 1.25rem; }
-.project-links a::before { content: '[ '; color: var(--muted); }
-.project-links a::after  { content: ' ]'; color: var(--muted); }
+.project-links a::before { content: '[ '; }
+.project-links a::after  { content: ' ]'; }
 
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }
