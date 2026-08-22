@@ -88,7 +88,7 @@ _layouts/              page templates (default, home, page, post, projects, proj
 _includes/             header and footer partials
 assets/css/main.css    retro-terminal theme
 assets/images/         project graphics
-index.md               home page (post list)
+index.md               home page intro blurb, shown above the post list
 about.md               about page
 projects.md            projects index
 ```

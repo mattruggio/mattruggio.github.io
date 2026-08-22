@@ -9,6 +9,16 @@ layout: default
     <p class="page-subtitle">{{ site.description }}</p>
   </header>
 
+  {% if content != '' %}
+  <section class="home-intro">
+    <p class="home-intro-label prompt">whoami</p>
+    {{ content }}
+    <a class="read-more" href="{{ '/about/' | relative_url }}">more about me</a>
+  </section>
+  {% endif %}
+
+  <h2 class="section-heading">Latest posts</h2>
+
   <ul class="post-list">
     {% for post in site.posts %}
     <li class="post-list-item">
