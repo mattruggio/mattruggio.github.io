@@ -178,12 +178,6 @@ main { flex: 1; }
 
 .page-hero .page-title {
   font-size: 3.2rem;
-  margin: 0 0 0.5rem;
-}
-
-.page-hero .page-subtitle {
-  color: var(--muted);
-  font-size: 1rem;
   margin: 0;
 }
 
