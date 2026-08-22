@@ -12,3 +12,5 @@ icons, so the paths are copied verbatim and attributed here instead.
 
 To add an icon, copy the `<path>` and `viewBox` from the upstream SVG into a
 new file here following the same shape, then `{% include icons/name.svg %}`.
+Save the file with no trailing newline — Liquid emits it verbatim, and it
+collapses into a word space next to the label.

@@ -59,12 +59,15 @@ a:hover { color: var(--amber); text-decoration: underline; }
 
 /* Vendored Font Awesome artwork, inlined rather than loaded as an icon font so
    it inherits currentColor and costs no extra request. See
-   _includes/icons/LICENSE.md. */
+   _includes/icons/LICENSE.md. Width is left to the viewBox — none of these
+   icons are square, and forcing one letterboxes the artwork, padding the gap
+   to the label with dead space. The gap is one monospace cell, so the icon
+   sits on the same rhythm as the surrounding characters. */
 .icon {
-  width: 1.1em;
   height: 1.1em;
+  width: auto;
   vertical-align: -0.18em;
-  margin-right: 0.45em;
+  margin-right: 0.6em;
 }
 
 /* Bracketed link chrome. white-space: pre stops the padding space inside the
