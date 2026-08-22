@@ -312,3 +312,33 @@ main { flex: 1; }
   .page-hero .page-title { font-size: 2.4rem; }
   .site-nav a { margin-left: 1rem; }
 }
+
+/* ── Portfolio ──────────────────────────────────────── */
+.project-list { list-style: none; margin: 0; padding: 0; }
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green-dim);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.project-card:hover { background: var(--bg-hover); border-left-color: var(--green); }
+
+.project-title {
+  font-size: 1.9rem;
+  margin: 0 0 0.35rem;
+}
+
+.project-title a { color: var(--text); }
+.project-title a:hover { color: var(--green); text-decoration: none; }
+
+.project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0.5rem; }
+
+.project-links { margin: 0; font-size: 0.82rem; }
+.project-links a { color: var(--amber); margin-right: 1.25rem; }
+.project-links a::before { content: '[ '; color: var(--muted); }
+.project-links a::after  { content: ' ]'; color: var(--muted); }

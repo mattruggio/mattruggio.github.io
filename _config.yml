@@ -14,6 +14,25 @@ permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Portfolio projects live in _projects/ as one Markdown file each.
+collections:
+  projects:
+    output: true
+    permalink: /portfolio/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
 
 # Exclude from processing
 exclude:
@@ -21,13 +40,7 @@ exclude:
   - Gemfile.lock
   - README.md
   - .gitignore
-
-# Pagination
-paginate: 10
-paginate_path: "/page:num/"
+  - vendor
 
 # Social links (optional — fill in as desired)
 github_username: mattruggio
-
-# Theme — using custom layout (no gem theme)
-theme: ~
