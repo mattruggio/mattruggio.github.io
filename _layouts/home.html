@@ -13,7 +13,13 @@ layout: default
   <section class="home-intro">
     <p class="home-intro-label prompt">whoami</p>
     {{ content }}
-    <a class="read-more" href="{{ '/about/' | relative_url }}">more about me</a>
+    <p class="home-links">
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">github</a>
+      {%- if site.linkedin_url and site.linkedin_url != '' %}
+      <a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">linkedin</a>
+      {%- endif %}
+      <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+    </p>
   </section>
   {% endif %}
 

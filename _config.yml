@@ -44,3 +44,7 @@ exclude:
 
 # Social links (optional — fill in as desired)
 github_username: mattruggio
+
+# Paste your LinkedIn profile URL here to show the link on the home page.
+# While this is empty, the link is simply not rendered.
+linkedin_url: ""

@@ -219,6 +219,16 @@ main { flex: 1; }
 
 .home-intro p:last-of-type { margin-bottom: 0.75rem; }
 
+.home-links {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  margin: 1rem 0 0;
+}
+
+.home-links a { color: var(--amber); margin-right: 1.25rem; }
+.home-links a::before { content: '[ '; color: var(--muted); }
+.home-links a::after  { content: ' ]'; color: var(--muted); }
+
 /* ── Section headings ───────────────────────────────── */
 .section-heading {
   font-size: 1.5rem;
@@ -416,13 +426,13 @@ main { flex: 1; }
 
 .post-header + .project-image { margin-bottom: 2.5rem; }
 
-/* ── About ──────────────────────────────────────────── */
-.about-image {
+/* ── Intro image ────────────────────────────────────── */
+.intro-image {
   display: block;
   width: 100%;
-  max-width: 520px;
+  max-width: 380px;
   height: auto;
-  margin: 2rem auto;
+  margin: 1.5rem 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }

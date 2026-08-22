@@ -89,9 +89,20 @@ _includes/             header and footer partials
 assets/css/main.css    retro-terminal theme
 assets/images/         project graphics
 index.md               home page intro blurb, shown above the post list
-about.md               about page
 projects.md            projects index
+about.html             redirect from the retired /about/ URL to home
 ```
+
+## Social links
+
+The home page links to GitHub and the RSS feed. To add LinkedIn, set `linkedin_url` in
+`_config.yml`:
+
+```yaml
+linkedin_url: "https://www.linkedin.com/in/your-handle/"
+```
+
+While that value is empty the link is simply not rendered, so nothing breaks.
 
 ## Deployment
 
