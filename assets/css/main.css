@@ -219,6 +219,30 @@ main { flex: 1; }
 
 .home-intro p:last-of-type { margin-bottom: 0.75rem; }
 
+/* Structured `whoami` output — scoped so the post glossary keeps its own dl styling. */
+.home-intro dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1.5rem;
+  margin: 0 0 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.home-intro dt {
+  color: var(--green);
+  font-weight: normal;
+  margin-top: 0;
+}
+
+.home-intro dd {
+  margin: 0;
+  padding-left: 0;
+  border-left: none;
+  color: var(--text);
+}
+
 .home-links {
   font-family: var(--font-mono);
   font-size: 0.82rem;
@@ -383,6 +407,10 @@ main { flex: 1; }
   .post-title { font-size: 2.2rem; }
   .page-hero .page-title { font-size: 2.4rem; }
   .site-nav a { margin-left: 1rem; }
+
+  .home-intro dl { grid-template-columns: 1fr; gap: 0; }
+  .home-intro dd { margin-bottom: 0.85rem; }
+  .home-intro dd:last-of-type { margin-bottom: 0; }
 }
 
 /* ── Projects ───────────────────────────────────────── */

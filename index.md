@@ -2,8 +2,16 @@
 layout: home
 ---
 
-I'm Matt. I write software for a living and for fun, and have since I was 10 — back when
-my IDE was QBasic and my framework was "hope."
+name
+: Matt Ruggio
 
-Mostly Ruby these days, mostly thinking about clean, maintainable systems. Sometimes a post
-that has nothing to do with code at all.
+role
+: Software engineer
+
+stack
+: Ruby, Go, JavaScript
+
+writing
+: System design, technical strategy, and the occasional tangent
+
+Opinions are mine; the terminal theme is non-negotiable.
