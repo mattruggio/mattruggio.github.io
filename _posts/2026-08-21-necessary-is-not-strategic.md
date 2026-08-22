@@ -16,7 +16,7 @@ I think about that question in terms of **competitive advantages** and **competi
 
 Payroll entry is a simple example. If you are building a payroll product, customers need a way to enter employees, hours, earnings, deductions, and other inputs. There is nothing optional about it. At the same time, every serious payroll provider already offers some version of that capability. A company could spend a year building an excellent payroll-entry experience and still emerge having mostly achieved what its competitors could already do. The work was necessary, but it was not necessarily strategic.
 
-The same lesson can apply much deeper in the stack. In payroll, we also chose at times to build infrastructure ourselves, including a custom pub/sub eventing system, rather than relying on established technology such as Apache Kafka or another available solution. There were reasonable technical motivations for those decisions, and hindsight makes alternatives look simpler than they often were. Still, I would start with a different question today: **was owning eventing infrastructure part of our competitive advantage as a payroll company?** Probably not. Our best opportunities to differentiate lived much closer to the payroll domain.
+The same lesson can apply much deeper in the stack. In payroll, we also chose at times to build infrastructure ourselves, including a custom pub/sub eventing system, rather than relying on established technology such as [Apache Kafka](https://kafka.apache.org/documentation/) or another available solution. There were reasonable technical motivations for those decisions, and hindsight makes alternatives look simpler than they often were. Still, I would start with a different question today: **was owning eventing infrastructure part of our competitive advantage as a payroll company?** Probably not. Our best opportunities to differentiate lived much closer to the payroll domain.
 
 This is a difficult instinct for engineers because we like to build. We value control, we see weaknesses in existing tools, and we often understand our own requirements better than a vendor does. Sometimes we genuinely can build something better. But **being able to build something better is not the same as that thing being strategically valuable to build**. That is why I think build-versus-buy decisions should begin with strategic value, not technical possibility. If a capability represents proprietary knowledge, a core customer experience, or an area where internal investment can create a durable advantage, building it may compound in value. If the goal is simply to meet an established standard, buying or integrating an existing solution may be the better use of the organization's time.
 
@@ -47,3 +47,9 @@ Opportunity Cost
 
 Table Stakes
 : Capabilities customers consider fundamental to participating in a market. Their absence creates a disadvantage, but their presence alone rarely creates an advantage.
+
+## Further Reading
+
+Michael Porter's *What Is Strategy?* explores the distinction between operational effectiveness and strategic positioning, which overlaps with the idea in this essay that necessary capabilities do not always create strategic advantage.
+
+[Michael Porter, *What Is Strategy?*](https://hbr.org/1996/11/what-is-strategy)
