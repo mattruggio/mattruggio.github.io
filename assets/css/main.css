@@ -85,6 +85,9 @@ blockquote {
   background: var(--bg-card);
 }
 
+blockquote strong { color: var(--green); }
+blockquote p:last-child { margin-bottom: 0; }
+
 hr {
   border: none;
   border-top: 1px solid var(--border);
@@ -363,4 +366,20 @@ main { flex: 1; }
   margin: 2rem auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
+}
+
+/* ── Definition lists (glossaries) ──────────────────── */
+dl { margin: 1.5rem 0; }
+
+dt {
+  color: var(--amber);
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+dd {
+  margin: 0.15rem 0 0 0;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border);
+  color: var(--text);
 }
