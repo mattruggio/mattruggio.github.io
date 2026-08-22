@@ -398,14 +398,16 @@ main { flex: 1; }
 
 /* ── Single Post ────────────────────────────────────── */
 .post-header {
-  padding: 3rem 0 2rem;
+  padding: 2rem 0 1.5rem;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
+
+.post-header .tag-row { margin-bottom: 0; }
 
 .post-title {
   font-size: 2.1rem;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.6rem;
   color: var(--green);
 }
 
