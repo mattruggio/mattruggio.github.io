@@ -8,7 +8,7 @@ name
 role
 : Software engineer
 
-stack
+languages
 : Ruby, Go, JavaScript
 
 experience
