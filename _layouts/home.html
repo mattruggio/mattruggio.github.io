@@ -13,9 +13,9 @@ layout: default
     <p class="home-intro-label prompt">whoami</p>
     {{ content }}
     <p class="home-links">
-      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">github</a>
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">{% include icons/github.svg %}github</a>
       {%- if site.linkedin_url and site.linkedin_url != '' %}
-      <a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">linkedin</a>
+      <a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">{% include icons/linkedin.svg %}linkedin</a>
       {%- endif %}
     </p>
   </section>
@@ -25,7 +25,7 @@ layout: default
     <section class="home-col">
       <h2 class="section-heading">
         writing
-        <a class="section-link" href="{{ '/feed.xml' | relative_url }}">rss</a>
+        <a class="section-link" href="{{ '/feed.xml' | relative_url }}">{% include icons/rss.svg %}rss</a>
       </h2>
 
       <ul class="post-list">

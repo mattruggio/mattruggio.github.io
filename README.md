@@ -84,6 +84,7 @@ _drafts/               unpublished posts
 _posts/                published blog posts
 _layouts/              page templates (default, home, post)
 _includes/             header and footer partials
+_includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
 assets/css/main.css    retro-terminal theme
 assets/images/         project graphics
 index.md               home page whoami block
@@ -92,6 +93,16 @@ index.md               home page whoami block
 The home page is the whole site: the `whoami` block, then writing and projects side by
 side. It has no nav bar, since the `~/mattruggio` hero acts as the header. Posts get a
 slim sticky header linking back home.
+
+## Icons
+
+Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
+rather than loaded as an icon font — the full release is 6.5 MB and the three icons in
+use total under 3 KB. They inherit `currentColor`, so hover states need no extra rules.
+Adding one is described in `_includes/icons/LICENSE.md`.
+
+They are reserved for brand marks and the feed icon, where a pictogram is recognised
+faster than the word. Directional and action links use text and arrows instead.
 
 ## Social links
 

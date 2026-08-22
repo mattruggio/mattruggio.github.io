@@ -57,19 +57,35 @@ a {
 }
 a:hover { color: var(--amber); text-decoration: underline; }
 
-/* Bracketed link chrome. Rendering the brackets as atomic inline-level boxes
-   keeps the hover underline on the label alone — text-decoration does not
-   propagate into an inline-block, and white-space: pre stops the padding
-   space inside the pseudo-element from collapsing. */
+/* Vendored Font Awesome artwork, inlined rather than loaded as an icon font so
+   it inherits currentColor and costs no extra request. See
+   _includes/icons/LICENSE.md. */
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.18em;
+  margin-right: 0.45em;
+}
+
+/* Bracketed link chrome. white-space: pre stops the padding space inside the
+   pseudo-element from collapsing against the label. These links signal hover
+   with colour rather than an underline, matching post and project titles — an
+   underline would otherwise run under the brackets and the icon gap. */
 .home-links a::before,
 .home-links a::after,
 .section-link::before,
 .section-link::after,
 .project-links a::before,
 .project-links a::after {
-  display: inline-block;
   white-space: pre;
   color: var(--muted);
+}
+
+.home-links a:hover,
+.section-link:hover,
+.project-links a:hover {
+  color: var(--green);
+  text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -420,7 +436,7 @@ main { flex: 1; }
 }
 
 .site-footer a { color: var(--green); }
-.site-footer a:hover { color: var(--amber); }
+.site-footer a:hover { color: var(--amber); text-decoration: none; }
 
 /* ── Blinking cursor ────────────────────────────────── */
 .cursor::after {
