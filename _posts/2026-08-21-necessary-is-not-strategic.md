@@ -2,6 +2,12 @@
 title: "Necessary Is Not Strategic"
 date: 2026-08-21
 tags: [strategy, build-vs-buy, engineering-leadership]
+description: "A capability can be necessary to your product without being strategically valuable to build. On competitive advantage, parity, and when to build versus buy."
+image:
+  path: /assets/images/og-necessary-is-not-strategic.png
+  width: 1200
+  height: 630
+  alt: "Necessary Is Not Strategic"
 ---
 
 One of the easiest mistakes to make in software strategy is confusing necessary work with strategic work. A capability can be essential to your product without being strategically valuable to build. That distinction matters because every organization operates with finite engineering time, capital, and attention. If we treat every important capability as something we should own ourselves, we can spend enormous amounts of energy recreating things that only bring us up to the standard the market already expects.

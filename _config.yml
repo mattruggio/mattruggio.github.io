@@ -1,4 +1,9 @@
 title: "Matt Ruggio"
+# `tagline` is the short suffix in the browser/search title: "Matt Ruggio | <tagline>".
+# jekyll-seo-tag falls back to `description` here, which is too long for a title
+# (search engines truncate near 60 characters), so both are set deliberately.
+tagline: "Software engineering and technical strategy"
+# `description` drives the meta description and the RSS subtitle, not the title.
 description: "Writing about software engineering, system design, and the strategy behind technical decisions."
 baseurl: ""
 url: "https://mattruggio.github.io"
@@ -18,6 +23,19 @@ plugins:
 
 # Projects are listed on the home page from _data/projects.yml.
 defaults:
+  # Social sharing card. jekyll-seo-tag reads `image` from the *page*, never from
+  # a top-level site key, so the default has to be applied here. Any page or post
+  # can override it with its own `image:` in front matter. Supplying width/height
+  # lets the tag emit og:image:width/height, which some crawlers require before
+  # they will render a large card.
+  - scope:
+      path: ""
+    values:
+      image:
+        path: /assets/images/og-default.png
+        width: 1200
+        height: 630
+        alt: "mattruggio.github.io"
   - scope:
       path: ""
       type: "posts"
@@ -31,6 +49,8 @@ exclude:
   - README.md
   - .gitignore
   - vendor
+  - script
+  - .cache
 
 # Social links (optional — fill in as desired)
 github_username: mattruggio

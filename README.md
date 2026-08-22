@@ -40,6 +40,12 @@ Create `_posts/YYYY-MM-DD-slug.md`:
 title: "Your Post Title"
 date: 2026-08-21
 tags: [ruby, testing]
+description: "One or two sentences, under ~155 characters."
+image:
+  path: /assets/images/og-your-post-slug.png
+  width: 1200
+  height: 630
+  alt: "Your Post Title"
 ---
 
 Post body in Markdown. The first paragraph is used as the excerpt on the home page.
@@ -47,6 +53,32 @@ Post body in Markdown. The first paragraph is used as the excerpt on the home pa
 
 The `layout: post` front matter is applied automatically via `_config.yml` defaults, so
 you don't need to declare it. Posts are published at `/:year/:month/:day/:title/`.
+
+`description` and `image` are both optional but worth setting:
+
+- Without `description`, jekyll-seo-tag falls back to the auto-excerpt, which is the
+  entire first paragraph. Search engines cut the snippet off around 155 characters, so a
+  long excerpt gets truncated mid-sentence.
+- Without `image`, the post falls back to the site-wide card
+  (`/assets/images/og-default.png`). A per-post card is nicer when the link is shared.
+
+### Social sharing cards
+
+Cards are generated ahead of time and checked in — Jekyll has no image pipeline. The
+generator matches the site's palette and typeface:
+
+```bash
+python3 script/og-image.py --title "Your Post Title" \
+                           --out assets/images/og-your-post-slug.png
+```
+
+It needs Pillow (`pip install Pillow`) and downloads IBM Plex Mono into `.cache/fonts/`
+on first run. `--default` rewrites the site-wide card and `--favicons` rewrites
+`favicon.ico` and the Apple touch icon; neither is needed for a normal post.
+
+Note that jekyll-seo-tag reads `image` from the **page**, never from a top-level site
+key. The default card is therefore applied through a `defaults` block in `_config.yml`
+rather than a `site.image` setting, which would silently do nothing.
 
 ### Drafts
 
