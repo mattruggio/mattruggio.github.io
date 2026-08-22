@@ -426,17 +426,6 @@ main { flex: 1; }
 
 .post-header + .project-image { margin-bottom: 2.5rem; }
 
-/* ── Intro image ────────────────────────────────────── */
-.intro-image {
-  display: block;
-  width: 100%;
-  max-width: 380px;
-  height: auto;
-  margin: 1.5rem 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }
 

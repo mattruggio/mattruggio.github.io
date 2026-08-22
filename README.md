@@ -95,14 +95,14 @@ about.html             redirect from the retired /about/ URL to home
 
 ## Social links
 
-The home page links to GitHub and the RSS feed. To add LinkedIn, set `linkedin_url` in
+The home page links to GitHub, LinkedIn, and the RSS feed. The LinkedIn URL comes from
 `_config.yml`:
 
 ```yaml
-linkedin_url: "https://www.linkedin.com/in/your-handle/"
+linkedin_url: "https://www.linkedin.com/in/mattruggio"
 ```
 
-While that value is empty the link is simply not rendered, so nothing breaks.
+If that value is left empty the link is simply not rendered, so nothing breaks.
 
 ## Deployment
 
