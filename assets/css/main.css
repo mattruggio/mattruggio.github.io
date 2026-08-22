@@ -338,7 +338,9 @@ main { flex: 1; }
   margin-right: 0.3rem;
 }
 
-.read-more {
+/* Action links. The arrow is pinned to the body font so it renders identically
+   everywhere, regardless of the label's typeface. */
+.arrow-link {
   font-family: var(--font-mono);
   display: inline-block;
   margin-top: 0;
@@ -346,7 +348,13 @@ main { flex: 1; }
   color: var(--amber);
 }
 
-.read-more::after { content: ' →'; }
+.arrow-link::before,
+.arrow-link::after {
+  font-family: var(--font-body);
+}
+
+.arrow-link--next::after { content: '→'; margin-left: 0.4em; }
+.arrow-link--prev::before { content: '←'; margin-right: 0.4em; }
 
 /* ── Single Post ────────────────────────────────────── */
 .post-header {
