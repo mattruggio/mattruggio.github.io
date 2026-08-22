@@ -1,0 +1,7 @@
+# Projects shown on the home page. Order here is the order rendered.
+- title: "RetroLive"
+  description: "A multiplayer, retro-styled NBA manager sim — like Oregon Trail for basketball fans."
+  site: "https://retro.live"
+  image: "/assets/images/retro-live.png"
+  image_alt: "RetroLive — 2004-05 NBA Manager Sim"
+  tech: [ruby, rails, simulation, multiplayer]

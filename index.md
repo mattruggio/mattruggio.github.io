@@ -13,5 +13,3 @@ stack
 
 writing
 : System design, technical strategy, and the occasional tangent
-
-Opinions are mine; the terminal theme is non-negotiable.

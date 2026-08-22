@@ -169,17 +169,6 @@ main { flex: 1; }
 
 .site-title::before { content: '> '; color: var(--amber); }
 
-.site-nav a {
-  font-family: var(--font-mono);
-  margin-left: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.site-nav a:hover { color: var(--green); text-decoration: none; }
-
 /* ── Hero / Page header ─────────────────────────────── */
 .page-hero {
   padding: 3rem 0 2rem;
@@ -252,6 +241,18 @@ main { flex: 1; }
 .home-links a { color: var(--amber); margin-right: 1.25rem; }
 .home-links a::before { content: '[ '; color: var(--muted); }
 .home-links a::after  { content: ' ]'; color: var(--muted); }
+
+/* ── Home — two-column body ─────────────────────────── */
+.home-columns {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .home-columns { grid-template-columns: 1fr; gap: 2.5rem; }
+}
 
 /* ── Section headings ───────────────────────────────── */
 .section-heading {
@@ -406,7 +407,6 @@ main { flex: 1; }
   h1 { font-size: 2.2rem; }
   .post-title { font-size: 2.2rem; }
   .page-hero .page-title { font-size: 2.4rem; }
-  .site-nav a { margin-left: 1rem; }
 
   .home-intro dl { grid-template-columns: 1fr; gap: 0; }
   .home-intro dd { margin-bottom: 0.85rem; }
@@ -428,8 +428,17 @@ main { flex: 1; }
 
 .project-card:hover { background: var(--bg-hover); border-left-color: var(--green); }
 
+.project-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.9rem;
+}
+
 .project-title {
-  font-size: 1.9rem;
+  font-size: 1.35rem;
   margin: 0 0 0.35rem;
 }
 
@@ -442,17 +451,6 @@ main { flex: 1; }
 .project-links a { color: var(--amber); margin-right: 1.25rem; }
 .project-links a::before { content: '[ '; color: var(--muted); }
 .project-links a::after  { content: ' ]'; color: var(--muted); }
-
-.project-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 1rem;
-}
-
-.post-header + .project-image { margin-bottom: 2.5rem; }
 
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }

@@ -56,42 +56,42 @@ with a dated filename.
 
 ## Adding a project
 
-Create `_projects/project-name.md`:
+Projects have no pages of their own — they render as cards in the Projects column on the
+home page. Add an entry to `_data/projects.yml`:
 
-```markdown
----
-title: "Project Name"
-description: "One-line summary shown on the projects index."
-site: "https://example.com"                        # optional
-repo: "https://github.com/mattruggio/project-name" # optional
-image: "/assets/images/project-name.png"           # optional
-image_alt: "Screenshot of Project Name"            # optional
-tech: [ruby, cli]
-order: 1
----
-
-Longer write-up in Markdown.
+```yaml
+- title: "Project Name"
+  description: "A sentence or two shown on the card."
+  site: "https://example.com"                        # optional
+  repo: "https://github.com/mattruggio/project-name" # optional
+  image: "/assets/images/project-name.png"           # optional
+  image_alt: "Screenshot of Project Name"            # optional
+  tech: [ruby, cli]
 ```
 
-Projects are listed on `/projects/` sorted by `order`, and each gets its own page at
-`/projects/project-name/`. `layout: project` is applied automatically. If `image` is set,
-it renders as a banner on both the index card and the project page.
+Cards render in the order they appear in the file. The title links to `site`, and `image`
+renders as a thumbnail beside the text.
+
+If the list ever outgrows a column, promoting these back into a collection with real
+project pages is the natural next step.
 
 ## Structure
 
 ```
 _config.yml            site configuration
+_data/projects.yml     projects shown on the home page
 _drafts/               unpublished posts
 _posts/                published blog posts
-_projects/             project entries (one file per project)
-_layouts/              page templates (default, home, page, post, projects, project)
+_layouts/              page templates (default, home, post)
 _includes/             header and footer partials
 assets/css/main.css    retro-terminal theme
 assets/images/         project graphics
-index.md               home page intro blurb, shown above the post list
-projects.md            projects index
-about.html             redirect from the retired /about/ URL to home
+index.md               home page whoami block
 ```
+
+The home page is the whole site: the `whoami` block, then writing and projects side by
+side. It has no nav bar, since the `~/mattruggio` hero acts as the header. Posts get a
+slim sticky header linking back home.
 
 ## Social links
 

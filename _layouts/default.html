@@ -11,7 +11,11 @@
   {% seo %}
 </head>
 <body>
-  {% include header.html %}
+  {%- comment -%}
+    The home page uses its own ~/mattruggio hero as the header, so the sticky
+    bar would just be a duplicate. Interior pages still need a way back.
+  {%- endcomment -%}
+  {% unless page.url == '/' %}{% include header.html %}{% endunless %}
 
   <main>
     {{ content }}
