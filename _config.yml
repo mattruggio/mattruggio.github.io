@@ -2,7 +2,9 @@ title: "Matt Ruggio"
 # `tagline` is the short suffix in the browser/search title: "Matt Ruggio | <tagline>".
 # jekyll-seo-tag falls back to `description` here, which is too long for a title
 # (search engines truncate near 60 characters), so both are set deliberately.
-tagline: "Software engineering and technical strategy"
+# Kept deliberately informal: this is a personal site, not a consultancy. The
+# keyword-bearing phrasing lives in `description` below, where it actually helps.
+tagline: "Software engineering and other things"
 # `description` drives the meta description and the RSS subtitle, not the title.
 description: "Writing about software engineering, system design, and the strategy behind technical decisions."
 baseurl: ""
