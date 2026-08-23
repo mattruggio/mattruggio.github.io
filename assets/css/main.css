@@ -673,6 +673,10 @@ main { flex: 1; }
 /* ── Footer ─────────────────────────────────────────── */
 .site-footer {
   font-family: var(--font-mono);
+  /* Body is a flex column, so this margin is predictable and does not collapse
+     with the last element of the page. It lives here rather than on each page's
+     content so every layout gets the same breathing room above the rule. */
+  margin-top: 3rem;
   border-top: 1px solid var(--border);
   padding: 1.5rem 0;
   text-align: center;
