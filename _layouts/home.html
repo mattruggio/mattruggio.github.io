@@ -17,6 +17,9 @@ layout: default
       {%- if site.linkedin_url and site.linkedin_url != '' %}
       <a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">{% include icons/linkedin.svg %}linkedin</a>
       {%- endif %}
+      {%- if site.youtube_url and site.youtube_url != '' %}
+      <a href="{{ site.youtube_url }}" target="_blank" rel="noopener">{% include icons/youtube.svg %}music</a>
+      {%- endif %}
     </p>
   </section>
   {% endif %}

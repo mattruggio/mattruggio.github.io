@@ -133,7 +133,7 @@ slim sticky header linking back home.
 ## Icons
 
 Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
-rather than loaded as an icon font — the full release is 6.5 MB and the three icons in
+rather than loaded as an icon font — the full release is 6.5 MB and the four icons in
 use total under 3 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
 
@@ -142,14 +142,19 @@ faster than the word. Directional and action links use text and arrows instead.
 
 ## Social links
 
-The home page links to GitHub, LinkedIn, and the RSS feed. The LinkedIn URL comes from
-`_config.yml`:
+The home page links to GitHub, LinkedIn, YouTube Music, and the RSS feed. The LinkedIn and
+YouTube URLs come from `_config.yml`:
 
 ```yaml
 linkedin_url: "https://www.linkedin.com/in/mattruggio"
+youtube_url: "https://music.youtube.com/@mattruggio"
 ```
 
-If that value is left empty the link is simply not rendered, so nothing breaks.
+If either value is left empty the link is simply not rendered, so nothing breaks.
+
+The YouTube link is labelled `music` rather than `youtube`. The icon already identifies the
+platform, so the label is free to describe what's actually there — playlists rather than
+videos, which is what "youtube" would imply.
 
 ## Deployment
 
