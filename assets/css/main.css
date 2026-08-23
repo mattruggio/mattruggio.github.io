@@ -450,8 +450,10 @@ main { flex: 1; }
 .post-list-item:first-child,
 .project-item:first-child { padding-top: 0.35rem; }
 
+/* The last item draws no rule, so its trailing padding is dead space that
+   pushes whatever follows the column further down than intended. */
 .post-list-item:last-child,
-.project-item:last-child { border-bottom: none; }
+.project-item:last-child { border-bottom: none; padding-bottom: 0; }
 
 .post-list-item .post-link {
   font-family: var(--font-head);
@@ -591,7 +593,9 @@ main { flex: 1; }
 }
 
 /* ── Home — open source / gem list ──────────────────── */
-.home-gems { margin-top: 3.5rem; }
+/* Matches the gap between the whoami block and the column headings, so the
+   three home sections share one vertical rhythm. */
+.home-gems { margin-top: 2.5rem; }
 
 .gems-label {
   font-family: var(--font-mono);
