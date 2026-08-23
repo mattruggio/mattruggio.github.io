@@ -21,6 +21,17 @@ layout: default
   </article>
 
   <hr />
+  {% if page.hn or page.lobsters %}
+  <p class="post-discuss">
+    <span class="prompt-inline">discuss</span>
+    {%- if page.hn %}
+    <a href="https://news.ycombinator.com/item?id={{ page.hn }}" target="_blank" rel="noopener">hacker news</a>
+    {%- endif %}
+    {%- if page.lobsters %}
+    <a href="https://lobste.rs/s/{{ page.lobsters }}" target="_blank" rel="noopener">lobste.rs</a>
+    {%- endif %}
+  </p>
+  {% endif %}
   <p>
     <a class="arrow-link arrow-link--prev" href="{{ '/' | relative_url }}">back to all posts</a>
   </p>

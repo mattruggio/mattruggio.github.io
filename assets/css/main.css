@@ -590,6 +590,82 @@ main { flex: 1; }
   .notfound-code { font-size: 3.5rem; }
 }
 
+/* ── Home — open source / gem list ──────────────────── */
+.home-gems { margin-top: 3.5rem; }
+
+.gems-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0 0 0.9rem;
+}
+
+/* One grid for the whole list rather than one per row. `max-content` resolves
+   against the widest cell in each column, so names and versions line up the way
+   real `gem list` output does. Per-row grids size each row independently, which
+   staggers the descriptions. `display: contents` lifts the list items out of the
+   way so their cells become direct grid children. */
+.gem-list {
+  display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  gap: 0.55rem 1.25rem;
+  align-items: baseline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+}
+
+.gem-item { display: contents; }
+
+.gem-name { color: var(--green); }
+.gem-name:hover { color: var(--amber); }
+.gem-version { color: #4a4a4a; font-size: 0.8rem; }
+.gem-description { color: var(--muted); }
+
+/* Below 700px the grid is abandoned rather than reshaped. A description
+   spanning `max-content` columns sizes those columns to its own full length,
+   which pushes the version to the far right and runs the text off-screen.
+   Block flow wraps correctly. */
+@media (max-width: 700px) {
+  .gem-list { display: block; }
+
+  .gem-item {
+    display: block;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gem-item:last-child { border-bottom: none; }
+  .gem-version { margin-left: 0.5rem; }
+  .gem-description { display: block; margin-top: 0.3rem; }
+}
+
+/* ── Post — discussion links ────────────────────────── */
+/* Rendered only when a post carries an `hn` or `lobsters` id, so there is never
+   an empty or dead "discuss" affordance. */
+.post-discuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.post-discuss a { color: var(--accent); }
+.post-discuss a::before { content: '[ '; color: var(--muted); }
+.post-discuss a::after  { content: ' ]'; color: var(--muted); }
+
+/* Chrome link: colour only on hover. The bracket gap would leave a floating
+   underline stub. */
+.post-discuss a:hover { color: var(--amber); text-decoration: none; }
+
+.prompt-inline::before { content: '$ '; color: var(--green); }
+
 /* ── Footer ─────────────────────────────────────────── */
 .site-footer {
   font-family: var(--font-mono);
