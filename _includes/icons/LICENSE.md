@@ -7,8 +7,11 @@ The SVGs in this directory are vendored from Font Awesome Free 6.7.2.
 Only the artwork is vendored, not the icon font or its CSS. Each file has had
 its `xmlns` and license comment stripped and `class`, `fill`, and `aria-hidden`
 added so it can be inlined directly into a page and inherit `currentColor`.
-The full 6.5 MB Font Awesome release is not a reasonable dependency for four
+The full 6.5 MB Font Awesome release is not a reasonable dependency for five
 icons, so the paths are copied verbatim and attributed here instead.
+
+`gem.svg` is `solid/gem`, not a brand icon. Font Awesome Free ships no RubyGems
+mark, so the generic gem stands in for it on the `rubygems` link.
 
 To add an icon, copy the `<path>` and `viewBox` from the upstream SVG into a
 new file here following the same shape, then `{% include icons/name.svg %}`.

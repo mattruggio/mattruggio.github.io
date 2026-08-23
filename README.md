@@ -175,7 +175,12 @@ The `open source` section on the home page is driven by `_data/gems.yml`, styled
 Entries are ordered alphabetically, matching what the real command prints.
 
 Descriptions are hand-written on purpose — the summaries published on RubyGems run several
-sentences and are far too long for a single-line listing.
+sentences and are far too long for a single-line listing. Keep them under about 60 characters:
+past that they wrap onto a second line and the listing stops reading like command output.
+
+Each row links the gem name to RubyGems and carries a `[ source ]` link to `repo` on the right.
+That column is plain text rather than a repeated GitHub mark — seven identical icons in a column
+read as texture rather than as links.
 
 To refresh versions after a release:
 
@@ -222,12 +227,16 @@ licensing and how to regenerate the files.
 ## Icons
 
 Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
-rather than loaded as an icon font — the full release is 6.5 MB and the four icons in
-use total under 3 KB. They inherit `currentColor`, so hover states need no extra rules.
+rather than loaded as an icon font — the full release is 6.5 MB and the five icons in
+use total under 4 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
 
-They are reserved for brand marks and the feed icon, where a pictogram is recognised
-faster than the word. Directional and action links use text and arrows instead.
+They are reserved for brand marks, the feed icon, and the RubyGems link, where a pictogram
+is recognised faster than the word. Directional and action links use text and arrows instead.
+
+`gem.svg` is the one exception to the brand-mark rule: Font Awesome Free ships no RubyGems
+mark, so the generic solid gem stands in for it. It reads correctly in context and keeps every
+icon on the site under a single licence.
 
 ## Social links
 

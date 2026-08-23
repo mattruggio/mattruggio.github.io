@@ -8,7 +8,7 @@
 # script preserves them; see its header before editing.
 - name: basketball
   version: "0.0.27"
-  description: "Basketball league simulation domain: drafts, seasons, and playoffs."
+  description: "League simulation domain: drafts, seasons, and playoffs."
   repo: https://github.com/mattruggio/basketball
   gem: https://rubygems.org/gems/basketball
 - name: kitkat
@@ -33,7 +33,7 @@
   gem: https://rubygems.org/gems/playoffs
 - name: primitive
   version: "1.0.1"
-  description: "Shared building blocks extracted from domain-focused libraries."
+  description: "Shared building blocks extracted from the other gems."
   repo: https://github.com/mattruggio/primitive
   gem: https://rubygems.org/gems/primitive
 - name: teton

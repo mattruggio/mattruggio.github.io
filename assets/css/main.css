@@ -611,7 +611,7 @@ main { flex: 1; }
    way so their cells become direct grid children. */
 .gem-list {
   display: grid;
-  grid-template-columns: max-content max-content 1fr;
+  grid-template-columns: max-content max-content 1fr max-content;
   gap: 0.55rem 1.25rem;
   align-items: baseline;
   list-style: none;
@@ -627,6 +627,15 @@ main { flex: 1; }
 .gem-name:hover { color: var(--amber); }
 .gem-version { color: #4a4a4a; font-size: 0.8rem; }
 .gem-description { color: var(--muted); }
+
+/* The description column is 1fr, so this sits flush right and forms its own
+   column rather than trailing each description at a ragged position. Plain text
+   rather than a repeated GitHub mark: seven identical icons would read as
+   texture instead of as links. */
+.gem-source { color: var(--accent); font-size: 0.8rem; white-space: nowrap; }
+.gem-source::before { content: '[ '; color: var(--muted); }
+.gem-source::after  { content: ' ]'; color: var(--muted); }
+.gem-source:hover { color: var(--amber); text-decoration: none; }
 
 /* Below 700px the grid is abandoned rather than reshaped. A description
    spanning `max-content` columns sizes those columns to its own full length,
@@ -644,6 +653,7 @@ main { flex: 1; }
   .gem-item:last-child { border-bottom: none; }
   .gem-version { margin-left: 0.5rem; }
   .gem-description { display: block; margin-top: 0.3rem; }
+  .gem-source { display: inline-block; margin-top: 0.4rem; }
 }
 
 /* ── Post — discussion links ────────────────────────── */
