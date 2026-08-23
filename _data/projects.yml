@@ -1,4 +1,8 @@
 # Projects shown on the home page. Order here is the order rendered.
+#
+# `site`, `repo`, `image`, and `note` are all optional. A project with no `site`
+# renders as a plain card with no links, with `note` explaining why -- see the
+# "Adding a project" section in README.md.
 - title: "RetroLive"
   description: "A multiplayer, retro-styled NBA manager sim — like Oregon Trail for basketball fans."
   site: "https://retro.live"

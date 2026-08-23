@@ -102,11 +102,20 @@ home page. Add an entry to `_data/projects.yml`:
   repo: "https://github.com/mattruggio/project-name" # optional
   image: "/assets/images/project-name.png"           # optional
   image_alt: "Screenshot of Project Name"            # optional
+  note: "private — no public site"                   # optional
   tech: [ruby, cli]
 ```
 
 Cards render in the order they appear in the file. The title links to `site`, and `image`
 renders as a thumbnail beside the text.
+
+Everything except `title`, `description`, and `tech` is optional. Omit `site` for private or
+login-only products, where sending a reader to a sign-in form would be a dead end: the title
+then renders as plain text and the `[ visit ]` link is suppressed rather than emitted empty.
+
+`note` fills the links row for those cards — shown in parentheses, in a muted colour, so it
+cannot be mistaken for a link and so the missing `[ visit ]` reads as deliberate rather than
+as an oversight. It is ignored when `site` or `repo` is present.
 
 If the list ever outgrows a column, promoting these back into a collection with real
 project pages is the natural next step.

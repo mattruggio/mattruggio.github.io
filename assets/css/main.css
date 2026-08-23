@@ -739,9 +739,14 @@ main { flex: 1; }
   margin-bottom: 0.9rem;
 }
 
+/* Set on the heading itself, not just the anchor: headings are green by
+   default, so an unlinked project title would render *more* link-like than a
+   real linked one. Both now read as plain text, and only the anchor carries a
+   hover affordance. */
 .project-title {
   font-size: 1.05rem;
   margin: 0 0 0.35rem;
+  color: var(--text);
 }
 
 .project-title a { color: var(--text); }
@@ -753,6 +758,13 @@ main { flex: 1; }
 .project-links a { color: var(--amber); margin-right: 1.25rem; }
 .project-links a::before { content: '[ '; }
 .project-links a::after  { content: ' ]'; }
+
+/* Occupies the links row for projects that have none, so the absence of a
+   [ visit ] reads as deliberate rather than as missing data. Muted and
+   unbracketed-in-amber so it is never mistaken for something clickable. */
+.project-note { color: #4a4a4a; }
+.project-note::before { content: '( '; }
+.project-note::after  { content: ' )'; }
 
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }

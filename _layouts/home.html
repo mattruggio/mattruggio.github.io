@@ -65,14 +65,24 @@ layout: default
         {% for project in site.data.projects %}
         <li class="project-item">
           {% if project.image %}
+          {% if project.site %}
           <a href="{{ project.site }}" target="_blank" rel="noopener">
             <img class="project-thumb" src="{{ project.image | relative_url }}"
                  alt="{{ project.image_alt | default: project.title }}"
                  width="1200" height="630" />
           </a>
+          {% else %}
+          <img class="project-thumb" src="{{ project.image | relative_url }}"
+               alt="{{ project.image_alt | default: project.title }}"
+               width="1200" height="630" />
+          {% endif %}
           {% endif %}
           <h3 class="project-title">
+            {% if project.site %}
             <a href="{{ project.site }}" target="_blank" rel="noopener">{{ project.title }}</a>
+            {% else %}
+            {{ project.title }}
+            {% endif %}
           </h3>
           <p class="project-description">{{ project.description }}</p>
           {% if project.tech.size > 0 %}
@@ -82,10 +92,13 @@ layout: default
             {% endfor %}
           </p>
           {% endif %}
+          {% if project.site or project.repo or project.note %}
           <p class="project-links">
             {% if project.site %}<a href="{{ project.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
             {% if project.repo %}<a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
+            {% unless project.site or project.repo %}{% if project.note %}<span class="project-note">{{ project.note }}</span>{% endif %}{% endunless %}
           </p>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>
