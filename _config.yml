@@ -71,4 +71,4 @@ youtube_url: "https://music.youtube.com/@mattruggio"
 # https://www.goatcounter.com (free for personal use), then paste the code here.
 # While this is empty no analytics script is rendered at all, and it only ever
 # loads in production builds so local previews are never counted.
-goatcounter_code: ""
+goatcounter_code: "mattruggio"
