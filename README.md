@@ -116,19 +116,66 @@ project pages is the natural next step.
 ```
 _config.yml            site configuration
 _data/projects.yml     projects shown on the home page
-_drafts/               unpublished posts
+_drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
 _layouts/              page templates (default, home, post)
-_includes/             header and footer partials
+_includes/             header, footer, and analytics partials
 _includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
-assets/css/main.css    retro-terminal theme
-assets/images/         project graphics
+assets/css/main.css    retro-terminal theme, @font-face, and the Rouge theme
+assets/fonts/          self-hosted woff2 files (see its LICENSE.md)
+assets/images/         project graphics and social cards
+script/og-image.py     social card and favicon generator
+404.html               terminal-styled not-found page
 index.md               home page whoami block
 ```
 
 The home page is the whole site: the `whoami` block, then writing and projects side by
 side. It has no nav bar, since the `~/mattruggio` hero acts as the header. Posts get a
 slim sticky header linking back home.
+
+## Code blocks
+
+Fenced blocks are highlighted by Rouge. The theme lives at the bottom of
+`assets/css/main.css` and assigns hues **by role** — keyword, string, type, function,
+variable — rather than per language, so a token means the same thing everywhere. When
+adding a Rouge class, put it in the group it belongs to instead of picking a new colour.
+
+`_drafts/syntax-test.md` renders Ruby, Go, JavaScript, C#, shell, YAML, and diff samples
+for checking coverage. It is dated far in the future so it needs both flags and can never
+publish by accident:
+
+```bash
+bundle exec jekyll serve --drafts --future
+```
+
+To check for gaps mechanically, diff the classes Rouge emits against the ones the
+stylesheet targets:
+
+```bash
+ruby -e 'require "rouge"; puts Rouge::Formatters::HTML.new.format(
+  Rouge::Lexers::Ruby.new.lex(File.read("some.rb"))
+).scan(/class="([a-z]+)"/).flatten.uniq.sort.join(" ")'
+```
+
+## Analytics
+
+Set `goatcounter_code` in `_config.yml` to the code from your
+[GoatCounter](https://www.goatcounter.com) site (the `CODE` in `CODE.goatcounter.com`).
+While it is empty, no script is rendered at all.
+
+The snippet only loads in production builds, so `jekyll serve` never inflates the numbers.
+GoatCounter sets no cookies and stores no personal data, so no consent banner is needed.
+
+## Fonts
+
+IBM Plex Sans, IBM Plex Mono, and VT323 are self-hosted from `assets/fonts` rather than
+loaded from Google Fonts. That removes two third-party origins from the critical path and
+stops disclosing visitor IPs to a third party for a decorative asset. Only the latin
+subset is vendored (~132 KB across seven faces).
+
+The `@font-face` declarations sit at the top of `assets/css/main.css`; the two faces used
+above the fold are preloaded in `_layouts/default.html`. See `assets/fonts/LICENSE.md` for
+licensing and how to regenerate the files.
 
 ## Icons
 

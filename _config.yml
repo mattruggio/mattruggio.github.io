@@ -64,3 +64,9 @@ linkedin_url: "https://www.linkedin.com/in/mattruggio"
 # YouTube and "youtube" would imply videos rather than playlists.
 # Leave empty to hide the link.
 youtube_url: "https://music.youtube.com/@mattruggio"
+
+# GoatCounter site code, i.e. the "CODE" in CODE.goatcounter.com. Sign up at
+# https://www.goatcounter.com (free for personal use), then paste the code here.
+# While this is empty no analytics script is rendered at all, and it only ever
+# loads in production builds so local previews are never counted.
+goatcounter_code: ""

@@ -1,0 +1,39 @@
+---
+layout: default
+title: "404"
+permalink: /404.html
+sitemap: false
+description: "That path does not exist."
+---
+<div class="wrapper">
+  <section class="notfound">
+    <p class="notfound-cmd prompt">cat <span id="notfound-path">the requested file</span></p>
+    <p class="notfound-err">cat: no such file or directory</p>
+
+    <h1 class="notfound-code">404</h1>
+    <p class="notfound-copy">
+      That path does not exist. It may have moved, or it may never have been here.
+    </p>
+
+    <p class="notfound-links">
+      <a class="arrow-link arrow-link--prev" href="{{ '/' | relative_url }}">back to ~/mattruggio</a>
+    </p>
+  </section>
+</div>
+
+{%- comment -%}
+  Echoes the path the visitor actually asked for, which is the whole joke. A
+  static host cannot know it, so it is filled in client side and degrades to
+  generic wording without JavaScript.
+
+  textContent, never innerHTML: the pathname is attacker-controlled, so anyone
+  could hand out a link to /<img onerror=...> and have it execute here.
+{%- endcomment -%}
+<script>
+  (function () {
+    var el = document.getElementById('notfound-path');
+    if (el && window.location && window.location.pathname) {
+      el.textContent = window.location.pathname;
+    }
+  })();
+</script>

@@ -1,0 +1,15 @@
+{%- comment -%}
+  Privacy-friendly analytics. Two gates, both deliberate:
+
+  - `jekyll.environment` keeps local `jekyll serve` sessions out of the numbers.
+    The deploy workflow sets JEKYLL_ENV=production, so only real builds count.
+  - An empty `goatcounter_code` renders nothing at all, so the site works fine
+    before an account exists and analytics can be removed by blanking one value.
+
+  GoatCounter sets no cookies and stores no personal data, so this needs no
+  consent banner. The script is loaded with `defer` so it never blocks render.
+{%- endcomment -%}
+{%- if jekyll.environment == "production" and site.goatcounter_code and site.goatcounter_code != "" -%}
+<script data-goatcounter="https://{{ site.goatcounter_code }}.goatcounter.com/count"
+        defer src="https://gc.zgo.at/count.js"></script>
+{%- endif -%}

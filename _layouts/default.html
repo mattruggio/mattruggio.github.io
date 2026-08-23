@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" />
+  {%- comment -%}
+    Fonts are self-hosted from assets/fonts and declared in main.css, so there
+    are no third-party origins here. Preload the two faces used above the fold
+    (body text and the mono chrome) so they are fetched alongside the CSS
+    rather than after it. Fonts are always fetched in CORS mode, so `crossorigin`
+    is required even though these are same-origin.
+  {%- endcomment -%}
+  <link rel="preload" href="{{ '/assets/fonts/ibm-plex-sans-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="{{ '/assets/fonts/ibm-plex-mono-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any" />
   <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
@@ -24,5 +30,6 @@
   </main>
 
   {% include footer.html %}
+  {% include analytics.html %}
 </body>
 </html>
