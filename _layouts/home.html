@@ -108,22 +108,4 @@ layout: default
       {% endif %}
     </section>
   </div>
-
-  <section class="home-gems">
-    <h2 class="section-heading">
-      open source
-      <a class="section-link" href="https://rubygems.org/profiles/{{ site.github_username }}" target="_blank" rel="noopener">{% include icons/gem.svg %}rubygems</a>
-    </h2>
-    <p class="gems-label prompt">gem list --mine</p>
-    <ul class="gem-list">
-      {% for gem in site.data.gems %}
-      <li class="gem-item">
-        <a class="gem-name" href="{{ gem.gem }}" target="_blank" rel="noopener">{{ gem.name }}</a>
-        <span class="gem-version">({{ gem.version }})</span>
-        <span class="gem-description">{{ gem.description }}</span>
-        <a class="gem-source" href="{{ gem.repo }}" target="_blank" rel="noopener">source</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
 </div>
