@@ -12,6 +12,30 @@ url: "https://rugg.io"
 author:
   name: "Matt Ruggio"
   email: ""
+  # jekyll-seo-tag copies this onto the JSON-LD Person as `url`.
+  url: "https://rugg.io"
+
+# Consumed only by jekyll-seo-tag, which emits `links` as schema.org `sameAs`.
+# That is the documented way to tell a search engine these profiles are all the
+# same entity, rather than four unrelated accounts that happen to share a name.
+#
+# Two behaviours worth knowing before editing this:
+#
+#   1. It is emitted only on the home page and /about, because jekyll-seo-tag
+#      gates `links` on `homepage_or_about?`. Posts will not carry it.
+#   2. It attaches to the top-level WebSite entity, not to the nested Person.
+#      That is the gem's behaviour and is the conventional pattern; a Person
+#      with its own `sameAs` would need a hand-written second JSON-LD block.
+#
+# These duplicate the URLs below rather than referencing them because Jekyll
+# does not interpolate inside _config.yml. Keep them in sync by hand.
+social:
+  name: "Matt Ruggio"
+  links:
+    - "https://github.com/mattruggio"
+    - "https://www.linkedin.com/in/mattruggio"
+    - "https://rubygems.org/profiles/mattruggio"
+    - "https://music.youtube.com/@mattruggio"
 
 # Build settings
 markdown: kramdown

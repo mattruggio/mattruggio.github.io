@@ -263,6 +263,29 @@ The YouTube link is labelled `music` rather than `youtube`. The icon already ide
 platform, so the label is free to describe what's actually there — playlists rather than
 videos, which is what "youtube" would imply.
 
+### sameAs (structured data)
+
+A separate `social:` block in `_config.yml` feeds jekyll-seo-tag, which emits the URLs as
+schema.org `sameAs` — the documented way to tell a search engine that these profiles are the
+same entity rather than four accounts that happen to share a name.
+
+**These URLs are duplicated,** because Jekyll does not interpolate values inside `_config.yml`.
+Changing `linkedin_url` or `youtube_url` does not update `social.links`. Keep both in sync by
+hand, and check with:
+
+```bash
+bundle exec jekyll build
+grep -o '"sameAs":[^]]*]' _site/index.html
+```
+
+Two behaviours of the gem are worth knowing: `sameAs` is emitted only on the home page and
+`/about` (posts do not carry it), and it attaches to the top-level `WebSite` entity rather than
+to the nested `Person`. Giving the `Person` its own `sameAs` would require a hand-written second
+JSON-LD block.
+
+Do not list a profile here that is empty or abandoned — an entity link to a dead account is
+worse than no link.
+
 ## Deployment
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site and
