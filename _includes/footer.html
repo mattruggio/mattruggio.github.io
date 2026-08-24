@@ -4,6 +4,10 @@
       &copy; {{ site.time | date: "%Y" }} {{ site.author.name }}
       &mdash;
       <a href="{{ '/feed.xml' | relative_url }}">{% include icons/rss.svg %}RSS</a>
+      {%- if site.repo_url and site.repo_url != '' %}
+      &mdash;
+      <a href="{{ site.repo_url }}" target="_blank" rel="noopener">{% include icons/github.svg %}source</a>
+      {%- endif %}
     </p>
   </div>
 </footer>

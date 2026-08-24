@@ -222,6 +222,17 @@ The YouTube link is labelled `music` rather than `youtube`. The icon already ide
 platform, so the label is free to describe what's actually there — playlists rather than
 videos, which is what "youtube" would imply.
 
+The footer carries a `source` link to this repository, from `repo_url`:
+
+```yaml
+repo_url: "https://github.com/mattruggio/mattruggio.github.io"
+```
+
+It is kept separate from `github_username` because it points at the site's own source
+rather than at the profile. Empty it while the repository is private — a public link into
+a private repo 404s for every visitor — and note that it only reads as an invitation
+because `LICENSE` exists. Without one, it points at code nobody is permitted to reuse.
+
 ### sameAs (structured data)
 
 A separate `social:` block in `_config.yml` feeds jekyll-seo-tag, which emits the URLs as

@@ -93,6 +93,13 @@ linkedin_url: "https://www.linkedin.com/in/mattruggio"
 # Leave empty to hide the link.
 youtube_url: "https://music.youtube.com/@mattruggio"
 
+# This repository, linked as [ source ] in the footer. Kept separate from
+# github_username because it points at the site's own source rather than at the
+# profile, and the two are meaningfully different destinations. Only worth showing
+# while the repository is public and carries a licence -- otherwise the link is an
+# invitation to read code nobody can reach or reuse. Leave empty to hide it.
+repo_url: "https://github.com/mattruggio/mattruggio.github.io"
+
 # GoatCounter site code, i.e. the "CODE" in CODE.goatcounter.com. Sign up at
 # https://www.goatcounter.com (free for personal use), then paste the code here.
 # While this is empty no analytics script is rendered at all, and it only ever
