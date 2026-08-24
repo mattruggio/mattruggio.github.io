@@ -109,7 +109,7 @@ home page. Add an entry to `_data/projects.yml`:
 Cards render in the order they appear in the file. The title links to `site`, and `image`
 renders as a thumbnail beside the text.
 
-Everything except `title`, `description`, and `tech` is optional. Omit `site` for private or
+Everything except `title` and `description` is optional. Omit `site` for private or
 login-only products, where sending a reader to a sign-in form would be a dead end: the title
 then renders as plain text and the `[ visit ]` link is suppressed rather than emitted empty.
 
@@ -139,8 +139,8 @@ index.md               home page whoami block
 ```
 
 The home page is the whole site: the `whoami` block, then writing and projects side by
-side. It has no nav bar, since the `~/mattruggio` hero acts
-as the header. Posts get a slim sticky header linking back home.
+side. It has no nav bar, since the `~/mattruggio` hero acts as the header. Posts get a
+slim sticky header linking back home.
 
 ## Code blocks
 
@@ -193,7 +193,7 @@ the block does not render at all, so there is never a dead link.
 IBM Plex Sans, IBM Plex Mono, and VT323 are self-hosted from `assets/fonts` rather than
 loaded from Google Fonts. That removes two third-party origins from the critical path and
 stops disclosing visitor IPs to a third party for a decorative asset. Only the latin
-subset is vendored (~132 KB across seven faces).
+subset is vendored (~135 KB across seven faces).
 
 The `@font-face` declarations sit at the top of `assets/css/main.css`; the two faces used
 above the fold are preloaded in `_layouts/default.html`. See `assets/fonts/LICENSE.md` for
