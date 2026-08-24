@@ -102,7 +102,6 @@ home page. Add an entry to `_data/projects.yml`:
   repo: "https://github.com/mattruggio/project-name" # optional
   image: "/assets/images/project-name.png"           # optional
   image_alt: "Screenshot of Project Name"            # optional
-  note: "private — no public site"                   # optional
   tech: [ruby, cli]
 ```
 
@@ -111,11 +110,8 @@ renders as a thumbnail beside the text.
 
 Everything except `title` and `description` is optional. Omit `site` for private or
 login-only products, where sending a reader to a sign-in form would be a dead end: the title
-then renders as plain text and the `[ visit ]` link is suppressed rather than emitted empty.
-
-`note` fills the links row for those cards — shown in parentheses, in a muted colour, so it
-cannot be mistaken for a link and so the missing `[ visit ]` reads as deliberate rather than
-as an oversight. It is ignored when `site` or `repo` is present.
+then renders as plain text and the `[ visit ]` link is suppressed rather than emitted empty
+— the whole links row is dropped when a project has neither `site` nor `repo`.
 
 If the list ever outgrows a column, promoting these back into a collection with real
 project pages is the natural next step.
@@ -124,6 +120,7 @@ project pages is the natural next step.
 
 ```
 _config.yml            site configuration
+CONTENT-LICENSE.md     what the MIT license does and does not cover
 _data/projects.yml     projects shown on the home page
 _drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
@@ -297,3 +294,18 @@ links and any existing search results are preserved.
 Serving the blog from the apex does not consume `rugg.io` for other uses. Any subdomain
 (`retro.rugg.io`, and so on) can point somewhere else entirely. What the apex costs is the
 option of using `rugg.io` itself as a landing page for several properties.
+
+## License
+
+Split deliberately, because the two halves of this repository want different answers:
+
+- **Code** — layouts, includes, `assets/css/main.css`, `script/`, configuration — is
+  [MIT](LICENSE). Reuse the theme freely.
+- **Writing and images** — `_posts/`, `_drafts/`, the bio copy in `index.md`, and
+  `assets/images/` — are all rights reserved. Linking and short quotes with attribution
+  are explicitly fine; full republication needs a quick ask.
+
+A single MIT file covering the whole repository would license away the essays, which is
+not the intent. `LICENSE` is kept as unmodified MIT text so GitHub still detects it;
+[CONTENT-LICENSE.md](CONTENT-LICENSE.md) carries the scope, and it also points at the
+separate terms for the vendored fonts and icons, which neither license covers.

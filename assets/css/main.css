@@ -695,13 +695,6 @@ main { flex: 1; }
 .project-links a::before { content: '[ '; }
 .project-links a::after  { content: ' ]'; }
 
-/* Occupies the links row for projects that have none, so the absence of a
-   [ visit ] reads as deliberate rather than as missing data. Muted and
-   unbracketed-in-amber so it is never mistaken for something clickable. */
-.project-note { color: #4a4a4a; }
-.project-note::before { content: '( '; }
-.project-note::after  { content: ' )'; }
-
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }
 

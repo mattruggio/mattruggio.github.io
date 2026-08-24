@@ -73,6 +73,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - LICENSE
+  - CONTENT-LICENSE.md
   - .gitignore
   - vendor
   - script
