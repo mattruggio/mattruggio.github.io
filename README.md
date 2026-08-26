@@ -84,6 +84,29 @@ Note that jekyll-seo-tag reads `image` from the **page**, never from a top-level
 key. The default card is therefore applied through a `defaults` block in `_config.yml`
 rather than a `site.image` setting, which would silently do nothing.
 
+### Diagrams
+
+Diagrams live in `_includes/diagrams/` and are placed in a post with Liquid:
+
+```liquid
+{% include diagrams/your-diagram.html %}
+```
+
+**They are built as HTML and CSS, not as SVG or a linked image.** Two reasons, both learned
+the hard way:
+
+- An SVG scales as a single unit. Type sized to look right in the 68ch content column is
+  rendered at roughly half that on a phone, so it can be legible at one width or the other
+  but not both. HTML inherits the page's type scale and wraps at any width.
+- An SVG loaded through `<img>` is an isolated document: it cannot reach the page's
+  `@font-face` rules or its CSS custom properties, so it silently falls back to system fonts
+  and to whatever colours are hardcoded in the file.
+
+Style diagrams with the palette variables (`var(--green)`, `var(--bg-card)`, `var(--border)`,
+`var(--muted)`) so they track the theme for free. Keep diagram titles at `h3` size or smaller
+and use `<p>` rather than a heading element — a diagram should never outrank a real heading
+or inject entries into the document outline.
+
 ### Drafts
 
 Work-in-progress posts go in `_drafts/` with no date in the filename (e.g.
@@ -127,6 +150,7 @@ _posts/                published blog posts
 _layouts/              page templates (default, home, post)
 _includes/             header, footer, and analytics partials
 _includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
+_includes/diagrams/    post diagrams, built as HTML and themed via CSS variables
 assets/css/main.css    retro-terminal theme, @font-face, and the Rouge theme
 assets/fonts/          self-hosted woff2 files (see its LICENSE.md)
 assets/images/         project graphics and social cards
@@ -171,19 +195,6 @@ While it is empty, no script is rendered at all.
 
 The snippet only loads in production builds, so `jekyll serve` never inflates the numbers.
 GoatCounter sets no cookies and stores no personal data, so no consent banner is needed.
-
-## Post discussions
-
-There is no comment system, by design. Discussion happens where technical readers already are.
-After submitting a post, add either or both ids to its front matter:
-
-```yaml
-hn: 41234567        # the id in news.ycombinator.com/item?id=...
-lobsters: mbmn1f    # the short id in lobste.rs/s/...
-```
-
-That renders `$ discuss [ hacker news ] [ lobste.rs ]` above the back-link. With neither key set
-the block does not render at all, so there is never a dead link.
 
 ## Fonts
 

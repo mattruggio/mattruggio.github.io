@@ -56,6 +56,7 @@
   --font-head: 'IBM Plex Mono', 'Courier New', monospace;
   --font-mark: 'VT323', 'Courier New', monospace;
   --max-width: 860px;
+  --measure:   43.5rem;
   --radius:    2px;
 
   /* Syntax highlighting palette, assigned by role. See the Rouge block below. */
@@ -515,6 +516,19 @@ main { flex: 1; }
 .arrow-link--prev::before { content: '←'; margin-right: 0.4em; }
 
 /* ── Single Post ────────────────────────────────────── */
+
+/* On a post page the header rule and the closing <hr> would otherwise span the
+   full .wrapper (812px) while the prose stops at the measure (696px), leaving
+   a 120px gap of rule hanging past the text. Everything in the wrapper shares
+   the measure instead. Left-aligned rather than centred so the column still
+   lines up with the site header and footer, which do use the full wrapper.
+   --measure is a rem value, not 68ch, because .post-content sets its own
+   font-size: 68ch on it and on the 16px header would resolve to two different
+   widths and still fail to line up. */
+.wrapper-post > * {
+  max-width: var(--measure);
+}
+
 .post-header {
   padding: 2rem 0 1.5rem;
   border-bottom: 1px solid var(--border);
@@ -530,7 +544,7 @@ main { flex: 1; }
 }
 
 .post-content {
-  max-width: 68ch;
+  max-width: var(--measure);
   font-size: 1.0625rem;
   line-height: 1.75;
   position: relative;
@@ -545,15 +559,70 @@ main { flex: 1; }
   border-radius: var(--radius);
 }
 
-/* ── About / Static pages ───────────────────────────── */
-.page-content {
-  padding: 2.5rem 0;
-  max-width: 68ch;
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  position: relative;
-  z-index: 2;
+/* Inline diagrams from _includes/diagrams. Built as HTML rather than SVG so the
+   type comes from the page's own scale and wraps at any width — an SVG scales
+   as a single unit, so a size that reads correctly on desktop is shrunk to
+   roughly half that on a phone. Titles are held at h3 size so a diagram never
+   outranks a real heading. */
+.diagram {
+  margin: 2rem 0;
+  padding: 0;
 }
+
+.level {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+
+.level-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.post-content .level-title {
+  margin: 0.4rem 0 0.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.post-content .level-detail {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.post-content .level-map {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+
+.level-map::before,
+.level-map::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 0.75rem;
+  margin: 0 auto;
+  background: var(--border);
+}
+
+.level-map::before { margin-bottom: 0.45rem; }
+.level-map::after  { margin-top: 0.45rem; }
 
 /* ── Terminal prompt decoration ─────────────────────── */
 .prompt::before {
@@ -591,30 +660,6 @@ main { flex: 1; }
 @media (max-width: 600px) {
   .notfound-code { font-size: 3.5rem; }
 }
-
-/* ── Post — discussion links ────────────────────────── */
-/* Rendered only when a post carries an `hn` or `lobsters` id, so there is never
-   an empty or dead "discuss" affordance. */
-.post-discuss {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.88rem;
-  color: var(--muted);
-  margin-bottom: 1.25rem;
-}
-
-.post-discuss a { color: var(--accent); }
-.post-discuss a::before { content: '[ '; color: var(--muted); }
-.post-discuss a::after  { content: ' ]'; color: var(--muted); }
-
-/* Chrome link: colour only on hover. The bracket gap would leave a floating
-   underline stub. */
-.post-discuss a:hover { color: var(--amber); text-decoration: none; }
-
-.prompt-inline::before { content: '$ '; color: var(--green); }
 
 /* ── Footer ─────────────────────────────────────────── */
 .site-footer {

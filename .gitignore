@@ -7,3 +7,9 @@ vendor/
 
 # Fonts downloaded by script/og-image.py for card generation.
 .cache/
+
+# Scratch space for files being reviewed before they are committed.
+tmp/
+
+# macOS Finder metadata.
+.DS_Store
