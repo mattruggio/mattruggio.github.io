@@ -10,7 +10,7 @@ layout: default
     {% if page.tags.size > 0 %}
     <p class="tag-row">
       {% for tag in page.tags %}
-      <span class="tag">{{ tag }}</span>
+      <a class="tag" href="{{ tag | slugify | prepend: '/tags/' | append: '/' | relative_url }}">{{ tag }}</a>
       {% endfor %}
     </p>
     {% endif %}

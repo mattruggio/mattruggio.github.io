@@ -1,0 +1,32 @@
+---
+layout: default
+title: "Tags"
+permalink: /tags/
+description: "Every tag used across the writing on rugg.io, and how many posts carry each one."
+---
+<div class="wrapper wrapper-post">
+  <header class="post-header">
+    <p class="post-meta prompt">ls tags/</p>
+    <h1 class="post-title">tags</h1>
+    <p class="post-meta">{{ site.tags.size }} tag{% unless site.tags.size == 1 %}s{% endunless %} across {{ site.posts.size }} post{% unless site.posts.size == 1 %}s{% endunless %}</p>
+  </header>
+
+  {%- comment -%}
+    site.tags is a hash keyed by tag name, so `sort` orders it alphabetically by
+    key and each entry arrives as [name, posts].
+  {%- endcomment -%}
+  <ul class="tag-index">
+    {% assign tags = site.tags | sort %}
+    {% for tag in tags %}
+    <li class="tag-index-item">
+      <a class="tag" href="{{ tag[0] | slugify | prepend: '/tags/' | append: '/' | relative_url }}">{{ tag[0] }}</a>
+      <span class="tag-count">{{ tag[1].size }} post{% unless tag[1].size == 1 %}s{% endunless %}</span>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <hr />
+  <p>
+    <a class="arrow-link arrow-link--prev" href="{{ '/' | relative_url }}">back to all posts</a>
+  </p>
+</div>

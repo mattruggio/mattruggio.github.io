@@ -113,6 +113,31 @@ Work-in-progress posts go in `_drafts/` with no date in the filename (e.g.
 `_drafts/my-idea.md`). They are excluded from builds until you move them into `_posts/`
 with a dated filename.
 
+### Tags
+
+Tag pages are generated automatically by [jekyll-archives][archives]. **Adding a tag to a
+post's front matter is the only step** — there is no stub file to create, and removing the
+last post carrying a tag removes its page on the next build.
+
+Each tag gets an archive at `/tags/:name/`, and `tags.html` lists all of them at `/tags/`,
+linked from the `writing` heading on the home page. Tag names are slugified in URLs, so
+`engineering-leadership` becomes `/tags/engineering-leadership/`.
+
+Two things worth knowing before editing `_layouts/tag.html`:
+
+- The tag name is `page.title`, **not** `page.tag`. The plugin's `PageDrop` only exposes
+  `posts`, `type`, `title`, `date`, `name`, `path`, `url`, and `permalink`. Reaching for
+  `page.tag` fails silently and renders an empty heading.
+- This works on GitHub Pages only because the deploy workflow runs `bundle exec jekyll
+  build` itself. `jekyll-archives` is not on the Pages plugin whitelist, so the hosted
+  builder would ignore it.
+
+Tag chips are cyan because they are links. Grey chips are not: a project's `tech` list
+(`.tag--static`) describes a stack rather than a taxonomy and has no page behind it, and
+the current tag on its own archive page (`.tag--current`) is dashed to mark "you are here."
+
+[archives]: https://github.com/jekyll/jekyll-archives
+
 ## Adding a project
 
 Projects have no pages of their own — they render as cards in the Projects column on the
@@ -147,7 +172,7 @@ CONTENT-LICENSE.md     what the MIT license does and does not cover
 _data/projects.yml     projects shown on the home page
 _drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
-_layouts/              page templates (default, home, post)
+_layouts/              page templates (default, home, post, tag)
 _includes/             header, footer, and analytics partials
 _includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
 _includes/diagrams/    post diagrams, built as HTML and themed via CSS variables
@@ -157,6 +182,7 @@ assets/images/         project graphics and social cards
 script/og-image.py     social card and favicon generator
 404.html               terminal-styled not-found page
 index.md               home page whoami block
+tags.html              index of every tag, linked from the writing heading
 ```
 
 The home page is the whole site: the `whoami` block, then writing and projects side by

@@ -1,0 +1,42 @@
+---
+layout: default
+---
+<div class="wrapper wrapper-post">
+  <header class="post-header">
+    <p class="post-meta prompt">grep -rl "{{ page.title }}" _posts/</p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">{{ page.posts.size }} post{% unless page.posts.size == 1 %}s{% endunless %}</p>
+  </header>
+
+  <ul class="post-list">
+    {% for post in page.posts %}
+    <li class="post-list-item">
+      <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <p class="post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+      </p>
+      {% if post.excerpt %}
+      <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
+      {% endif %}
+      {% if post.tags.size > 0 %}
+      <p class="tag-row">
+        {% for tag in post.tags %}
+        {% if tag == page.title %}
+        <span class="tag tag--current">{{ tag }}</span>
+        {% else %}
+        <a class="tag" href="{{ tag | slugify | prepend: '/tags/' | append: '/' | relative_url }}">{{ tag }}</a>
+        {% endif %}
+        {% endfor %}
+      </p>
+      {% endif %}
+      <a class="arrow-link arrow-link--next" href="{{ post.url | relative_url }}">read more</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <hr />
+  <p class="tag-footer-links">
+    <a class="arrow-link arrow-link--prev" href="{{ '/tags/' | relative_url }}">all tags</a>
+    <a class="arrow-link arrow-link--prev" href="{{ '/' | relative_url }}">back to all posts</a>
+  </p>
+</div>

@@ -118,6 +118,7 @@ a:hover { color: var(--amber); text-decoration: underline; }
 .arrow-link:hover,
 .site-footer a:hover,
 .post-list-item .post-link:hover,
+a.tag:hover,
 .project-title a:hover {
   text-decoration: none;
 }
@@ -436,6 +437,14 @@ main { flex: 1; }
   color: var(--amber);
 }
 
+/* Grouped so the heading's space-between keeps "writing" hard left and the
+   links together on the right, rather than spreading all three evenly. */
+.section-links {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+}
+
 .section-link::before { content: '[ '; }
 .section-link::after  { content: ' ]'; }
 
@@ -495,6 +504,57 @@ main { flex: 1; }
   border-radius: var(--radius);
   font-size: 0.78rem;
   margin-right: 0.3rem;
+}
+
+/* Tags are links everywhere except on their own archive page, where the chip
+   for the current tag would lead back to the page you are already reading. */
+a.tag { display: inline-block; transition: color 0.15s, border-color 0.15s; }
+
+a.tag:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+/* Chips that are not links, held apart from the accent colour so a reader can
+   tell at a glance which ones lead somewhere. `--static` is a project's tech
+   stack, which is a description rather than taxonomy and has no page behind it.
+   `--current` is the tag whose archive you are already reading. */
+.tag--current,
+.tag--static {
+  color: var(--muted);
+}
+
+.tag--current {
+  border-style: dashed;
+}
+
+/* ── Tag index ──────────────────────────────────────── */
+.tag-index {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.tag-index-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tag-index-item:last-child { border-bottom: none; }
+
+.tag-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.tag-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 /* Action links. The arrow is pinned to the body font so it renders identically
