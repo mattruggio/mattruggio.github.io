@@ -1,0 +1,41 @@
+{%- comment -%}
+  A Person entity with a stable identifier, emitted on every page.
+
+  jekyll-seo-tag already outputs JSON-LD, but it does not describe the author as
+  an identifiable entity. Two limits in the gem cause that:
+
+    1. `sameAs` is attached to the top-level WebSite, not to the Person, and
+    2. it is emitted only where `homepage_or_about?` is true.
+
+  So on every post the author is a bare name and URL — indistinguishable from
+  anyone else with the same name. The profile links that would resolve the
+  ambiguity sit on a different entity, on one page.
+
+  This block supplies the missing half. The `@id` is the substance of it: a
+  stable node identifier lets a crawler merge these statements into one entity
+  across every page, rather than reading each page's author as a new person who
+  happens to share a name. Emitting several ld+json blocks on a page is valid,
+  and the two describe different nodes, so they do not conflict.
+
+  `sameAs` is built from site.social.links rather than a fresh list. Those URLs
+  are already duplicated once in _config.yml, which carries a note to keep them
+  in sync by hand; a third copy would be a third thing to forget.
+{%- endcomment -%}
+{%- assign person_url = '/' | absolute_url -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": {{ person_url | append: '#person' | jsonify }},
+  "name": {{ site.social.name | default: site.author.name | jsonify }},
+  "url": {{ person_url | jsonify }}
+  {%- if site.social.links and site.social.links.size > 0 -%}
+  ,
+  "sameAs": [
+    {%- for link in site.social.links -%}
+    {{ link | jsonify }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+  {%- endif %}
+}
+</script>
