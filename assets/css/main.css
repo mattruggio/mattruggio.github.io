@@ -462,17 +462,18 @@ main { flex: 1; }
 .post-list-item:last-child,
 .project-item:last-child { border-bottom: none; padding-bottom: 0; }
 
+/* Regular weight, not bold. The title used 700 when it was body-coloured and
+   needed the mass to read as the thing to click; now that it carries the link
+   colour, weight and colour are both saying "this one matters" and the pair
+   shouts. Size still separates it from the meta line beneath. */
 .post-list-item .post-link {
   font-family: var(--font-head);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 1.3rem;
   line-height: 1.3;
-  color: var(--text);
   display: block;
   margin-bottom: 0.35rem;
 }
-
-.post-list-item .post-link:hover { color: var(--green); }
 
 .post-meta {
   font-family: var(--font-mono);
@@ -772,20 +773,15 @@ a.tag:hover {
   margin-bottom: 0.9rem;
 }
 
-/* Set on the heading itself, not just the anchor, so a card with a site and one
-   without look alike at rest: the anchor would otherwise take the amber that
-   marks links and the bare heading would take the green that marks headings,
-   making the same element two different colours depending on its data. Size and
-   weight already mark the title, so both stay body text and only the anchor
-   picks up a hover. */
+/* Colour is left to the base rules: a title that links takes the amber every
+   link takes, and a title with no site behind it stays the heading green. Two
+   cards can therefore differ here, which is the point — the colour says whether
+   the card leads anywhere rather than how it happens to be styled. */
 .project-title {
   font-size: 1.05rem;
+  font-weight: 400;
   margin: 0 0 0.35rem;
-  color: var(--text);
 }
-
-.project-title a { color: var(--text); }
-.project-title a:hover { color: var(--green); }
 
 .project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0; }
 
