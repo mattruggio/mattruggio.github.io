@@ -4,8 +4,8 @@
 # renders as a plain card with no links -- see the "Adding a project" section in
 # README.md.
 - title: "RetroLive"
-  description: "A multiplayer, retro-styled NBA manager sim — like Oregon Trail for basketball fans."
+  description: "A multiplayer, retro-styled NBA manager sim. Like Oregon Trail for basketball fans."
   site: "https://retro.live"
   image: "/assets/images/retro-live.png"
-  image_alt: "RetroLive — 2004-05 NBA Manager Sim"
+  image_alt: "RetroLive: 2004-05 NBA Manager Sim"
   tech: [ruby, rails, simulation, multiplayer]
