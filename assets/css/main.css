@@ -100,8 +100,15 @@ body::after {
   z-index: 1;
 }
 
+/* Amber marks anything interactive; green is reserved for the site's own voice
+   — headings, prompts, the cursor, the whoami terms. The split matters most on
+   the home page, where the whoami list sits directly above the links row: when
+   both were green the labels read as clickable and the links did not. Hover
+   hands a link the structural colour, so the response is identical everywhere.
+   Both colours are declared here and nowhere else; components below set
+   position, size, and decoration, but never link colour. */
 a {
-  color: var(--green);
+  color: var(--amber);
   text-decoration: none;
   transition: color 0.15s;
 }
@@ -110,7 +117,7 @@ a {
    with colour instead: they are already set apart by font and colour, and an
    underline would run through the gaps their brackets, icons, and arrows sit
    in, breaking into disconnected segments. */
-a:hover { color: var(--amber); text-decoration: underline; }
+a:hover { color: var(--green); text-decoration: underline; }
 
 .home-links a:hover,
 .section-link:hover,
@@ -146,14 +153,6 @@ a.tag:hover,
 .project-links a::after {
   white-space: pre;
   color: var(--muted);
-}
-
-.home-links a:hover,
-.section-link:hover,
-.project-links a:hover,
-.arrow-link:hover {
-  color: var(--green);
-  text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -402,7 +401,7 @@ main { flex: 1; }
   margin: 1rem 0 0;
 }
 
-.home-links a { color: var(--amber); margin-right: 1.25rem; }
+.home-links a { margin-right: 1.25rem; }
 .home-links a::before { content: '[ '; }
 .home-links a::after  { content: ' ]'; }
 
@@ -434,7 +433,6 @@ main { flex: 1; }
 .section-link {
   font-family: var(--font-mono);
   font-size: 0.82rem;
-  color: var(--amber);
 }
 
 /* Grouped so the heading's space-between keeps "writing" hard left and the
@@ -511,8 +509,8 @@ main { flex: 1; }
 a.tag { display: inline-block; transition: color 0.15s, border-color 0.15s; }
 
 a.tag:hover {
-  color: var(--amber);
-  border-color: var(--amber);
+  color: var(--green);
+  border-color: var(--green);
 }
 
 /* Chips that are not links, held apart from the accent colour so a reader can
@@ -564,7 +562,6 @@ a.tag:hover {
   display: inline-block;
   margin-top: 0;
   font-size: 0.82rem;
-  color: var(--amber);
 }
 
 .arrow-link::before,
@@ -735,8 +732,6 @@ a.tag:hover {
   font-size: 0.82rem;
 }
 
-.site-footer a { color: var(--green); }
-.site-footer a:hover { color: var(--amber); }
 
 /* ── Blinking cursor ────────────────────────────────── */
 .cursor::after {
@@ -780,10 +775,12 @@ a.tag:hover {
   margin-bottom: 0.9rem;
 }
 
-/* Set on the heading itself, not just the anchor: headings are green by
-   default, so an unlinked project title would render *more* link-like than a
-   real linked one. Both now read as plain text, and only the anchor carries a
-   hover affordance. */
+/* Set on the heading itself, not just the anchor, so a card with a site and one
+   without look alike at rest: the anchor would otherwise take the amber that
+   marks links and the bare heading would take the green that marks headings,
+   making the same element two different colours depending on its data. Size and
+   weight already mark the title, so both stay body text and only the anchor
+   picks up a hover. */
 .project-title {
   font-size: 1.05rem;
   margin: 0 0 0.35rem;
@@ -796,7 +793,7 @@ a.tag:hover {
 .project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0; }
 
 .project-links { font-family: var(--font-mono); margin: 0; font-size: 0.82rem; }
-.project-links a { color: var(--amber); margin-right: 1.25rem; }
+.project-links a { margin-right: 1.25rem; }
 .project-links a::before { content: '[ '; }
 .project-links a::after  { content: ' ]'; }
 
