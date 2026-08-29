@@ -383,7 +383,6 @@ main { flex: 1; }
 }
 
 .home-intro dt {
-  color: var(--green);
   font-weight: normal;
   margin-top: 0;
 }
@@ -608,8 +607,6 @@ a.tag:hover {
   z-index: 2;
 }
 
-.post-content h2, .post-content h3 { color: var(--amber); }
-
 .post-content img {
   max-width: 100%;
   border: 1px solid var(--border);
@@ -800,8 +797,10 @@ a.tag:hover {
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }
 
+/* A term is a label the page is stating, not somewhere to go, so it takes the
+   structural green rather than the amber that marks links. */
 dt {
-  color: var(--amber);
+  color: var(--green);
   font-weight: bold;
   margin-top: 1rem;
 }
