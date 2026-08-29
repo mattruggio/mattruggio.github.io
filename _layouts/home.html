@@ -20,6 +20,9 @@ layout: default
       {%- if site.youtube_url and site.youtube_url != '' %}
       <a href="{{ site.youtube_url }}" target="_blank" rel="noopener">{% include icons/youtube.svg %}music</a>
       {%- endif %}
+      {%- if site.email and site.email != '' %}
+      <a href="mailto:{{ site.email }}">{% include icons/envelope.svg %}email</a>
+      {%- endif %}
     </p>
   </section>
   {% endif %}
