@@ -103,6 +103,14 @@ linkedin_url: "https://www.linkedin.com/in/mattruggio"
 # Leave empty to hide the link.
 youtube_url: "https://music.youtube.com/@mattruggio"
 
+# Contact address, rendered as [ email ] in the whoami links row. Deliberately an
+# alias on this site's own domain rather than a personal mailbox: a published
+# address cannot be withdrawn once harvesters have it, whereas an alias can be
+# rotated or retired without disturbing anything else. Left out of `author.email`
+# above so it stays a presentation choice and never reaches generated metadata.
+# Leave empty to hide the link.
+email: "matt@rugg.io"
+
 # This repository, linked as [ source ] in the footer. Kept separate from
 # github_username because it points at the site's own source rather than at the
 # profile, and the two are meaningfully different destinations. Only worth showing

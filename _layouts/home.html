@@ -20,6 +20,9 @@ layout: default
       {%- if site.youtube_url and site.youtube_url != '' %}
       <a href="{{ site.youtube_url }}" target="_blank" rel="noopener">{% include icons/youtube.svg %}music</a>
       {%- endif %}
+      {%- if site.email and site.email != '' %}
+      <a href="mailto:{{ site.email }}">{% include icons/envelope.svg %}email</a>
+      {%- endif %}
     </p>
   </section>
   {% endif %}
@@ -41,7 +44,9 @@ layout: default
           <p class="post-meta">
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
           </p>
-          {% if post.excerpt %}
+          {% if post.description %}
+          <p class="post-excerpt">{{ post.description }}</p>
+          {% elsif post.excerpt %}
           <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
           {% endif %}
           {% if post.tags.size > 0 %}
@@ -51,7 +56,6 @@ layout: default
             {% endfor %}
           </p>
           {% endif %}
-          <a class="arrow-link arrow-link--next" href="{{ post.url | relative_url }}">read more</a>
         </li>
         {% endfor %}
       </ul>
@@ -95,10 +99,9 @@ layout: default
             {% endfor %}
           </p>
           {% endif %}
-          {% if project.site or project.repo %}
+          {% if project.repo %}
           <p class="project-links">
-            {% if project.site %}<a href="{{ project.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
-            {% if project.repo %}<a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
+            <a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>
           </p>
           {% endif %}
         </li>

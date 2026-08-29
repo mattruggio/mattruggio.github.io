@@ -153,13 +153,14 @@ home page. Add an entry to `_data/projects.yml`:
   tech: [ruby, cli]
 ```
 
-Cards render in the order they appear in the file. The title links to `site`, and `image`
-renders as a thumbnail beside the text.
+Cards render in the order they appear in the file. Both the title and the `image` thumbnail
+link to `site`, so there is no separate call-to-action link — a third anchor pointing at the
+same URL would say nothing the title has not already said. The links row carries only
+`[ source ]`, and appears only when `repo` is set.
 
 Everything except `title` and `description` is optional. Omit `site` for private or
 login-only products, where sending a reader to a sign-in form would be a dead end: the title
-then renders as plain text and the `[ visit ]` link is suppressed rather than emitted empty
-— the whole links row is dropped when a project has neither `site` nor `repo`.
+then renders as plain text and the thumbnail is left unlinked.
 
 If the list ever outgrows a column, promoting these back into a collection with real
 project pages is the natural next step.
