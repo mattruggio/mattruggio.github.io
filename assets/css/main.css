@@ -143,14 +143,14 @@ a.tag:hover,
   margin-right: 0.6em;
 }
 
-/* Bracketed link chrome. white-space: pre stops the padding space inside the
-   pseudo-element from collapsing against the label. */
+/* Bracketed link chrome, reserved for the whoami row. The brackets read as a
+   TUI control, which suits a row of peer destinations standing as content in
+   its own right; elsewhere a link is an accessory to the text around it and the
+   icon and colour carry it, as they already do in the footer. white-space: pre
+   stops the padding space inside the pseudo-element from collapsing against the
+   label. */
 .home-links a::before,
-.home-links a::after,
-.section-link::before,
-.section-link::after,
-.project-links a::before,
-.project-links a::after {
+.home-links a::after {
   white-space: pre;
   color: var(--muted);
 }
@@ -444,9 +444,6 @@ main { flex: 1; }
   align-items: baseline;
   gap: 0.9rem;
 }
-
-.section-link::before { content: '[ '; }
-.section-link::after  { content: ' ]'; }
 
 /* ── Home — post list ───────────────────────────────── */
 .post-list { list-style: none; margin: 0; padding: 0; }
@@ -790,8 +787,6 @@ a.tag:hover {
 
 .project-links { font-family: var(--font-mono); margin: 0; font-size: 0.82rem; }
 .project-links a { margin-right: 1.25rem; }
-.project-links a::before { content: '[ '; }
-.project-links a::after  { content: ' ]'; }
 
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }
