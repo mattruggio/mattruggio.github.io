@@ -32,7 +32,7 @@ layout: default
       <h2 class="section-heading">
         writing
         <span class="section-links">
-          <a class="section-link" href="{{ '/tags/' | relative_url }}">tags</a>
+          <a class="section-link" href="{{ '/tags/' | relative_url }}">{% include icons/tags.svg %}tags</a>
           <a class="section-link" href="{{ '/feed.xml' | relative_url }}">{% include icons/rss.svg %}rss</a>
         </span>
       </h2>
@@ -101,7 +101,7 @@ layout: default
           {% endif %}
           {% if project.repo %}
           <p class="project-links">
-            <a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>
+            <a href="{{ project.repo }}" target="_blank" rel="noopener">{% include icons/code-branch.svg %}source</a>
           </p>
           {% endif %}
         </li>
