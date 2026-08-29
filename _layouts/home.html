@@ -99,10 +99,9 @@ layout: default
             {% endfor %}
           </p>
           {% endif %}
-          {% if project.site or project.repo %}
+          {% if project.repo %}
           <p class="project-links">
-            {% if project.site %}<a href="{{ project.site }}" target="_blank" rel="noopener">visit</a>{% endif %}
-            {% if project.repo %}<a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>{% endif %}
+            <a href="{{ project.repo }}" target="_blank" rel="noopener">source</a>
           </p>
           {% endif %}
         </li>
