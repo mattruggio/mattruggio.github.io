@@ -16,6 +16,21 @@
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any" />
   <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}" />
+  {%- comment -%}
+    Individual tag archives are navigation, not destinations: most hold a single
+    post and they all inherit the site-wide description, so indexing them puts
+    thin near-duplicates into search results competing with the posts they point
+    at. `follow` is deliberate — the pages stay crawlable and still pass link
+    equity through to the posts; only indexing is suppressed. `/tags/` itself is
+    a real page and stays indexed. `page.type` is set by jekyll-archives.
+
+    _plugins/exclude_archives_from_sitemap.rb drops these same pages from
+    sitemap.xml. The two belong together: a URL that is both submitted in a
+    sitemap and marked noindex is reported by Search Console as an error.
+  {%- endcomment -%}
+  {%- if page.type == 'tag' %}
+  <meta name="robots" content="noindex, follow" />
+  {%- endif %}
   {% seo %}
 </head>
 <body>
