@@ -429,9 +429,12 @@ main { flex: 1; }
   border-bottom: 1px solid var(--border);
 }
 
+/* Weight is reset because these sit inside the h2, which is bold, and would
+   otherwise inherit it and read heavier than the other links they sit among. */
 .section-link {
   font-family: var(--font-mono);
   font-size: 0.82rem;
+  font-weight: 400;
 }
 
 /* Grouped so the heading's space-between keeps "writing" hard left and the
