@@ -349,6 +349,9 @@
   }
 
   function resetBank() {
+    /* Guarded to the same condition that shows the button. Without this the
+       keyboard shortcut would happily wipe a winning bankroll. */
+    if (phase !== 'betting' || bankroll >= MIN_BET) return;
     bankroll = STARTING_BANKROLL;
     bet = 10;
     save(STORE_BANKROLL, bankroll);
@@ -432,6 +435,7 @@
       else if (phase === 'betting' && (key === 'enter' || key === 'd')) newHand();
       else if (phase === 'betting' && (key === 'arrowup' || key === '+' || key === '=')) adjustBet(BET_STEP);
       else if (phase === 'betting' && (key === 'arrowdown' || key === '-')) adjustBet(-BET_STEP);
+      else if (phase === 'betting' && key === 'r') resetBank();
       else if (phase === 'settled' && (key === 'enter' || key === 'n')) nextHand();
       else acted = false;
 
