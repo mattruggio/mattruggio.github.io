@@ -207,13 +207,10 @@ _includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
 _includes/diagrams/    post diagrams, built as HTML and themed via CSS variables
 _plugins/              build-time Ruby hooks (see below)
 assets/css/main.css    retro-terminal theme, @font-face, and the Rouge theme
-assets/css/blackjack.css  styles for /blackjack/ only, loaded per page
-assets/js/blackjack.js    the blackjack game, the only script on the site
 assets/fonts/          self-hosted woff2 files (see its LICENSE.md)
 assets/images/         project graphics and social cards
 script/og-image.py     social card and favicon generator
 404.html               terminal-styled not-found page
-blackjack.html         the blackjack table (see below)
 index.md               home page whoami block
 tags.html              index of every tag, linked from the writing heading
 ```
@@ -251,43 +248,6 @@ ruby -e 'require "rouge"; puts Rouge::Formatters::HTML.new.format(
 ).scan(/class="([a-z]+)"/).flatten.uniq.sort.join(" ")'
 ```
 
-## Blackjack
-
-`/blackjack/` is a game of blackjack, styled like the rest of the site. It is the only
-page with JavaScript, the only page with its own stylesheet, and it talks to nothing.
-
-House rules, which the page also states for the player: six-deck shoe reshuffled below a
-deck, dealer stands on all 17, blackjack pays 3 to 2, dealer peeks when the upcard can
-make 21, double on the first two cards only, no split, no insurance. Chips live in
-`localStorage` and nowhere else.
-
-**Per-page assets.** `_layouts/default.html` reads two optional front matter keys so a
-single page can carry its own files without taxing the other twelve:
-
-```yaml
-stylesheet: /assets/css/blackjack.css
-script: /assets/js/blackjack.js
-```
-
-The script is emitted with `defer`, after the footer. Both blocks render nothing when the
-key is absent, which is the case everywhere else.
-
-**Why the card suits are hand-drawn SVG.** They are neither Unicode characters nor Font
-Awesome. The vendored fonts are latin-subset, so `♠ ♥ ♦ ♣` (U+2660..2666) are not in
-them; the browser would fall back per glyph, and on many systems that fallback is colour
-emoji. The card frames are CSS borders for the same reason: box-drawing characters
-(U+2500..257F) are missing too, and mismatched advance widths would pull the boxes out of
-alignment. Font Awesome Free has no spade or club, and the Pro ones cannot be
-redistributed from a public repository.
-
-**Colour.** Red suits and losing hands use `--syn-var`, the red the palette already has
-and that `.notfound-err` already borrows, rather than introducing a new one. Buttons are
-amber, because amber means interactive everywhere on this site.
-
-The game markup is addressed entirely through `data-bj` attributes, so the seam between
-template and script is obvious from either side, and the DOM is built with `textContent`
-and `createElement` rather than `innerHTML`.
-
 ## Analytics
 
 Set `goatcounter_code` in `_config.yml` to the code from your
@@ -311,16 +271,12 @@ licensing and how to regenerate the files.
 ## Icons
 
 Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
-rather than loaded as an icon font — the full release is 6.5 MB and the eight icons in
-use total under 5 KB. They inherit `currentColor`, so hover states need no extra rules.
+rather than loaded as an icon font — the full release is 6.5 MB and the four icons in
+use total under 3 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
 
 They are reserved for brand marks and the feed icon, where a pictogram is recognised
 faster than the word. Directional and action links use text and arrows instead.
-
-`spade.svg` is the one exception to all of the above: it is original artwork, not Font
-Awesome. A spade is Pro-only upstream, and redistributing a Pro icon from a public
-repository is not allowed even with a valid Pro licence.
 
 ## Social links
 

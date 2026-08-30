@@ -13,13 +13,6 @@
   <link rel="preload" href="{{ '/assets/fonts/ibm-plex-sans-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="{{ '/assets/fonts/ibm-plex-mono-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
-  {%- comment -%}
-    Optional per-page assets. Anything only one page needs belongs here rather
-    than in main.css, which every page downloads and parses.
-  {%- endcomment -%}
-  {%- if page.stylesheet %}
-  <link rel="stylesheet" href="{{ page.stylesheet | relative_url }}" />
-  {%- endif %}
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any" />
   <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}" />
@@ -53,9 +46,6 @@
   </main>
 
   {% include footer.html %}
-  {%- if page.script %}
-  <script src="{{ page.script | relative_url }}" defer></script>
-  {%- endif %}
   {% include analytics.html %}
 </body>
 </html>
