@@ -231,11 +231,12 @@
   function newHand() {
     if (phase !== 'betting' || bankroll < MIN_BET) return;
 
+    /* Prefixed to the opening message rather than shown on its own, so the
+       reshuffle does not blank out the prompt the player needs. */
+    var opening = '';
     if (shoe.length < 52) {
       shoe = buildShoe();
-      say('Shuffling a fresh six-deck shoe.', null);
-    } else {
-      say('', null);
+      opening = 'Shuffling a fresh six-deck shoe. ';
     }
 
     if (bet > bankroll) bet = bankroll - (bankroll % BET_STEP);
@@ -252,23 +253,24 @@
 
     if (isBlackjack(player) && isBlackjack(dealer)) {
       revealDealer = true;
-      settle('push', 'Both blackjack. Push.');
+      settle('push', opening + 'Both blackjack. Push.');
       return;
     }
     if (isBlackjack(player)) {
       revealDealer = true;
       /* 3:2, and the original stake comes back with it. */
-      settle('win', 'Blackjack. Paid 3 to 2.', bet + Math.floor(bet * 3 / 2));
+      settle('win', opening + 'Blackjack. Paid 3 to 2.', bet + Math.floor(bet * 3 / 2));
       return;
     }
     /* The peek, taken only when the upcard could actually be part of 21 so the
        dealer never leaks anything about an ordinary hole card. */
     if (upCanMake21 && isBlackjack(dealer)) {
       revealDealer = true;
-      settle('lose', 'Dealer has blackjack.');
+      settle('lose', opening + 'Dealer has blackjack.');
       return;
     }
 
+    say(opening + 'Hit, stand, or double.', null);
     render();
     focusFirstAction();
   }
@@ -283,6 +285,7 @@
       return;
     }
     if (total === 21) { stand(); return; }
+    say('Hit or stand.', null);
     render();
   }
 
@@ -369,17 +372,29 @@
     if (first && !first.hidden && !first.disabled) first.focus();
   }
 
+  function toggleHelp(force) {
+    var open = typeof force === 'boolean' ? force : el.rules.hidden;
+    el.rules.hidden = !open;
+    el.help.setAttribute('aria-expanded', String(open));
+    if (open) el.rules.focus();
+    else el.help.focus();
+  }
+
   function init() {
     var root = document.getElementById('blackjack');
     if (!root) return;
 
     var ids = ['dealerHand', 'playerHand', 'dealerScore', 'playerScore', 'status',
                'bankroll', 'bet', 'shoeCount', 'deal', 'hit', 'stand', 'double',
-               'next', 'reset', 'betUp', 'betDown'];
+               'next', 'reset', 'betUp', 'betDown', 'help'];
     for (var i = 0; i < ids.length; i++) {
       el[ids[i]] = root.querySelector('[data-bj="' + ids[i] + '"]');
       if (!el[ids[i]]) return;
     }
+    /* The rules live outside the game section so they survive with JavaScript
+       off, so this one is looked up against the document. */
+    el.rules = document.querySelector('[data-bj="rules"]');
+    if (!el.rules) return;
 
     bankroll = load(STORE_BANKROLL, STARTING_BANKROLL);
     bet = load(STORE_BET, 10);
@@ -397,6 +412,7 @@
     el.reset.addEventListener('click', resetBank);
     el.betUp.addEventListener('click', function () { adjustBet(BET_STEP); });
     el.betDown.addEventListener('click', function () { adjustBet(-BET_STEP); });
+    el.help.addEventListener('click', function () { toggleHelp(); });
 
     /* Shortcuts sit on top of the buttons, never instead of them. Ignored while
        a form field or a modifier is in play so they cannot hijack typing or a
@@ -408,7 +424,9 @@
 
       var key = e.key.toLowerCase();
       var acted = true;
-      if (phase === 'player' && key === 'h') hit();
+      if (key === '?') toggleHelp();
+      else if (key === 'escape' && !el.rules.hidden) toggleHelp(false);
+      else if (phase === 'player' && key === 'h') hit();
       else if (phase === 'player' && key === 's') stand();
       else if (phase === 'player' && key === 'd') double();
       else if (phase === 'betting' && (key === 'enter' || key === 'd')) newHand();
@@ -421,6 +439,9 @@
     });
 
     root.hidden = false;
+    /* Folded away only now, so a reader without JavaScript keeps them. */
+    el.rules.hidden = true;
+    el.rules.setAttribute('tabindex', '-1');
     var fallback = document.getElementById('bj-nojs');
     if (fallback) fallback.hidden = true;
 

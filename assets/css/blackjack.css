@@ -10,17 +10,33 @@
 
 .bj {
   font-family: var(--font-mono);
-  padding-bottom: 3rem;
+  padding-bottom: 1.5rem;
 }
 
 /* Red is not invented here. --syn-var is the palette's existing red, already
    borrowed by .notfound-err for the same reason: it is the one colour in the
    set that reads as "something went against you". Amber stays on the buttons,
-   where it means interactive everywhere else on the site. */
-.bj {
+   where it means interactive everywhere else on the site.
+
+   These sit on :root rather than .bj because this stylesheet is only ever
+   loaded by /blackjack/, and the no-JavaScript notice needs the red while
+   living outside the game element. */
+:root {
   --bj-red: var(--syn-var);
   --bj-card-w: 3.6rem;
 }
+
+/* The notice shown while the script boots, and the one shown if it never
+   arrives. Deliberately not .bj-status: that is table furniture with a rule
+   above it, and these two stand on their own. */
+.bj-notice {
+  font-family: var(--font-mono);
+  font-size: 0.94rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.bj-notice--warn { color: var(--bj-red); }
 
 /* ── Table ──────────────────────────────────────────── */
 .bj-table {
@@ -73,7 +89,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0.3rem 0.35rem;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   line-height: 1;
 }
 
@@ -108,12 +124,18 @@
   border-color: var(--green-dim);
 }
 
-/* ── Status line ────────────────────────────────────── */
+/* ── Status line ────────────────────────────────────
+   Sits at the foot of the table, mirroring the meters bar at its head. The
+   height is reserved so the controls below do not jump as messages come and
+   go, and the class is rewritten wholesale by the script, so the base class has
+   to be repeated in every state below. */
 .bj-status {
   min-height: 1.4rem;
-  margin-bottom: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.94rem;
 }
 
 .bj-status--win  { color: var(--green); }
@@ -126,7 +148,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1.25rem;
 }
 
 /* Buttons inherit the bracketed treatment the whoami row uses, because these
@@ -134,7 +155,7 @@
    right rather than an accessory to surrounding text. */
 .bj-btn {
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   background: none;
   border: 0;
   padding: 0.3rem 0;
@@ -164,18 +185,21 @@
 
 .bj-btn-key {
   color: var(--muted);
-  font-size: 0.8em;
+  font-size: 0.75rem;
 }
 
-/* ── Chips ──────────────────────────────────────────── */
+/* ── Chips ──────────────────────────────────────────
+   A status bar across the top of the table rather than a caption below it, so
+   the numbers that change during a hand sit with the cards that change them. */
 .bj-meters {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding-top: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.25rem;
 }
 
 .bj-meter-value {
@@ -183,27 +207,49 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Rules ──────────────────────────────────────────── */
+/* ── Rules and keys ─────────────────────────────────
+   Hidden behind the help button once the script runs. Rendered open until
+   then, so it is readable with JavaScript off. */
 .bj-rules {
   font-family: var(--font-body);
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.94rem;
   max-width: var(--measure);
-  margin-top: 2.5rem;
+  border-left: 2px solid var(--green-dim);
+  padding-left: 1.1rem;
 }
+
+.bj-rules:focus { outline: none; }
 
 .bj-rules h2 {
   font-family: var(--font-head);
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--green);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
+.bj-rules h2 + * { margin-bottom: 1.25rem; }
 .bj-rules li { margin-bottom: 0.35rem; }
 .bj-rules ul { padding-left: 1.2rem; }
 
+/* Two columns on one row per term: the key sits in a fixed monospace gutter so
+   every definition starts on the same edge. */
+.bj-keys {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  align-items: baseline;
+  row-gap: 0.35rem;
+}
+
+.bj-keys dt {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--amber);
+}
+
 @media (max-width: 600px) {
-  .bj { --bj-card-w: 3rem; }
+  :root { --bj-card-w: 3rem; }
   .bj-table { padding: 1rem; }
   .bj-controls { gap: 0.4rem 0.75rem; }
+  .bj-meters { gap: 1rem; }
 }
