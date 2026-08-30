@@ -66,6 +66,22 @@ you don't need to declare it. Posts are published at `/:year/:month/:day/:title/
 - Without `image`, the post falls back to the site-wide card
   (`/assets/images/og-default.png`). A per-post card is nicer when the link is shared.
 
+`last_modified_at` is a third optional field, for when a published post gets a
+substantive revision:
+
+```yaml
+last_modified_at: 2026-09-15
+```
+
+It feeds `dateModified` in the post's JSON-LD and `lastmod` in `sitemap.xml`, both of
+which otherwise report the original publication date forever. Set it by hand and only for
+revisions that change what the post *says* — a typo fix is not worth re-dating, and a
+sitemap that claims everything changed recently tells a crawler nothing.
+
+This is deliberately manual. The `jekyll-last-modified-at` plugin derives the date from
+git history instead, but `actions/checkout` clones at `fetch-depth: 1`, so in CI it would
+read a commit date that isn't there and publish a wrong one.
+
 ### Social sharing cards
 
 Cards are generated ahead of time and checked in — Jekyll has no image pipeline. The
@@ -136,6 +152,18 @@ Tag chips are cyan because they are links. Grey chips are not: a project's `tech
 (`.tag--static`) describes a stack rather than a taxonomy and has no page behind it, and
 the current tag on its own archive page (`.tag--current`) is dashed to mark "you are here."
 
+**Individual tag archives are deliberately not indexed.** `_layouts/default.html` marks
+any page with `page.type == 'tag'` as `noindex, follow`, and
+`_plugins/exclude_archives_from_sitemap.rb` keeps them out of `sitemap.xml`. Most hold a
+single post and all of them inherit the site-wide description, so indexing them would put
+thin near-duplicates into search results competing with the posts they link to. `follow`
+matters: the pages stay crawlable and still pass link equity through. `/tags/` itself is a
+real page and stays indexed.
+
+The two halves ship together on purpose. A URL that is listed in a sitemap *and* marked
+`noindex` is reported by Search Console as the error "Submitted URL marked 'noindex'", so
+doing either one alone is worse than doing neither.
+
 [archives]: https://github.com/jekyll/jekyll-archives
 
 ## Adding a project
@@ -174,9 +202,10 @@ _data/projects.yml     projects shown on the home page
 _drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
 _layouts/              page templates (default, home, post, tag)
-_includes/             header, footer, and analytics partials
+_includes/             header, footer, analytics, and Person schema partials
 _includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
 _includes/diagrams/    post diagrams, built as HTML and themed via CSS variables
+_plugins/              build-time Ruby hooks (see below)
 assets/css/main.css    retro-terminal theme, @font-face, and the Rouge theme
 assets/fonts/          self-hosted woff2 files (see its LICENSE.md)
 assets/images/         project graphics and social cards
@@ -189,6 +218,11 @@ tags.html              index of every tag, linked from the writing heading
 The home page is the whole site: the `whoami` block, then writing and projects side by
 side. It has no nav bar, since the `~/mattruggio` hero acts as the header. Posts get a
 slim sticky header linking back home.
+
+**`_plugins/` runs only because the deploy workflow builds the site itself** with `bundle
+exec jekyll build`. The hosted GitHub Pages builder ignores custom plugins entirely, so
+anything added here silently does nothing if the workflow is ever replaced with the stock
+Pages build. The same caveat applies to `jekyll-archives`.
 
 ## Code blocks
 
@@ -288,11 +322,46 @@ grep -o '"sameAs":[^]]*]' _site/index.html
 
 Two behaviours of the gem are worth knowing: `sameAs` is emitted only on the home page and
 `/about` (posts do not carry it), and it attaches to the top-level `WebSite` entity rather than
-to the nested `Person`. Giving the `Person` its own `sameAs` would require a hand-written second
-JSON-LD block.
+to the nested `Person`.
+
+`_includes/person-schema.html` is the hand-written second JSON-LD block that fills that
+gap, emitted on every page from `_layouts/default.html`:
+
+```json
+{ "@type": "Person", "@id": "https://rugg.io/#person", "name": "…", "url": "…", "sameAs": [ … ] }
+```
+
+The `@id` is the point of it. A stable node identifier lets a crawler merge these
+statements into one entity across the whole site, instead of reading each page's author as
+a new person who happens to share a name. Without it, every post credits an unidentified
+`Matt Ruggio` while the links that would resolve which one sit on a different entity on a
+different page.
+
+Its `sameAs` array loops `site.social.links` rather than repeating the URLs, so this block
+is not a third copy to keep in sync. Emitting several `ld+json` blocks on one page is
+valid; the two describe different nodes and do not conflict. After changing it, confirm
+both blocks still parse:
+
+```bash
+bundle exec jekyll build
+grep -o '<script type="application/ld+json">.*</script>' _site/index.html
+```
 
 Do not list a profile here that is empty or abandoned — an entity link to a dead account is
 worse than no link.
+
+## Search Console
+
+Verify the site in [Google Search Console][gsc] as a **Domain property, using a DNS TXT
+record** rather than the HTML meta tag. A domain property covers `http` and `https`, apex
+and `www`, and every subdomain in one place, and it cannot be broken by a template edit.
+`jekyll-seo-tag` can emit a verification meta tag from `webmaster_verifications.google` in
+`_config.yml` if that is ever preferred, but it verifies less and is easier to lose.
+
+Submit `https://rugg.io/sitemap.xml` there once verified. It lists posts, the home page,
+and `/tags/` only — see the Tags section for why the individual tag archives are excluded.
+
+[gsc]: https://search.google.com/search-console
 
 ## Deployment
 
