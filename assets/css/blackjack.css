@@ -8,9 +8,11 @@
   and the differing advance widths would pull the boxes out of alignment.
 */
 
+/* No trailing "back home" link here: the site header is sticky and its title
+   already goes there, so the page ends on the controls and the footer. */
 .bj {
   font-family: var(--font-mono);
-  padding-bottom: 1.5rem;
+  padding-bottom: 0;
 }
 
 /* Red is not invented here. --syn-var is the palette's existing red, already
@@ -38,12 +40,14 @@
 
 .bj-notice--warn { color: var(--bj-red); }
 
-/* ── Table ──────────────────────────────────────────── */
+/* ── Table ──────────────────────────────────────────
+   Bottom padding is lighter than the rest: the status line already carries its
+   own space above it, and matching all four sides left the message stranded. */
 .bj-table {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-card);
-  padding: 1.25rem;
+  padding: 1.25rem 1.25rem 1rem;
   margin-bottom: 1.25rem;
 }
 
@@ -69,12 +73,23 @@
 }
 
 /* min-height holds the table's shape between hands so the controls below do
-   not jump up when the cards are cleared. */
+   not jump up when the cards are cleared. Empty seats show dashed slots rather
+   than a void: the space has to be reserved either way, so it may as well say
+   what belongs in it. */
 .bj-hand {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   min-height: calc(var(--bj-card-w) * 1.4);
+}
+
+.bj-hand:empty::before,
+.bj-hand:empty::after {
+  content: '';
+  width: var(--bj-card-w);
+  height: calc(var(--bj-card-w) * 1.4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
 }
 
 /* ── Cards ──────────────────────────────────────────── */
@@ -127,11 +142,12 @@
 /* ── Status line ────────────────────────────────────
    Sits at the foot of the table, mirroring the meters bar at its head. The
    height is reserved so the controls below do not jump as messages come and
-   go, and the class is rewritten wholesale by the script, so the base class has
-   to be repeated in every state below. */
+   go, and the leading is tightened from the site's prose value of 1.7, which
+   is set for paragraphs and leaves a single line floating in dead space. */
 .bj-status {
   min-height: 1.4rem;
-  margin-top: 1.25rem;
+  line-height: 1.4;
+  margin-top: 1rem;
   padding-top: 0.9rem;
   border-top: 1px solid var(--border);
   color: var(--muted);
@@ -215,6 +231,7 @@
   color: var(--muted);
   font-size: 0.94rem;
   max-width: var(--measure);
+  margin-top: 1.75rem;
   border-left: 2px solid var(--green-dim);
   padding-left: 1.1rem;
 }
@@ -231,21 +248,6 @@
 .bj-rules h2 + * { margin-bottom: 1.25rem; }
 .bj-rules li { margin-bottom: 0.35rem; }
 .bj-rules ul { padding-left: 1.2rem; }
-
-/* Two columns on one row per term: the key sits in a fixed monospace gutter so
-   every definition starts on the same edge. */
-.bj-keys {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  align-items: baseline;
-  row-gap: 0.35rem;
-}
-
-.bj-keys dt {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: var(--amber);
-}
 
 @media (max-width: 600px) {
   :root { --bj-card-w: 3rem; }

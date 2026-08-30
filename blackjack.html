@@ -10,7 +10,6 @@ script: /assets/js/blackjack.js
   <header class="post-header">
     <p class="post-meta prompt">./blackjack --decks 6</p>
     <h1 class="post-title">blackjack</h1>
-    <p class="post-meta">Six decks, dealer stands on all 17, blackjack pays 3 to 2.</p>
   </header>
 
   {%- comment -%}
@@ -71,7 +70,7 @@ script: /assets/js/blackjack.js
       <button type="button" class="bj-btn" data-bj="double">double <span class="bj-btn-key">(d)</span></button>
       <button type="button" class="bj-btn" data-bj="next">next hand <span class="bj-btn-key">(enter)</span></button>
       <button type="button" class="bj-btn" data-bj="reset">reset chips</button>
-      <button type="button" class="bj-btn" data-bj="help" aria-expanded="false" aria-controls="bj-rules">help <span class="bj-btn-key">(?)</span></button>
+      <button type="button" class="bj-btn" data-bj="help" aria-expanded="false" aria-controls="bj-rules">rules <span class="bj-btn-key">(?)</span></button>
     </div>
   </section>
 
@@ -91,24 +90,9 @@ script: /assets/js/blackjack.js
       <li>No splitting, no insurance, no surrender.</li>
     </ul>
 
-    <h2>Keys</h2>
-    <dl class="bj-keys">
-      <dt>d</dt><dd>deal, or double once a hand is out</dd>
-      <dt>h</dt><dd>hit</dd>
-      <dt>s</dt><dd>stand</dd>
-      <dt>enter</dt><dd>deal, or start the next hand</dd>
-      <dt>+ -</dt><dd>raise or lower the bet</dd>
-      <dt>?</dt><dd>open and close this panel</dd>
-    </dl>
-
     <p>
       Your chips live in this browser and nowhere else. Nothing is sent
       anywhere, and clearing site data starts you over at 100.
     </p>
   </section>
-
-  <hr />
-  <p>
-    <a class="arrow-link arrow-link--prev" href="{{ '/' | relative_url }}">back to ~/mattruggio</a>
-  </p>
 </div>
