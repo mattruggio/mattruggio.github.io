@@ -1,5 +1,5 @@
 <footer class="site-footer">
-  <div class="wrapper">
+  <div class="wrapper footer-inner">
     <p>
       &copy; {{ site.time | date: "%Y" }} {{ site.author.name }}
       &mdash;
@@ -9,5 +9,13 @@
       <a href="{{ site.repo_url }}" target="_blank" rel="noopener">{% include icons/github.svg %}source</a>
       {%- endif %}
     </p>
+    {%- comment -%}
+      An easter egg, after the pi tucked into the corner of a screen in The Net.
+      It is unlabelled and unannounced on purpose: nothing else on the site links
+      to /blackjack/, and the page carries noindex and is kept out of sitemap.xml,
+      so this is the only way in. The accessible name is the symbol itself rather
+      than "blackjack", which would hand the answer to screen reader users alone.
+    {%- endcomment -%}
+    <a class="footer-egg" href="{{ '/blackjack/' | relative_url }}" aria-label="π">{% include icons/pi.svg %}</a>
   </div>
 </footer>

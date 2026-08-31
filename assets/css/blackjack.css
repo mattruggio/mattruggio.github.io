@@ -1,0 +1,257 @@
+/*
+  Blackjack. Loaded only by /blackjack/ via the layout's `stylesheet` front
+  matter hook, because every rule here is dead weight on the other 12 pages.
+
+  Cards are drawn with borders rather than box-drawing characters. The site's
+  fonts are subset to Latin and carry none of U+2500..257F, so a boxed card
+  built from characters would fall back per glyph to whatever the system has,
+  and the differing advance widths would pull the boxes out of alignment.
+*/
+
+/* No trailing "back home" link here: the site header is sticky and its title
+   already goes there, so the page ends on the controls and the footer. */
+.bj {
+  font-family: var(--font-mono);
+  padding-bottom: 0;
+}
+
+/* Red is not invented here. --syn-var is the palette's existing red, already
+   borrowed by .notfound-err for the same reason: it is the one colour in the
+   set that reads as "something went against you". Amber stays on the buttons,
+   where it means interactive everywhere else on the site.
+
+   These sit on :root rather than .bj because this stylesheet is only ever
+   loaded by /blackjack/, and the no-JavaScript notice needs the red while
+   living outside the game element. */
+:root {
+  --bj-red: var(--syn-var);
+  --bj-card-w: 3.6rem;
+}
+
+/* The notice shown while the script boots, and the one shown if it never
+   arrives. Deliberately not .bj-status: that is table furniture with a rule
+   above it, and these two stand on their own. */
+.bj-notice {
+  font-family: var(--font-mono);
+  font-size: 0.94rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.bj-notice--warn { color: var(--bj-red); }
+
+/* ── Table ──────────────────────────────────────────
+   Bottom padding is lighter than the rest: the status line already carries its
+   own space above it, and matching all four sides left the message stranded. */
+.bj-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  padding: 1.25rem 1.25rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.bj-seat + .bj-seat { margin-top: 1.5rem; }
+
+.bj-seat-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.6rem;
+}
+
+.bj-seat-score {
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* min-height holds the table's shape between hands so the controls below do
+   not jump up when the cards are cleared. Empty seats show dashed slots rather
+   than a void: the space has to be reserved either way, so it may as well say
+   what belongs in it. */
+.bj-hand {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: calc(var(--bj-card-w) * 1.4);
+}
+
+.bj-hand:empty::before,
+.bj-hand:empty::after {
+  content: '';
+  width: var(--bj-card-w);
+  height: calc(var(--bj-card-w) * 1.4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* ── Cards ──────────────────────────────────────────── */
+.bj-card {
+  width: var(--bj-card-w);
+  height: calc(var(--bj-card-w) * 1.4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.3rem 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.bj-card--red { color: var(--bj-red); }
+
+.bj-card-rank { font-variant-numeric: tabular-nums; }
+.bj-card-rank--foot { align-self: flex-end; transform: rotate(180deg); }
+
+.bj-card-pip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bj-suit {
+  width: 1.15em;
+  height: 1.15em;
+  display: block;
+}
+
+/* The hole card. Diagonal hatching in the dim green reads as a card back
+   without needing artwork or a second image request. */
+.bj-card--back {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--bg-card),
+      var(--bg-card) 3px,
+      var(--green-dim) 3px,
+      var(--green-dim) 4px
+    );
+  border-color: var(--green-dim);
+}
+
+/* ── Status line ────────────────────────────────────
+   Sits at the foot of the table, mirroring the meters bar at its head. The
+   height is reserved so the controls below do not jump as messages come and
+   go, and the leading is tightened from the site's prose value of 1.7, which
+   is set for paragraphs and leaves a single line floating in dead space. */
+.bj-status {
+  min-height: 1.4rem;
+  line-height: 1.4;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.bj-status--win  { color: var(--green); }
+.bj-status--lose { color: var(--bj-red); }
+.bj-status--push { color: var(--muted); }
+
+/* ── Controls ───────────────────────────────────────── */
+.bj-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Buttons inherit the bracketed treatment the whoami row uses, because these
+   are the same thing: a row of peer controls that are content in their own
+   right rather than an accessory to surrounding text. */
+.bj-btn {
+  font: inherit;
+  font-size: 0.82rem;
+  background: none;
+  border: 0;
+  padding: 0.3rem 0;
+  color: var(--amber);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.bj-btn::before { content: '[ '; }
+.bj-btn::after  { content: ' ]'; }
+
+.bj-btn::before,
+.bj-btn::after {
+  white-space: pre;
+  color: var(--muted);
+}
+
+.bj-btn:hover:not(:disabled) { color: var(--green); }
+
+.bj-btn:disabled {
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+.bj-btn:disabled::before,
+.bj-btn:disabled::after { color: var(--border); }
+
+.bj-btn-key {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+/* ── Chips ──────────────────────────────────────────
+   A status bar across the top of the table rather than a caption below it, so
+   the numbers that change during a hand sit with the cards that change them. */
+.bj-meters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.bj-meter-value {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Rules and keys ─────────────────────────────────
+   Hidden behind the help button once the script runs. Rendered open until
+   then, so it is readable with JavaScript off. */
+.bj-rules {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 0.94rem;
+  max-width: var(--measure);
+  margin-top: 1.75rem;
+  border-left: 2px solid var(--green-dim);
+  padding-left: 1.1rem;
+}
+
+.bj-rules:focus { outline: none; }
+
+.bj-rules h2 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: var(--green);
+  margin-bottom: 0.6rem;
+}
+
+.bj-rules h2 + * { margin-bottom: 1.25rem; }
+.bj-rules li { margin-bottom: 0.35rem; }
+.bj-rules ul { padding-left: 1.2rem; }
+
+@media (max-width: 600px) {
+  :root { --bj-card-w: 3rem; }
+  .bj-table { padding: 1rem; }
+  .bj-controls { gap: 0.4rem 0.75rem; }
+  .bj-meters { gap: 1rem; }
+}

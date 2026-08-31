@@ -725,9 +725,56 @@ a.tag:hover {
   margin-top: 3rem;
   border-top: 1px solid var(--border);
   padding: 1.5rem 0;
-  text-align: center;
   color: var(--muted);
   font-size: 0.82rem;
+}
+
+/* Mirrors .header-inner deliberately: content at one end, a single mark at the
+   other. The footer used to be centred, which made it the only centred block on
+   a site that is left-aligned everywhere else, and left the pi nowhere to sit —
+   pinned to the right it collided with the copyright line as soon as that line
+   grew long enough to reach it. As flex siblings the two cannot overlap at any
+   width, so this needs no breakpoint and no magic number. */
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-inner p { margin: 0; }
+
+/* The easter egg: a pi in the corner, after The Net. It deliberately breaks the
+   rule that amber means "interactive" — a thing meant to be stumbled upon cannot
+   advertise itself. Dimming --muted rather than inventing a colour keeps the
+   palette closed, and hover restores the usual green to repay whoever went
+   looking. The padding buys a tap target a 15px glyph could not; the negative
+   margin lets that padding overhang so the artwork still lines up with the
+   content edge rather than sitting inset from it. margin-left:auto keeps it hard
+   right on its own line too, since below ~380px the copyright is wide enough
+   that flex-wrap drops the pi to a second row. */
+.footer-egg {
+  flex: none;
+  margin-left: auto;
+  padding: 0.4rem;
+  margin-right: -0.4rem;
+  line-height: 1;
+  color: var(--muted);
+  opacity: 0.4;
+  transition: color 0.15s, opacity 0.15s;
+}
+
+.footer-egg .icon {
+  height: 1.3em;
+  margin-right: 0;
+  vertical-align: baseline;
+}
+
+.footer-egg:hover,
+.footer-egg:focus-visible {
+  color: var(--green);
+  opacity: 1;
 }
 
 

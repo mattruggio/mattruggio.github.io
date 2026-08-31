@@ -13,6 +13,13 @@
   <link rel="preload" href="{{ '/assets/fonts/ibm-plex-sans-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="{{ '/assets/fonts/ibm-plex-mono-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+  {%- comment -%}
+    Optional per-page assets. Anything only one page needs belongs here rather
+    than in main.css, which every page downloads and parses.
+  {%- endcomment -%}
+  {%- if page.stylesheet %}
+  <link rel="stylesheet" href="{{ page.stylesheet | relative_url }}" />
+  {%- endif %}
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any" />
   <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}" />
@@ -27,8 +34,13 @@
     _plugins/exclude_archives_from_sitemap.rb drops these same pages from
     sitemap.xml. The two belong together: a URL that is both submitted in a
     sitemap and marked noindex is reported by Search Console as an error.
+
+    `noindex: true` in front matter opts a single page in to the same treatment.
+    /blackjack/ uses it: an easter egg reachable only from the pi in the footer
+    stops being one the moment it turns up in a site: search. That page pairs it
+    with `sitemap: false` for the reason above.
   {%- endcomment -%}
-  {%- if page.type == 'tag' %}
+  {%- if page.type == 'tag' or page.noindex %}
   <meta name="robots" content="noindex, follow" />
   {%- endif %}
   {% seo %}
@@ -46,6 +58,9 @@
   </main>
 
   {% include footer.html %}
+  {%- if page.script %}
+  <script src="{{ page.script | relative_url }}" defer></script>
+  {%- endif %}
   {% include analytics.html %}
 </body>
 </html>
