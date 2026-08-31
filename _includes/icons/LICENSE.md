@@ -11,10 +11,16 @@ added so it can be inlined directly into a page and inherit `currentColor`.
 The full 6.5 MB Font Awesome release is not a reasonable dependency for seven
 icons, so the paths are copied verbatim and attributed here instead.
 
-`spade.svg` is **not** Font Awesome and is not CC BY. It is original artwork,
-covered by this repository's own license. A spade is Pro-only upstream, and
+`pi.svg` is **not** Font Awesome and is not CC BY. It is original artwork,
+covered by this repository's own license. It is the footer easter egg that opens
+`/blackjack/`, drawn here rather than typed as a character because `U+03C0` is
+absent from all seven of the site's subset webfonts.
+
+The card suits on `/blackjack/` are original artwork too, but they live as raw
+path data in `assets/js/blackjack.js` rather than as includes, since the script
+builds card faces at runtime. A spade and a club are Pro-only upstream, and
 redistributing a Pro icon from a public repository is not permitted even with a
-valid Pro license. The same path is used by the card faces on `/blackjack/`.
+valid Pro license.
 
 To add an icon, copy the `<path>` and `viewBox` from the upstream SVG into a
 new file here following the same shape, then `{% include icons/name.svg %}`.

@@ -256,6 +256,12 @@ ruby -e 'require "rouge"; puts Rouge::Formatters::HTML.new.format(
 `/blackjack/` is a game of blackjack, styled like the rest of the site. It is the only
 page with JavaScript, the only page with its own stylesheet, and it talks to nothing.
 
+**It is an easter egg.** Nothing links to it except the dim π in the lower right of the
+footer, a nod to the disc in *The Net*. The page carries `noindex: true` and
+`sitemap: false` in its front matter, because a hidden page that turns up in a `site:`
+search is not hidden. `noindex: true` is a general hook read by `_layouts/default.html`;
+any page can use it.
+
 House rules, which the page also states for the player: six-deck shoe reshuffled below a
 deck, dealer stands on all 17, blackjack pays 3 to 2, dealer peeks when the upcard can
 make 21, double on the first two cards only, no split, no insurance. Chips live in
@@ -278,7 +284,8 @@ them; the browser would fall back per glyph, and on many systems that fallback i
 emoji. The card frames are CSS borders for the same reason: box-drawing characters
 (U+2500..257F) are missing too, and mismatched advance widths would pull the boxes out of
 alignment. Font Awesome Free has no spade or club, and the Pro ones cannot be
-redistributed from a public repository.
+redistributed from a public repository. The footer's π is hand-drawn for the same
+reason: `U+03C0` is not in the subset either.
 
 **Colour.** Red suits and losing hands use `--syn-var`, the red the palette already has
 and that `.notfound-err` already borrows, rather than introducing a new one. Buttons are
@@ -318,9 +325,13 @@ Adding one is described in `_includes/icons/LICENSE.md`.
 They are reserved for brand marks and the feed icon, where a pictogram is recognised
 faster than the word. Directional and action links use text and arrows instead.
 
-`spade.svg` is the one exception to all of the above: it is original artwork, not Font
-Awesome. A spade is Pro-only upstream, and redistributing a Pro icon from a public
-repository is not allowed even with a valid Pro licence.
+`pi.svg` is the one exception to all of the above: it is original artwork, not Font
+Awesome. It is drawn rather than typed because `U+03C0` is missing from every one of the
+site's subset webfonts, so the character would fall back to whatever the system had. The
+card suits on `/blackjack/` are original for the same class of reason, but live as path
+data inside `assets/js/blackjack.js` — a spade and a club are Pro-only upstream, and
+redistributing a Pro icon from a public repository is not allowed even with a valid Pro
+licence.
 
 ## Social links
 

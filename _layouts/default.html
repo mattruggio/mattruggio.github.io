@@ -34,8 +34,13 @@
     _plugins/exclude_archives_from_sitemap.rb drops these same pages from
     sitemap.xml. The two belong together: a URL that is both submitted in a
     sitemap and marked noindex is reported by Search Console as an error.
+
+    `noindex: true` in front matter opts a single page in to the same treatment.
+    /blackjack/ uses it: an easter egg reachable only from the pi in the footer
+    stops being one the moment it turns up in a site: search. That page pairs it
+    with `sitemap: false` for the reason above.
   {%- endcomment -%}
-  {%- if page.type == 'tag' %}
+  {%- if page.type == 'tag' or page.noindex %}
   <meta name="robots" content="noindex, follow" />
   {%- endif %}
   {% seo %}
