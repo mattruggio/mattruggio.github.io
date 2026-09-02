@@ -90,7 +90,7 @@ exclude:
   - script
   - .cache
 
-# Social links (optional — fill in as desired)
+# Social links (optional, fill in as desired)
 github_username: mattruggio
 
 # Paste your LinkedIn profile URL here to show the link on the home page.

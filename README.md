@@ -75,7 +75,7 @@ last_modified_at: 2026-09-15
 
 It feeds `dateModified` in the post's JSON-LD and `lastmod` in `sitemap.xml`, both of
 which otherwise report the original publication date forever. Set it by hand and only for
-revisions that change what the post *says* — a typo fix is not worth re-dating, and a
+revisions that change what the post *says*: a typo fix is not worth re-dating, and a
 sitemap that claims everything changed recently tells a crawler nothing.
 
 This is deliberately manual. The `jekyll-last-modified-at` plugin derives the date from
@@ -84,7 +84,7 @@ read a commit date that isn't there and publish a wrong one.
 
 ### Social sharing cards
 
-Cards are generated ahead of time and checked in — Jekyll has no image pipeline. The
+Cards are generated ahead of time and checked in, since Jekyll has no image pipeline. The
 generator matches the site's palette and typeface:
 
 ```bash
@@ -120,8 +120,25 @@ the hard way:
 
 Style diagrams with the palette variables (`var(--green)`, `var(--bg-card)`, `var(--border)`,
 `var(--muted)`) so they track the theme for free. Keep diagram titles at `h3` size or smaller
-and use `<p>` rather than a heading element — a diagram should never outrank a real heading
+and use `<p>` rather than a heading element: a diagram should never outrank a real heading
 or inject entries into the document outline.
+
+### Punctuation
+
+**No em dashes anywhere in this repository**, including prose, code comments, and rendered
+UI. Use a colon where the second half explains the first, parentheses or commas for an
+aside, and a full stop where the two halves are really separate sentences.
+
+Where a dash was doing layout work rather than grammar, such as between a post's date and
+its reading time, use the `.meta-row` class instead. It draws a real vertical rule between
+items, which says "separate fields" rather than implying the two are one sentence.
+
+Check before committing:
+
+```bash
+grep -rn '—\|&mdash;' --include=*.html --include=*.md --include=*.yml --include=*.css . \
+  | grep -v '^./_site'
+```
 
 ### Reading time
 
@@ -146,7 +163,7 @@ with a dated filename.
 ### Tags
 
 Tag pages are generated automatically by [jekyll-archives][archives]. **Adding a tag to a
-post's front matter is the only step** — there is no stub file to create, and removing the
+post's front matter is the only step**: there is no stub file to create, and removing the
 last post carrying a tag removes its page on the next build.
 
 Each tag gets an archive at `/tags/:name/`, and `tags.html` lists all of them at `/tags/`,
@@ -182,7 +199,7 @@ doing either one alone is worse than doing neither.
 
 ## Adding a project
 
-Projects have no pages of their own — they render as cards in the Projects column on the
+Projects have no pages of their own: they render as cards in the Projects column on the
 home page. Add an entry to `_data/projects.yml`:
 
 ```yaml
@@ -196,7 +213,7 @@ home page. Add an entry to `_data/projects.yml`:
 ```
 
 Cards render in the order they appear in the file. Both the title and the `image` thumbnail
-link to `site`, so there is no separate call-to-action link — a third anchor pointing at the
+link to `site`, so there is no separate call-to-action link: a third anchor pointing at the
 same URL would say nothing the title has not already said. The links row carries only
 `[ source ]`, and appears only when `repo` is set.
 
@@ -245,8 +262,8 @@ Pages build. The same caveat applies to `jekyll-archives`.
 ## Code blocks
 
 Fenced blocks are highlighted by Rouge. The theme lives at the bottom of
-`assets/css/main.css` and assigns hues **by role** — keyword, string, type, function,
-variable — rather than per language, so a token means the same thing everywhere. When
+`assets/css/main.css` and assigns hues **by role** (keyword, string, type, function,
+variable) rather than per language, so a token means the same thing everywhere. When
 adding a Rouge class, put it in the group it belongs to instead of picking a new colour.
 
 `_drafts/syntax-test.md` renders Ruby, Go, JavaScript, C#, shell, YAML, and diff samples
@@ -333,7 +350,7 @@ licensing and how to regenerate the files.
 ## Icons
 
 Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
-rather than loaded as an icon font — the full release is 6.5 MB and the eight icons in
+rather than loaded as an icon font: the full release is 6.5 MB and the eight icons in
 use total under 5 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
 
@@ -344,7 +361,7 @@ faster than the word. Directional and action links use text and arrows instead.
 Awesome. It is drawn rather than typed because `U+03C0` is missing from every one of the
 site's subset webfonts, so the character would fall back to whatever the system had. The
 card suits on `/blackjack/` are original for the same class of reason, but live as path
-data inside `assets/js/blackjack.js` — a spade and a club are Pro-only upstream, and
+data inside `assets/js/blackjack.js`: a spade and a club are Pro-only upstream, and
 redistributing a Pro icon from a public repository is not allowed even with a valid Pro
 licence.
 
@@ -361,7 +378,7 @@ youtube_url: "https://music.youtube.com/@mattruggio"
 If either value is left empty the link is simply not rendered, so nothing breaks.
 
 The YouTube link is labelled `music` rather than `youtube`. The icon already identifies the
-platform, so the label is free to describe what's actually there — playlists rather than
+platform, so the label is free to describe what's actually there: playlists rather than
 videos, which is what "youtube" would imply.
 
 The footer carries a `source` link to this repository, from `repo_url`:
@@ -371,14 +388,14 @@ repo_url: "https://github.com/mattruggio/mattruggio.github.io"
 ```
 
 It is kept separate from `github_username` because it points at the site's own source
-rather than at the profile. Empty it while the repository is private — a public link into
-a private repo 404s for every visitor — and note that it only reads as an invitation
+rather than at the profile. Empty it while the repository is private (a public link into
+a private repo 404s for every visitor), and note that it only reads as an invitation
 because `LICENSE` exists. Without one, it points at code nobody is permitted to reuse.
 
 ### sameAs (structured data)
 
 A separate `social:` block in `_config.yml` feeds jekyll-seo-tag, which emits the URLs as
-schema.org `sameAs` — the documented way to tell a search engine that these profiles are the
+schema.org `sameAs`, the documented way to tell a search engine that these profiles are the
 same entity rather than four accounts that happen to share a name.
 
 **These URLs are duplicated,** because Jekyll does not interpolate values inside `_config.yml`.
@@ -417,7 +434,7 @@ bundle exec jekyll build
 grep -o '<script type="application/ld+json">.*</script>' _site/index.html
 ```
 
-Do not list a profile here that is empty or abandoned — an entity link to a dead account is
+Do not list a profile here that is empty or abandoned: an entity link to a dead account is
 worse than no link.
 
 ## Search Console
@@ -429,7 +446,7 @@ and `www`, and every subdomain in one place, and it cannot be broken by a templa
 `_config.yml` if that is ever preferred, but it verifies less and is easier to lose.
 
 Submit `https://rugg.io/sitemap.xml` there once verified. It lists posts, the home page,
-and `/tags/` only — see the Tags section for why the individual tag archives are excluded.
+and `/tags/` only. See the Tags section for why the individual tag archives are excluded.
 
 [gsc]: https://search.google.com/search-console
 
@@ -449,7 +466,7 @@ The site is served from the apex domain `rugg.io`. Two things make that work:
    `_site/` on every build, and GitHub Pages reads it to set the custom domain. **Deleting
    it unsets the domain**, so leave it in place.
 2. `url:` in `_config.yml`, which must match. Canonical tags, Open Graph URLs, the
-   sitemap, and the feed are all built from it — DNS alone is not enough.
+   sitemap, and the feed are all built from it. DNS alone is not enough.
 
 ### DNS records
 
@@ -467,7 +484,7 @@ Apex domains cannot use a `CNAME` record, so they point at GitHub's Pages IPs di
 | AAAA | `@`  | `2606:50c0:8003::153` |
 | CNAME | `www` | `mattruggio.github.io.` |
 
-All four A records are needed — they are redundant endpoints, not alternatives. The AAAA
+All four A records are needed: they are redundant endpoints, not alternatives. The AAAA
 records add IPv6 and are optional but recommended. The `www` record is optional; with it,
 GitHub redirects `www.rugg.io` to the apex automatically.
 
@@ -487,10 +504,10 @@ option of using `rugg.io` itself as a landing page for several properties.
 
 Split deliberately, because the two halves of this repository want different answers:
 
-- **Code** — layouts, includes, `assets/css/main.css`, `script/`, configuration — is
+- **Code** (layouts, includes, `assets/css/main.css`, `script/`, configuration) is
   [MIT](LICENSE). Reuse the theme freely.
-- **Writing and images** — `_posts/`, `_drafts/`, the bio copy in `index.md`, and
-  `assets/images/` — are all rights reserved. Linking and short quotes with attribution
+- **Writing and images** (`_posts/`, `_drafts/`, the bio copy in `index.md`, and
+  `assets/images/`) are all rights reserved. Linking and short quotes with attribution
   are explicitly fine; full republication needs a quick ask.
 
 A single MIT file covering the whole repository would license away the essays, which is

@@ -2,7 +2,7 @@ The SVGs in this directory are vendored from Font Awesome Free 6.7.2, with one
 exception noted below.
 
 - Source: https://github.com/FortAwesome/Font-Awesome
-- Icons: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+- Icons: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
 - Copyright 2024 Fonticons, Inc.
 
 Only the artwork is vendored, not the icon font or its CSS. Each file has had
@@ -24,5 +24,5 @@ valid Pro license.
 
 To add an icon, copy the `<path>` and `viewBox` from the upstream SVG into a
 new file here following the same shape, then `{% include icons/name.svg %}`.
-Save the file with no trailing newline — Liquid emits it verbatim, and it
+Save the file with no trailing newline: Liquid emits it verbatim, and it
 collapses into a word space next to the label.

@@ -1,9 +1,9 @@
 The woff2 files in this directory are self-hosted copies of open source fonts.
 
-- **IBM Plex Sans** and **IBM Plex Mono** — Copyright IBM Corp.
-  SIL Open Font License 1.1 — https://github.com/IBM/plex
-- **VT323** — Copyright The VT323 Project Authors, Peter Hull.
-  SIL Open Font License 1.1 — https://github.com/phoikoi/VT323
+- **IBM Plex Sans** and **IBM Plex Mono**: Copyright IBM Corp.
+  SIL Open Font License 1.1, https://github.com/IBM/plex
+- **VT323**: Copyright The VT323 Project Authors, Peter Hull.
+  SIL Open Font License 1.1, https://github.com/phoikoi/VT323
 
 The SIL OFL explicitly permits redistribution and web embedding. Only the font
 binaries are vendored; the `@font-face` declarations live at the top of

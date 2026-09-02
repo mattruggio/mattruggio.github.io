@@ -41,9 +41,8 @@ layout: default
         {% for post in site.posts %}
         <li class="post-list-item">
           <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          <p class="post-meta">
+          <p class="post-meta meta-row">
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-            &mdash;
             {% include read-time.html post=post %}
           </p>
           {% if post.description %}

@@ -2,11 +2,11 @@
 
 The `LICENSE` file at the repository root is MIT, and it covers the **code** in this
 repository: layouts, includes, stylesheets, scripts, and configuration. Take the terminal
-theme and build your own site with it — that is what it is there for.
+theme and build your own site with it. That is what it is there for.
 
 It does **not** cover the writing.
 
-## Prose and images — all rights reserved
+## Prose and images: all rights reserved
 
 Copyright (c) 2026 Matt Ruggio.
 

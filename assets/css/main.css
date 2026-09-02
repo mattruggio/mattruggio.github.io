@@ -100,8 +100,8 @@ body::after {
   z-index: 1;
 }
 
-/* Amber marks anything interactive; green is reserved for the site's own voice
-   — headings, prompts, the cursor, the whoami terms. The split matters most on
+/* Amber marks anything interactive; green is reserved for the site's own voice:
+   headings, prompts, the cursor, and the whoami terms. The split matters most on
    the home page, where the whoami list sits directly above the links row: when
    both were green the labels read as clickable and the links did not. Hover
    hands a link the structural colour, so the response is identical everywhere.
@@ -113,7 +113,7 @@ a {
   transition: color 0.15s;
 }
 /* Links inside prose signal hover with an underline, since colour alone is a
-   weak cue in a paragraph. Chrome links — brackets, arrows, titles — signal
+   weak cue in a paragraph. Chrome links (brackets, arrows, titles) signal
    with colour instead: they are already set apart by font and colour, and an
    underline would run through the gaps their brackets, icons, and arrows sit
    in, breaking into disconnected segments. */
@@ -132,7 +132,7 @@ a.tag:hover,
 
 /* Vendored Font Awesome artwork, inlined rather than loaded as an icon font so
    it inherits currentColor and costs no extra request. See
-   _includes/icons/LICENSE.md. Width is left to the viewBox — none of these
+   _includes/icons/LICENSE.md. Width is left to the viewBox: none of these
    icons are square, and forcing one letterboxes the artwork, padding the gap
    to the label with dead space. The gap is one monospace cell, so the icon
    sits on the same rhythm as the surrounding characters. */
@@ -351,7 +351,7 @@ main { flex: 1; }
   margin: 0;
 }
 
-/* ── Home — intro ───────────────────────────────────── */
+/* ── Home / intro ───────────────────────────────────── */
 .home-intro {
   position: relative;
   z-index: 2;
@@ -371,7 +371,7 @@ main { flex: 1; }
 
 .home-intro p:last-of-type { margin-bottom: 0.75rem; }
 
-/* Structured `whoami` output — scoped so the post glossary keeps its own dl styling. */
+/* Structured `whoami` output, scoped so the post glossary keeps its own dl styling. */
 .home-intro dl {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -404,7 +404,7 @@ main { flex: 1; }
 .home-links a::before { content: '[ '; }
 .home-links a::after  { content: ' ]'; }
 
-/* ── Home — two-column body ─────────────────────────── */
+/* ── Home / two-column body ─────────────────────────── */
 .home-columns {
   display: grid;
   grid-template-columns: 3fr 2fr;
@@ -445,7 +445,7 @@ main { flex: 1; }
   gap: 0.9rem;
 }
 
-/* ── Home — post list ───────────────────────────────── */
+/* ── Home / post list ───────────────────────────────── */
 .post-list { list-style: none; margin: 0; padding: 0; }
 
 .post-list-item,
@@ -480,6 +480,23 @@ main { flex: 1; }
   font-size: 0.82rem;
   color: var(--muted);
   margin-bottom: 0.5rem;
+}
+
+/* Metadata rows divide their items with a drawn rule instead of punctuation. A
+   dash between a date and a reading time reads as prose, as though the two were
+   one sentence; a rule reads as chrome and says "separate fields" without
+   spending a character. Every item after the first draws its own left edge, so
+   the row takes any number of items without the markup carrying separators. */
+.meta-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.meta-row > * + * {
+  border-left: 1px solid var(--border);
+  padding-left: 0.7rem;
 }
 
 .tag-row {
@@ -615,7 +632,7 @@ a.tag:hover {
 }
 
 /* Inline diagrams from _includes/diagrams. Built as HTML rather than SVG so the
-   type comes from the page's own scale and wraps at any width — an SVG scales
+   type comes from the page's own scale and wraps at any width: an SVG scales
    as a single unit, so a size that reads correctly on desktop is shrunk to
    roughly half that on a phone. Titles are held at h3 size so a diagram never
    outranks a real heading. */
@@ -731,8 +748,8 @@ a.tag:hover {
 
 /* Mirrors .header-inner deliberately: content at one end, a single mark at the
    other. The footer used to be centred, which made it the only centred block on
-   a site that is left-aligned everywhere else, and left the pi nowhere to sit —
-   pinned to the right it collided with the copyright line as soon as that line
+   a site that is left-aligned everywhere else, and left the pi nowhere to sit.
+   Pinned to the right it collided with the copyright line as soon as that line
    grew long enough to reach it. As flex siblings the two cannot overlap at any
    width, so this needs no breakpoint and no magic number. */
 .footer-inner {
@@ -746,7 +763,7 @@ a.tag:hover {
 .footer-inner p { margin: 0; }
 
 /* The easter egg: a pi in the corner, after The Net. It deliberately breaks the
-   rule that amber means "interactive" — a thing meant to be stumbled upon cannot
+   rule that amber means "interactive": a thing meant to be stumbled upon cannot
    advertise itself. Dimming --muted rather than inventing a colour keeps the
    palette closed, and hover restores the usual green to repay whoever went
    looking. The padding buys a tap target a 15px glyph could not; the negative
@@ -822,7 +839,7 @@ a.tag:hover {
 
 /* Colour is left to the base rules: a title that links takes the amber every
    link takes, and a title with no site behind it stays the heading green. Two
-   cards can therefore differ here, which is the point — the colour says whether
+   cards can therefore differ here, which is the point: the colour says whether
    the card leads anywhere rather than how it happens to be styled. */
 .project-title {
   font-size: 1.05rem;
