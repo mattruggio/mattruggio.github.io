@@ -123,6 +123,20 @@ Style diagrams with the palette variables (`var(--green)`, `var(--bg-card)`, `va
 and use `<p>` rather than a heading element — a diagram should never outrank a real heading
 or inject entries into the document outline.
 
+### Reading time
+
+Every post shows an estimated reading time, both on the post itself and in the listings on
+the home page and tag archives. It is computed at build time from the post's own content,
+so **there is nothing to set in front matter.**
+
+The estimate assumes 200 words per minute and rounds to the nearest minute. That figure is
+deliberately conservative: over-estimating is the safer error, since a reader who finishes
+early is never disappointed.
+
+**This number is only honest because these posts are prose.** Reading time is meaningless
+for code, which nobody reads top-to-bottom at a fixed rate, so a code-heavy post would need
+`_includes/read-time.html` reconsidered rather than merely retuned.
+
 ### Drafts
 
 Work-in-progress posts go in `_drafts/` with no date in the filename (e.g.
@@ -203,6 +217,7 @@ _drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
 _layouts/              page templates (default, home, post, tag)
 _includes/             header, footer, analytics, and Person schema partials
+_includes/read-time.html  estimated reading time, shown on posts and listings
 _includes/icons/       inlined Font Awesome SVGs (see its LICENSE.md)
 _includes/diagrams/    post diagrams, built as HTML and themed via CSS variables
 _plugins/              build-time Ruby hooks (see below)

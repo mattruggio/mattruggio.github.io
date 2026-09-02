@@ -1,0 +1,21 @@
+{%- comment -%}
+Estimated reading time for a post. Call as:
+
+  {% include read-time.html post=post %}   (in a listing loop)
+  {% include read-time.html post=page %}   (on the post itself)
+
+Rounds to the nearest minute rather than flooring, so a 2,323-word post reads
+"12 min" instead of "11 min". The `plus: 100` is half of the words-per-minute
+figure, which is how you round to nearest using Liquid's integer division.
+
+200 wpm is deliberately conservative. Over-estimating is the safer error: a
+reader who finishes early is not disappointed.
+
+This number is only honest because the posts here are prose. Reading time is
+meaningless for code, which nobody reads top-to-bottom at a steady rate, so
+revisit this if a code-heavy post ever ships.
+{%- endcomment -%}
+{%- assign words = include.post.content | strip_html | number_of_words -%}
+{%- assign minutes = words | plus: 100 | divided_by: 200 -%}
+{%- if minutes < 1 -%}{%- assign minutes = 1 -%}{%- endif -%}
+<span class="read-time">~{{ minutes }} min read</span>

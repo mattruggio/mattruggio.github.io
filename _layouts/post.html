@@ -6,6 +6,8 @@ layout: default
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      &mdash;
+      {% include read-time.html post=page %}
     </p>
     {% if page.tags.size > 0 %}
     <p class="tag-row">
