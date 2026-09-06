@@ -1,6 +1,6 @@
 ---
 title: "How to Draw Software Cartoons"
-date: 2026-09-02
+date: 2026-09-06
 tags: [architecture, documentation, diagrams]
 description: "A start-to-finish playbook for drawing a software diagram: pick the audience, narrow it to one message, choose a notation, label everything, and write the catalog underneath."
 image:
