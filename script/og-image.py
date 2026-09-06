@@ -12,6 +12,11 @@ Usage:
     python3 script/og-image.py --title "Necessary Is Not Strategic" \
                                --out assets/images/og-necessary-is-not-strategic.png
 
+    # A card whose title needs disambiguating in a feed
+    python3 script/og-image.py --title "How to Draw Software Cartoons" \
+                               --blurb "A formula for lightweight architecture documentation" \
+                               --out assets/images/og-how-to-draw-software-cartoons.png
+
     # Favicons (only needed if the mark ever changes)
     python3 script/og-image.py --favicons
 
@@ -96,7 +101,7 @@ def scanlines(img):
     return Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
 
 
-def card(title=None, subtitle="rugg.io"):
+def card(title=None, blurb=None, subtitle="rugg.io"):
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
 
@@ -123,9 +128,26 @@ def card(title=None, subtitle="rugg.io"):
                      "behind technical decisions.", font, max_width, draw)
 
     line_height = int(size * 1.28)
-    top = (HEIGHT - line_height * len(lines)) // 2 + 20
+
+    # A blurb sits under the title for posts whose title alone could be read as
+    # being about something else. It is measured into the same block as the
+    # title so the pair stays optically centred rather than the title drifting
+    # up by half the blurb's height.
+    blurb_font, blurb_lines, blurb_height, BLURB_GAP = None, [], 0, 26
+    if blurb:
+        blurb_font = load("Regular", 30)
+        blurb_lines = wrap(blurb, blurb_font, max_width, draw)[:2]
+        blurb_height = BLURB_GAP + int(30 * 1.4) * len(blurb_lines)
+
+    top = (HEIGHT - (line_height * len(lines) + blurb_height)) // 2 + 20
     for i, line in enumerate(lines):
         draw.text((PAD, top + i * line_height), line, font=font, fill=TEXT)
+
+    if blurb_lines:
+        blurb_top = top + line_height * len(lines) + BLURB_GAP
+        for i, line in enumerate(blurb_lines):
+            draw.text((PAD, blurb_top + i * int(30 * 1.4)), line,
+                      font=blurb_font, fill=MUTED)
 
     footer_font = load("Regular", 30)
     draw.text((PAD, HEIGHT - PAD - 6), subtitle, font=footer_font, fill=MUTED)
@@ -161,6 +183,8 @@ def favicons():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--title", help="Post title to render on the card")
+    parser.add_argument("--blurb", help="Optional line under the title, for titles "
+                                        "that could be misread out of context")
     parser.add_argument("--out", help="Output path, relative to the repo root")
     parser.add_argument("--default", action="store_true",
                         help="Write the site-wide default card")
@@ -178,7 +202,7 @@ def main():
         if not args.out:
             parser.error("--title requires --out")
         path = ROOT / args.out
-        card(args.title).save(path, optimize=True)
+        card(args.title, blurb=args.blurb).save(path, optimize=True)
         print(f"wrote {path.relative_to(ROOT)}")
     if not (args.favicons or args.default or args.title):
         parser.print_help()

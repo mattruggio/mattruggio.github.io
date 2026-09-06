@@ -631,6 +631,100 @@ a.tag:hover {
   border-radius: var(--radius);
 }
 
+/* Diagrams brought in from elsewhere arrive on white, so they sit on the page
+   as lit panels rather than inheriting the dark surface. Padding keeps the
+   drawing off its own border, and the caption is mono and muted so it reads as
+   an annotation of the figure rather than as body copy that lost its way. */
+.post-content figure {
+  margin: 2rem 0;
+}
+
+.post-content figure img {
+  display: block;
+  background: #fff;
+  padding: 0.75rem;
+}
+
+.post-content figcaption {
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Markdown lists arrive unstyled, the same way tables did. The browser indents
+   them by an arbitrary amount that lines up with nothing else on the page, and
+   draws the marker in the body colour so it reads as punctuation rather than as
+   structure. Markers are green because they label rather than narrate, which is
+   the split the table headers and section headings already use. Items are
+   spaced enough to separate but not enough to read as separate paragraphs. */
+.post-content ul,
+.post-content ol {
+  margin: 1.5rem 0;
+  padding-left: 1.35rem;
+}
+
+.post-content li {
+  margin-bottom: 0.65rem;
+  padding-left: 0.35rem;
+}
+
+.post-content li:last-child {
+  margin-bottom: 0;
+}
+
+.post-content li::marker {
+  color: var(--green);
+}
+
+/* Numbers are mono so an enumerated list reads as counted rather than merely
+   bulleted, which matters when a heading has promised a count. */
+.post-content ol > li::marker {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Markdown tables arrive with no styling of their own. The browser default
+   centres header cells, collapses everything against the text baseline, and
+   draws no rules, which reads as a rendering fault on a dark background rather
+   than as a table. Rows are separated by a rule instead of boxed in a grid,
+   which is quieter and matches how the rest of the page divides things. */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.post-content th,
+.post-content td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.65rem 1rem 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Header cells are mono and green because they label rather than narrate, the
+   same split the whoami block and section headings already use. */
+.post-content th {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--green);
+  padding-bottom: 0.5rem;
+}
+
+.post-content td:last-child,
+.post-content th:last-child {
+  padding-right: 0;
+}
+
+.post-content tbody tr:last-child td {
+  border-bottom: 0;
+}
+
 /* Inline diagrams from _includes/diagrams. Built as HTML rather than SVG so the
    type comes from the page's own scale and wraps at any width: an SVG scales
    as a single unit, so a size that reads correctly on desktop is shrunk to
@@ -639,6 +733,29 @@ a.tag:hover {
 .diagram {
   margin: 2rem 0;
   padding: 0;
+}
+
+/* The flattening diagram is SVG rather than HTML because it is geometry, not
+   labelled boxes: an isometric cube has no sensible expression in flow layout.
+   It carries no text at all, so the type-scaling objection above does not bite.
+   Capped at roughly a third of the measure: wide enough that the kerf between
+   the two halves is legible, which is the whole point of the drawing, and
+   narrow enough that it still reads as an aside to the paragraph above it. */
+.diagram.flatten svg {
+  display: block;
+  width: 100%;
+  max-width: 15rem;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* The caption is centred under a centred drawing, and allowed to run wider than
+   the drawing itself: matching its 15rem would break two words to a line. */
+.diagram.flatten figcaption {
+  max-width: 26rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .level {

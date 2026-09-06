@@ -12,7 +12,13 @@
   {%- endcomment -%}
   <link rel="preload" href="{{ '/assets/fonts/ibm-plex-sans-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="{{ '/assets/fonts/ibm-plex-mono-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}" />
+  {%- comment -%}
+    The query string busts the browser cache on every build. Without it a
+    stylesheet change is invisible to anyone who has already loaded the site,
+    including while developing: the CSS was edited four times during one round
+    of sizing a diagram, and the browser served the first version throughout.
+  {%- endcomment -%}
   {%- comment -%}
     Optional per-page assets. Anything only one page needs belongs here rather
     than in main.css, which every page downloads and parses.

@@ -8,6 +8,9 @@ vendor/
 # Fonts downloaded by script/og-image.py for card generation.
 .cache/
 
+# Bytecode, written whenever script/og-image.py is imported rather than run.
+__pycache__/
+
 # Scratch space for files being reviewed before they are committed.
 tmp/
 

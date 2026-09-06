@@ -89,12 +89,28 @@ generator matches the site's palette and typeface:
 
 ```bash
 python3 script/og-image.py --title "Your Post Title" \
+                           --blurb "One line saying what the post is about" \
                            --out assets/images/og-your-post-slug.png
 ```
 
 It needs Pillow (`pip install Pillow`) and downloads IBM Plex Mono into `.cache/fonts/`
 on first run. `--default` rewrites the site-wide card and `--favicons` rewrites
 `favicon.ico` and the Apple touch icon; neither is needed for a normal post.
+
+**Every post card carries a blurb, so give new ones one too.** The card is the only
+place a title appears with no surrounding context: in a Slack or LinkedIn preview
+there is no excerpt and no tags to lean on, so a title like "How to Draw Software
+Cartoons" reads as being about comic strips. The blurb is the fix. Keep it to **57
+characters**, which is one line at the card's 30px mono; longer wraps to two and
+starts competing with the title. The front matter `description` is far too long to
+reuse here, so write a short one by hand. The current set:
+
+| Post | Blurb |
+| --- | --- |
+| Necessary Is Not Strategic | On competitive advantage, parity, and build versus buy |
+| Architecture at Three Levels | Enterprise, system, and software, and how they align |
+| Sprinkling in Domain-Driven Design | Ubiquitous language, isolation, and bounded context |
+| How to Draw Software Cartoons | A formula for lightweight architecture documentation |
 
 Note that jekyll-seo-tag reads `image` from the **page**, never from a top-level site
 key. The default card is therefore applied through a `defaults` block in `_config.yml`
@@ -122,6 +138,37 @@ Style diagrams with the palette variables (`var(--green)`, `var(--bg-card)`, `va
 `var(--muted)`) so they track the theme for free. Keep diagram titles at `h3` size or smaller
 and use `<p>` rather than a heading element: a diagram should never outrank a real heading
 or inject entries into the document outline.
+
+**The one exception is geometry.** `flattening-a-system.html` is an *inline* `<svg>`, because
+an isometric cube has no honest expression in flow layout: boxes-and-labels is what HTML is
+good at, and this drawing is neither. Both objections above are weaker for that case. The
+type-scaling one barely applies to a figure carrying two short labels, and the isolated
+document one does not apply at all, since an inline SVG sits in the page and resolves
+`var(--green)` and `var(--font-mono)` exactly like any other element. An SVG in an `<img>`
+still cannot, so keep it inline.
+
+Its geometry is generated rather than hand-written. Isometric points are easy to get subtly
+wrong, and the first attempt drew the cube's vertical edge running up from the centre of the
+hexagon instead of down, which renders as a hollow box rather than a solid. If you need to
+change the cut position or the extraction offset, recompute the polygons from the projection
+rather than nudging coordinates by eye.
+
+Two things there are load-bearing and look like styling. Faces are painted opaque before they
+are tinted, because translucent fills let the far half of the cube show its edges through the
+near half and the solid collapses into a set of overlapping planes. And the polygons are
+emitted strictly back to front, which is the only reason the slice reads as half extracted:
+the near half of the cube has to paint over the buried portion of it.
+
+To preview one without a browser, substitute the custom properties for literals and render
+it, since `rsvg-convert` has no page context to resolve them from:
+
+```bash
+sed -e 's/var(--text)/#c8c8c8/g; s/var(--green-dim)/#1a7a08/g; s/var(--green)/#39ff14/g' \
+    -e 's/var(--muted)/#909090/g; s/var(--font-mono)/monospace/g' \
+    _includes/diagrams/flattening-a-system.html \
+  | sed 's/<figure[^>]*>//; s/<\/figure>//' \
+  | rsvg-convert -w 640 -b '#0d0d0d' -o /tmp/diagram.png
+```
 
 ### Punctuation
 
