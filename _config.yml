@@ -79,6 +79,11 @@ defaults:
       layout: "post"
 
 # Exclude from processing
+# Kept out of the build, not merely out of git. `tmp` is scratch space and is
+# gitignored, but gitignore alone is one `git add -A` away from failing: three
+# saved web pages were committed that way once and would have been served from
+# the site root. Excluding it here means Jekyll will not build such a file even
+# if it does get committed.
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -88,6 +93,7 @@ exclude:
   - .gitignore
   - vendor
   - script
+  - tmp
   - .cache
 
 # Social links (optional, fill in as desired)

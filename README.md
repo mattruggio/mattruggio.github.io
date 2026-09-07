@@ -242,6 +242,14 @@ The two halves ship together on purpose. A URL that is listed in a sitemap *and*
 `noindex` is reported by Search Console as the error "Submitted URL marked 'noindex'", so
 doing either one alone is worse than doing neither.
 
+**Search Console will report these, and that is the design working.** Tag archives and
+`/blackjack/` show up under "Excluded by `noindex` tag", and a new tag creates a new
+excluded URL, which can arrive as a "new reasons preventing your pages from being indexed"
+email. Separately, "Page with redirect" covers `http://`, `www.`, and
+`mattruggio.github.io` URLs, all of which 301 to the canonical `https://rugg.io` origin.
+Neither needs fixing. Worth confirming the count still matches the pages meant to be
+excluded before dismissing the notice.
+
 [archives]: https://github.com/jekyll/jekyll-archives
 
 ## Adding a project
