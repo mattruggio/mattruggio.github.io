@@ -8,37 +8,11 @@ layout: default
     <p class="post-meta">{{ page.posts.size }} post{% unless page.posts.size == 1 %}s{% endunless %}</p>
   </header>
 
-  <ul class="post-list">
-    {% for post in page.posts %}
-    <li class="post-list-item">
-      <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <p class="post-meta meta-row">
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-        {% include read-time.html post=post %}
-      </p>
-      {% if post.description %}
-      <p class="post-excerpt">{{ post.description }}</p>
-      {% elsif post.excerpt %}
-      <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
-      {% endif %}
-      {% if post.tags.size > 0 %}
-      <p class="tag-row">
-        {% for tag in post.tags %}
-        {% if tag == page.title %}
-        <span class="tag tag--current">{{ tag }}</span>
-        {% else %}
-        <a class="tag" href="{{ tag | slugify | prepend: '/tags/' | append: '/' | relative_url }}">{{ tag }}</a>
-        {% endif %}
-        {% endfor %}
-      </p>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
+  {% include post-list.html posts=page.posts current_tag=page.title %}
 
   <hr />
   <p class="tag-footer-links">
     <a class="arrow-link arrow-link--prev" href="{{ '/tags/' | relative_url }}">all tags</a>
-    <a class="arrow-link arrow-link--prev" href="{{ '/' | relative_url }}">back to all posts</a>
+    <a class="arrow-link arrow-link--prev" href="{{ '/articles/' | relative_url }}">all articles</a>
   </p>
 </div>

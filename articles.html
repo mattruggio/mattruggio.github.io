@@ -1,0 +1,24 @@
+---
+layout: default
+title: "Articles"
+permalink: /articles/
+description: "Every article on rugg.io, newest first: software architecture, domain modelling, documentation, and the occasional detour."
+---
+<div class="wrapper wrapper-post">
+  <header class="post-header">
+    <p class="post-meta prompt">ls -lt _posts/</p>
+    <h1 class="post-title">articles</h1>
+    <p class="post-meta">{{ site.posts.size }} post{% unless site.posts.size == 1 %}s{% endunless %}</p>
+  </header>
+
+  {% include post-list.html posts=site.posts %}
+
+  {% if site.posts.size == 0 %}
+  <p class="text-muted prompt">No posts yet. Check back soon.</p>
+  {% endif %}
+
+  <hr />
+  <p>
+    <a class="arrow-link arrow-link--prev" href="{{ '/tags/' | relative_url }}">all tags</a>
+  </p>
+</div>

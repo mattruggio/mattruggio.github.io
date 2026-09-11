@@ -445,6 +445,12 @@ main { flex: 1; }
   gap: 0.9rem;
 }
 
+/* The link out to the full archive. Sits clear of the last post's tag row so it
+   reads as an action on the list rather than as part of the final entry. */
+.post-list-more {
+  margin-top: 1.6rem;
+}
+
 /* ── Home / post list ───────────────────────────────── */
 .post-list { list-style: none; margin: 0; padding: 0; }
 

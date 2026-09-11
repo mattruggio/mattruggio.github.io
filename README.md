@@ -302,12 +302,27 @@ script/og-image.py     social card and favicon generator
 404.html               terminal-styled not-found page
 blackjack.html         the blackjack table (see below)
 index.md               home page whoami block
-tags.html              index of every tag, linked from the writing heading
+articles.html          every post, newest first, at /articles/
+tags.html              index of every tag, linked from the articles heading
 ```
 
-The home page is the whole site: the `whoami` block, then writing and projects side by
-side. It has no nav bar, since the `~/mattruggio` hero acts as the header. Posts get a
-slim sticky header linking back home.
+The home page is a landing page rather than an archive: the `whoami` block, then writing
+and projects side by side. It has no nav bar, since the `~/mattruggio` hero acts as the
+header. Posts get a slim sticky header linking back home.
+
+**The articles column is capped at two posts.** It sits beside the projects column, so an
+uncapped list unbalances the two and pushes everything else off the screen. `/articles/`
+is the full index, linked both from the `articles` heading and from beneath the last entry.
+The cap is tuned against how much is in the projects column rather than chosen for its own
+sake: with one project, three entries leave roughly 330px of empty space beneath it and two
+leave roughly 130px. Raise it as projects are added.
+Anything that wants to send a reader to "all posts" should point at `/articles/`, not at
+`/`, which is why the back-links on posts, tag archives, and the tag index all do.
+
+A single post entry is rendered by `_includes/post-list.html` and shared by the home page,
+the articles index, and every tag archive. It was duplicated across two layouts before the
+articles page existed, and a third copy would have guaranteed drift. Pass `current_tag` to
+render that tag as static text rather than a link back to the page you are already on.
 
 **`_plugins/` runs only because the deploy workflow builds the site itself** with `bundle
 exec jekyll build`. The hosted GitHub Pages builder ignores custom plugins entirely, so
@@ -405,9 +420,16 @@ licensing and how to regenerate the files.
 ## Icons
 
 Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
-rather than loaded as an icon font: the full release is 6.5 MB and the eight icons in
-use total under 5 KB. They inherit `currentColor`, so hover states need no extra rules.
+rather than loaded as an icon font: the full release is 6.5 MB and the nine icons in
+use total under 6 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
+
+**Save them with no trailing newline.** An icon is included immediately before its label,
+so a newline at the end of the file becomes a text node between `</svg>` and the word,
+which renders as a literal space on top of the icon's own `margin-right`. The result is
+one icon in a row sitting at roughly double the gap of its neighbours, which looks like a
+CSS problem and is not one. Verify with `tail -c1 _includes/icons/name.svg | xxd -p`,
+which should print `3e` rather than `0a`.
 
 They are reserved for brand marks and the feed icon, where a pictogram is recognised
 faster than the word. Directional and action links use text and arrows instead.
