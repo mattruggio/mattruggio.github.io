@@ -43,12 +43,13 @@ layout: default
         this column sits beside projects, so an uncapped list unbalances the two
         and buries everything below it. /articles/ is the full index.
 
-        Two rather than three because there is currently one project to sit
-        beside. Measured at the 860px max width, three entries leave about
-        330px of dead space under the projects column and two leave about 130.
-        Raise it as projects are added; it is one number.
+        Three is tuned against what sits in the projects column rather than
+        chosen for its own sake. Measured at the 860px max width with two
+        project cards, three entries leave roughly 105px of space under
+        projects and two leave the articles column shorter than it. Revisit
+        the number whenever either column gains or loses an entry.
       {%- endcomment -%}
-      {% assign recent = site.posts | slice: 0, 2 %}
+      {% assign recent = site.posts | slice: 0, 3 %}
       {% include post-list.html posts=recent %}
 
       {% if site.posts.size > recent.size %}
@@ -63,14 +64,24 @@ layout: default
     </section>
 
     <section class="home-col">
-      <h2 class="section-heading">projects</h2>
+      <h2 class="section-heading">projects &amp; tools</h2>
 
       <ul class="project-list">
         {% for project in site.data.projects %}
+        {%- comment -%}
+          A card points at the best home the project has: its own site when it
+          has one, otherwise its repository. Thumbnail and title share that one
+          target, so the whole card behaves like the single link it looks like.
+
+          This is why there is no separate "source" row. A project with only a
+          repo used to render a clickable thumbnail nowhere and a plain-text
+          title, with its one real link stranded at the bottom of the card.
+        {%- endcomment -%}
+        {% assign target = project.site | default: project.repo %}
         <li class="project-item">
           {% if project.image %}
-          {% if project.site %}
-          <a href="{{ project.site }}" target="_blank" rel="noopener">
+          {% if target %}
+          <a href="{{ target }}" target="_blank" rel="noopener">
             <img class="project-thumb" src="{{ project.image | relative_url }}"
                  alt="{{ project.image_alt | default: project.title }}"
                  width="1200" height="630" />
@@ -82,8 +93,8 @@ layout: default
           {% endif %}
           {% endif %}
           <h3 class="project-title">
-            {% if project.site %}
-            <a href="{{ project.site }}" target="_blank" rel="noopener">{{ project.title }}</a>
+            {% if target %}
+            <a href="{{ target }}" target="_blank" rel="noopener">{{ project.title }}</a>
             {% else %}
             {{ project.title }}
             {% endif %}
@@ -94,11 +105,6 @@ layout: default
             {% for item in project.tech %}
             <span class="tag tag--static">{{ item }}</span>
             {% endfor %}
-          </p>
-          {% endif %}
-          {% if project.repo %}
-          <p class="project-links">
-            <a href="{{ project.repo }}" target="_blank" rel="noopener">{% include icons/code-branch.svg %}source</a>
           </p>
           {% endif %}
         </li>

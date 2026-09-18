@@ -121,7 +121,6 @@ a:hover { color: var(--green); text-decoration: underline; }
 
 .home-links a:hover,
 .section-link:hover,
-.project-links a:hover,
 .arrow-link:hover,
 .site-footer a:hover,
 .post-list-item .post-link:hover,
@@ -980,9 +979,6 @@ a.tag:hover {
 }
 
 .project-description { color: var(--muted); font-size: 0.94rem; margin-bottom: 0; }
-
-.project-links { font-family: var(--font-mono); margin: 0; font-size: 0.82rem; }
-.project-links a { margin-right: 1.25rem; }
 
 /* ── Definition lists (glossaries) ──────────────────── */
 dl { margin: 1.5rem 0; }

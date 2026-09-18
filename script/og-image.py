@@ -155,6 +155,52 @@ def card(title=None, blurb=None, subtitle="rugg.io"):
     return scanlines(img)
 
 
+def project_card(name, tagline, accent=GREEN, out=None):
+    """A thumbnail for a project card on the home page.
+
+    Deliberately not the same thing as a social card. These are rendered at
+    roughly 306px wide in a column, so everything has to survive a 4x
+    downscale, and the ~/mattruggio prompt and rugg.io footer would be noise
+    on a page that is already rugg.io.
+
+    The prompt treatment is the point. The site's whole identity is a terminal,
+    so a project reads as something you would invoke rather than as a logo on a
+    field. `accent` varies per project, which makes the set look like a series
+    rather than a template.
+    """
+    img = Image.new("RGB", (WIDTH, HEIGHT), BG)
+    draw = ImageDraw.Draw(img)
+
+    # Left rule, echoing the social cards and the whoami block.
+    draw.rectangle([0, 0, 7, HEIGHT], fill=accent)
+
+    x = PAD + 24
+    prompt_font = load("Bold", 116)
+    y = 196
+
+    # The ~/ is muted rather than amber. On the site header amber reads against
+    # a green name, but here the accent varies per project, and an amber accent
+    # would collapse the prompt and the name into one colour. Muted keeps the
+    # prompt as chrome and lets the name carry the identity in every case.
+    draw.text((x, y), "~/", font=prompt_font, fill=MUTED)
+    x2 = x + draw.textlength("~/", font=prompt_font)
+    draw.text((x2, y), name, font=prompt_font, fill=accent)
+    x3 = x2 + draw.textlength(name, font=prompt_font)
+    draw.rectangle([x3 + 18, y + 18, x3 + 18 + 44, y + 116], fill=accent)
+
+    tag_font = load("Regular", 50)
+    lines = wrap(tagline, tag_font, WIDTH - (PAD + 24) - PAD, draw)
+    for i, line in enumerate(lines[:2]):
+        draw.text((PAD + 24, 372 + i * 68), line, font=tag_font, fill=TEXT)
+
+    img = scanlines(img)
+    if out:
+        path = ROOT / out
+        img.save(path, optimize=True)
+        print(f"wrote {path.relative_to(ROOT)}")
+    return img
+
+
 def favicons():
     """A green terminal prompt on the site background.
 
@@ -189,6 +235,10 @@ def main():
     parser.add_argument("--default", action="store_true",
                         help="Write the site-wide default card")
     parser.add_argument("--favicons", action="store_true", help="Regenerate favicons")
+    parser.add_argument("--project", nargs=2, metavar=("NAME", "TAGLINE"),
+                        help="Render a home page project thumbnail")
+    parser.add_argument("--accent", default="green", choices=["green", "amber", "accent"],
+                        help="Accent colour for --project")
     args = parser.parse_args()
 
     if args.favicons:
@@ -198,13 +248,19 @@ def main():
         path.parent.mkdir(parents=True, exist_ok=True)
         card().save(path, optimize=True)
         print(f"wrote {path.relative_to(ROOT)}")
+    if args.project:
+        if not args.out:
+            parser.error("--project requires --out")
+        accents = {"green": GREEN, "amber": AMBER, "accent": (0, 212, 255)}
+        project_card(args.project[0], args.project[1],
+                     accent=accents[args.accent], out=args.out)
     if args.title:
         if not args.out:
             parser.error("--title requires --out")
         path = ROOT / args.out
         card(args.title, blurb=args.blurb).save(path, optimize=True)
         print(f"wrote {path.relative_to(ROOT)}")
-    if not (args.favicons or args.default or args.title):
+    if not (args.favicons or args.default or args.title or args.project):
         parser.print_help()
 
 

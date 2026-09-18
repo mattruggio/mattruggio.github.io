@@ -6,6 +6,13 @@
 - title: "RetroLive"
   description: "A multiplayer, retro-styled NBA manager sim. Like Oregon Trail for basketball fans."
   site: "https://retro.live"
-  image: "/assets/images/retro-live.png"
-  image_alt: "RetroLive: 2004-05 NBA Manager Sim"
+  image: "/assets/images/retro-live.jpg"
+  image_alt: "Three RetroLive founders rendered in NBA Live 2005 style in The Gin Mills jerseys, under a broadcast scoreboard reading Retro Live 2005"
   tech: [ruby, rails, simulation, multiplayer]
+
+- title: "hidshim"
+  description: "A proxy hid.dll that hides HID devices from a single Windows process, for old games whose input parsing cannot cope with modern peripherals."
+  repo: "https://github.com/mattruggio/hidshim"
+  image: "/assets/images/hidshim.jpg"
+  image_alt: "Two gamepads on a desk in front of a monitor running a basketball game, with a keyboard and mouse pushed aside behind them"
+  tech: [c, win32, directinput, hid]

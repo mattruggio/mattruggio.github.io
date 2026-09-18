@@ -267,14 +267,18 @@ home page. Add an entry to `_data/projects.yml`:
   tech: [ruby, cli]
 ```
 
-Cards render in the order they appear in the file. Both the title and the `image` thumbnail
-link to `site`, so there is no separate call-to-action link: a third anchor pointing at the
-same URL would say nothing the title has not already said. The links row carries only
-`[ source ]`, and appears only when `repo` is set.
+Cards render in the order they appear in the file. The title and the `image` thumbnail both
+link to the best home the project has: `site` when it is set, otherwise `repo`. Because the
+whole card already points at one place, there is no separate call-to-action link on it.
 
-Everything except `title` and `description` is optional. Omit `site` for private or
-login-only products, where sending a reader to a sign-in form would be a dead end: the title
-then renders as plain text and the thumbnail is left unlinked.
+That fallback is the reason the old `[ source ]` row is gone. It only ever appeared when
+`repo` was set, but the title and thumbnail only ever linked to `site`, so a project with a
+repository and no site rendered a dead thumbnail above a plain-text title with its one real
+link stranded at the bottom of the card.
+
+Everything except `title` and `description` is optional. Omit both `site` and `repo` for
+private or login-only products, where sending a reader to a sign-in form would be a dead
+end: the title then renders as plain text and the thumbnail is left unlinked.
 
 If the list ever outgrows a column, promoting these back into a collection with real
 project pages is the natural next step.
@@ -310,12 +314,13 @@ The home page is a landing page rather than an archive: the `whoami` block, then
 and projects side by side. It has no nav bar, since the `~/mattruggio` hero acts as the
 header. Posts get a slim sticky header linking back home.
 
-**The articles column is capped at two posts.** It sits beside the projects column, so an
+**The articles column is capped at three posts.** It sits beside the projects column, so an
 uncapped list unbalances the two and pushes everything else off the screen. `/articles/`
 is the full index, linked both from the `articles` heading and from beneath the last entry.
 The cap is tuned against how much is in the projects column rather than chosen for its own
-sake: with one project, three entries leave roughly 330px of empty space beneath it and two
-leave roughly 130px. Raise it as projects are added.
+sake: measured at the 860px max width against two illustrated project cards, three entries
+leave the columns within about 20px of each other. Revisit the number whenever either
+column gains or loses an entry.
 Anything that wants to send a reader to "all posts" should point at `/articles/`, not at
 `/`, which is why the back-links on posts, tag archives, and the tag index all do.
 
@@ -420,9 +425,41 @@ licensing and how to regenerate the files.
 ## Icons
 
 Icons are vendored Font Awesome artwork, inlined with `{% include icons/name.svg %}`
-rather than loaded as an icon font: the full release is 6.5 MB and the nine icons in
+rather than loaded as an icon font: the full release is 6.5 MB and the eight icons in
 use total under 6 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
+
+A project with artwork of its own should use it, and both current cards do: RetroLive
+crops the founders render from retro.live, and hidshim shows two gamepads in front of a
+running game with the keyboard pushed away behind them, which is what the tool does. A
+game and an input filter are both visual things, and a wordmark says less about either
+than a picture does.
+
+Crop to 1200x630 and draw a 7px accent rule down the left edge, amber for RetroLive and
+green for hidshim. That rule is the only thing holding the set together once the cards
+stop sharing one generated treatment, and it is why a photographic card and a generated
+one still read as siblings. Save photographs as JPEG, and rebuild them from pixel data
+rather than re-saving: that is what drops camera metadata, and the Part 1 desk photo
+arrived with GPS coordinates in its EXIF.
+
+For a project with no artwork of its own, the social card generator also produces a
+terminal-prompt thumbnail:
+
+```bash
+python3 script/og-image.py --project "name" "Short tagline" \
+                           --accent green --out assets/images/name.png
+```
+
+These are not social cards and deliberately do not look like them: no `~/mattruggio`, no
+`rugg.io` footer, since both are noise on a page that already is rugg.io. What they do
+carry is the prompt treatment, because the site's whole identity is a terminal and a
+project should read as something you would invoke. `--accent` varies per project so the
+set looks like a series rather than a template, and the `~/` is muted rather than amber
+so an amber accent does not collapse the prompt and the name into one colour.
+
+Keep the tagline under about 34 characters. These render at roughly 306px wide in the
+projects column, a quarter of their authored size, and anything longer wraps to a second
+line that is then too small to be worth reading.
 
 **Save them with no trailing newline.** An icon is included immediately before its label,
 so a newline at the end of the file becomes a text node between `</svg>` and the word,
