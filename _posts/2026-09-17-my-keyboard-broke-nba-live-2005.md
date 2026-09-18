@@ -92,10 +92,10 @@ The recipe from Part 1 did not transfer. SafeDisc startup failed until the game 
 ## Domain Language
 
 CPU Affinity
-: The set of logical processors Windows permits a process to run on. A child process inherits its parent's mask, which is how the pin survives SafeDiscShim relaunching the game.
+: The set of logical processors Windows permits a process to run on. A child process inherits its parent's mask at creation.
 
 DirectInput
-: The input API older Windows games use to discover controllers. It parses the report descriptor of every HID device on the machine before returning control to the application.
+: The input API Windows games used for controllers before XInput. It enumerates attached devices once when a process starts rather than rescanning, and parses the report descriptor of every HID device on the machine.
 
 HID Collection
 : One logical device inside a physical USB device. A single modern keyboard can present a dozen or more, covering keys, media controls, lighting, and vendor-defined interfaces.
@@ -104,7 +104,7 @@ KnownDLLs
 : A Windows registry key listing system libraries the loader always resolves from the system directory, ignoring the application folder. A library on this list cannot be proxied by dropping a file beside an executable.
 
 Report Descriptor
-: The structure a HID device uses to describe its own inputs and outputs to the operating system. Parsing these is where DirectInput corrupted its heap.
+: The structure a HID device uses to describe its own inputs and outputs to the operating system. A driver parses it to learn what reports the device will send and how to interpret their contents.
 
 ## Further Reading
 
