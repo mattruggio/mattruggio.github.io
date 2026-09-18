@@ -19,12 +19,12 @@ author:
 # That is the documented way to tell a search engine these profiles are all the
 # same entity, rather than four unrelated accounts that happen to share a name.
 #
-# Two behaviours worth knowing before editing this:
+# Two behaviors worth knowing before editing this:
 #
 #   1. It is emitted only on the home page and /about, because jekyll-seo-tag
 #      gates `links` on `homepage_or_about?`. Posts will not carry it.
 #   2. It attaches to the top-level WebSite entity, not to the nested Person.
-#      That is the gem's behaviour and is the conventional pattern; a Person
+#      That is the gem's behavior and is the conventional pattern; a Person
 #      with its own `sameAs` would need a hand-written second JSON-LD block.
 #
 # These duplicate the URLs below rather than referencing them because Jekyll
@@ -120,7 +120,7 @@ email: "matt@rugg.io"
 # This repository, linked as [ source ] in the footer. Kept separate from
 # github_username because it points at the site's own source rather than at the
 # profile, and the two are meaningfully different destinations. Only worth showing
-# while the repository is public and carries a licence -- otherwise the link is an
+# while the repository is public and carries a license -- otherwise the link is an
 # invitation to read code nobody can reach or reuse. Leave empty to hide it.
 repo_url: "https://github.com/mattruggio/mattruggio.github.io"
 

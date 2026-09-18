@@ -132,7 +132,7 @@ the hard way:
   but not both. HTML inherits the page's type scale and wraps at any width.
 - An SVG loaded through `<img>` is an isolated document: it cannot reach the page's
   `@font-face` rules or its CSS custom properties, so it silently falls back to system fonts
-  and to whatever colours are hardcoded in the file.
+  and to whatever colors are hardcoded in the file.
 
 Style diagrams with the palette variables (`var(--green)`, `var(--bg-card)`, `var(--border)`,
 `var(--muted)`) so they track the theme for free. Keep diagram titles at `h3` size or smaller
@@ -148,7 +148,7 @@ document one does not apply at all, since an inline SVG sits in the page and res
 still cannot, so keep it inline.
 
 Its geometry is generated rather than hand-written. Isometric points are easy to get subtly
-wrong, and the first attempt drew the cube's vertical edge running up from the centre of the
+wrong, and the first attempt drew the cube's vertical edge running up from the center of the
 hexagon instead of down, which renders as a hollow box rather than a solid. If you need to
 change the cut position or the extraction offset, recompute the polygons from the projection
 rather than nudging coordinates by eye.
@@ -226,7 +226,7 @@ Two things worth knowing before editing `_layouts/tag.html`:
   build` itself. `jekyll-archives` is not on the Pages plugin whitelist, so the hosted
   builder would ignore it.
 
-Tag chips are cyan because they are links. Grey chips are not: a project's `tech` list
+Tag chips are cyan because they are links. Gray chips are not: a project's `tech` list
 (`.tag--static`) describes a stack rather than a taxonomy and has no page behind it, and
 the current tag on its own archive page (`.tag--current`) is dashed to mark "you are here."
 
@@ -339,7 +339,7 @@ Pages build. The same caveat applies to `jekyll-archives`.
 Fenced blocks are highlighted by Rouge. The theme lives at the bottom of
 `assets/css/main.css` and assigns hues **by role** (keyword, string, type, function,
 variable) rather than per language, so a token means the same thing everywhere. When
-adding a Rouge class, put it in the group it belongs to instead of picking a new colour.
+adding a Rouge class, put it in the group it belongs to instead of picking a new color.
 
 `_drafts/syntax-test.md` renders Ruby, Go, JavaScript, C#, shell, YAML, and diff samples
 for checking coverage. It is dated far in the future so it needs both flags and can never
@@ -387,14 +387,14 @@ key is absent, which is the case everywhere else.
 
 **Why the card suits are hand-drawn SVG.** They are neither Unicode characters nor Font
 Awesome. The vendored fonts are latin-subset, so `♠ ♥ ♦ ♣` (U+2660..2666) are not in
-them; the browser would fall back per glyph, and on many systems that fallback is colour
+them; the browser would fall back per glyph, and on many systems that fallback is color
 emoji. The card frames are CSS borders for the same reason: box-drawing characters
 (U+2500..257F) are missing too, and mismatched advance widths would pull the boxes out of
 alignment. Font Awesome Free has no spade or club, and the Pro ones cannot be
 redistributed from a public repository. The footer's π is hand-drawn for the same
 reason: `U+03C0` is not in the subset either.
 
-**Colour.** Red suits and losing hands use `--syn-var`, the red the palette already has
+**Color.** Red suits and losing hands use `--syn-var`, the red the palette already has
 and that `.notfound-err` already borrows, rather than introducing a new one. Buttons are
 amber, because amber means interactive everywhere on this site.
 
@@ -455,7 +455,7 @@ These are not social cards and deliberately do not look like them: no `~/mattrug
 carry is the prompt treatment, because the site's whole identity is a terminal and a
 project should read as something you would invoke. `--accent` varies per project so the
 set looks like a series rather than a template, and the `~/` is muted rather than amber
-so an amber accent does not collapse the prompt and the name into one colour.
+so an amber accent does not collapse the prompt and the name into one color.
 
 Keep the tagline under about 34 characters. These render at roughly 306px wide in the
 projects column, a quarter of their authored size, and anything longer wraps to a second
@@ -477,7 +477,7 @@ site's subset webfonts, so the character would fall back to whatever the system 
 card suits on `/blackjack/` are original for the same class of reason, but live as path
 data inside `assets/js/blackjack.js`: a spade and a club are Pro-only upstream, and
 redistributing a Pro icon from a public repository is not allowed even with a valid Pro
-licence.
+license.
 
 ## Social links
 
@@ -491,7 +491,7 @@ youtube_url: "https://music.youtube.com/@mattruggio"
 
 If either value is left empty the link is simply not rendered, so nothing breaks.
 
-The YouTube link is labelled `music` rather than `youtube`. The icon already identifies the
+The YouTube link is labeled `music` rather than `youtube`. The icon already identifies the
 platform, so the label is free to describe what's actually there: playlists rather than
 videos, which is what "youtube" would imply.
 
@@ -521,7 +521,7 @@ bundle exec jekyll build
 grep -o '"sameAs":[^]]*]' _site/index.html
 ```
 
-Two behaviours of the gem are worth knowing: `sameAs` is emitted only on the home page and
+Two behaviors of the gem are worth knowing: `sameAs` is emitted only on the home page and
 `/about` (posts do not carry it), and it attaches to the top-level `WebSite` entity rather than
 to the nested `Person`.
 

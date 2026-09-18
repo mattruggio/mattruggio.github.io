@@ -16,7 +16,7 @@
 }
 
 /* Red is not invented here. --syn-var is the palette's existing red, already
-   borrowed by .notfound-err for the same reason: it is the one colour in the
+   borrowed by .notfound-err for the same reason: it is the one color in the
    set that reads as "something went against you". Amber stays on the buttons,
    where it means interactive everywhere else on the site.
 

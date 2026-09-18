@@ -104,17 +104,17 @@ body::after {
    headings, prompts, the cursor, and the whoami terms. The split matters most on
    the home page, where the whoami list sits directly above the links row: when
    both were green the labels read as clickable and the links did not. Hover
-   hands a link the structural colour, so the response is identical everywhere.
-   Both colours are declared here and nowhere else; components below set
-   position, size, and decoration, but never link colour. */
+   hands a link the structural color, so the response is identical everywhere.
+   Both colors are declared here and nowhere else; components below set
+   position, size, and decoration, but never link color. */
 a {
   color: var(--amber);
   text-decoration: none;
   transition: color 0.15s;
 }
-/* Links inside prose signal hover with an underline, since colour alone is a
+/* Links inside prose signal hover with an underline, since color alone is a
    weak cue in a paragraph. Chrome links (brackets, arrows, titles) signal
-   with colour instead: they are already set apart by font and colour, and an
+   with color instead: they are already set apart by font and color, and an
    underline would run through the gaps their brackets, icons, and arrows sit
    in, breaking into disconnected segments. */
 a:hover { color: var(--green); text-decoration: underline; }
@@ -145,7 +145,7 @@ a.tag:hover,
 /* Bracketed link chrome, reserved for the whoami row. The brackets read as a
    TUI control, which suits a row of peer destinations standing as content in
    its own right; elsewhere a link is an accessory to the text around it and the
-   icon and colour carry it, as they already do in the footer. white-space: pre
+   icon and color carry it, as they already do in the footer. white-space: pre
    stops the padding space inside the pseudo-element from collapsing against the
    label. */
 .home-links a::before,
@@ -229,7 +229,7 @@ pre code {
 /* Rouge syntax highlighting.
    Hues are assigned by role, not by language, so a token means the same thing
    in every snippet. Add new Rouge classes to the group they belong to rather
-   than inventing a colour -- an earlier version of this block covered only
+   than inventing a color -- an earlier version of this block covered only
    seven classes, which left Ruby symbols, constants, and instance variables
    rendering as plain body text. */
 .highlight, figure.highlight { background: transparent; }
@@ -467,9 +467,9 @@ main { flex: 1; }
 .post-list-item:last-child,
 .project-item:last-child { border-bottom: none; padding-bottom: 0; }
 
-/* Regular weight, not bold. The title used 700 when it was body-coloured and
+/* Regular weight, not bold. The title used 700 when it was body-colored and
    needed the mass to read as the thing to click; now that it carries the link
-   colour, weight and colour are both saying "this one matters" and the pair
+   color, weight and color are both saying "this one matters" and the pair
    shouts. Size still separates it from the meta line beneath. */
 .post-list-item .post-link {
   font-family: var(--font-head);
@@ -535,7 +535,7 @@ a.tag:hover {
   border-color: var(--green);
 }
 
-/* Chips that are not links, held apart from the accent colour so a reader can
+/* Chips that are not links, held apart from the accent color so a reader can
    tell at a glance which ones lead somewhere. `--static` is a project's tech
    stack, which is a description rather than taxonomy and has no page behind it.
    `--current` is the tag whose archive you are already reading. */
@@ -599,7 +599,7 @@ a.tag:hover {
 /* On a post page the header rule and the closing <hr> would otherwise span the
    full .wrapper (812px) while the prose stops at the measure (696px), leaving
    a 120px gap of rule hanging past the text. Everything in the wrapper shares
-   the measure instead. Left-aligned rather than centred so the column still
+   the measure instead. Left-aligned rather than centered so the column still
    lines up with the site header and footer, which do use the full wrapper.
    --measure is a rem value, not 68ch, because .post-content sets its own
    font-size: 68ch on it and on the 16px header would resolve to two different
@@ -669,7 +669,7 @@ a.tag:hover {
 
 /* Markdown lists arrive unstyled, the same way tables did. The browser indents
    them by an arbitrary amount that lines up with nothing else on the page, and
-   draws the marker in the body colour so it reads as punctuation rather than as
+   draws the marker in the body color so it reads as punctuation rather than as
    structure. Markers are green because they label rather than narrate, which is
    the split the table headers and section headings already use. Items are
    spaced enough to separate but not enough to read as separate paragraphs. */
@@ -700,7 +700,7 @@ a.tag:hover {
 }
 
 /* Markdown tables arrive with no styling of their own. The browser default
-   centres header cells, collapses everything against the text baseline, and
+   centers header cells, collapses everything against the text baseline, and
    draws no rules, which reads as a rendering fault on a dark background rather
    than as a table. Rows are separated by a rule instead of boxed in a grid,
    which is quieter and matches how the rest of the page divides things. */
@@ -750,7 +750,7 @@ a.tag:hover {
 }
 
 /* The flattening diagram is SVG rather than HTML because it is geometry, not
-   labelled boxes: an isometric cube has no sensible expression in flow layout.
+   labeled boxes: an isometric cube has no sensible expression in flow layout.
    It carries no text at all, so the type-scaling objection above does not bite.
    Capped at roughly a third of the measure: wide enough that the kerf between
    the two halves is legible, which is the whole point of the drawing, and
@@ -763,7 +763,7 @@ a.tag:hover {
   margin: 0 auto;
 }
 
-/* The caption is centred under a centred drawing, and allowed to run wider than
+/* The caption is centered under a centered drawing, and allowed to run wider than
    the drawing itself: matching its 15rem would break two words to a line. */
 .diagram.flatten figcaption {
   max-width: 26rem;
@@ -878,7 +878,7 @@ a.tag:hover {
 }
 
 /* Mirrors .header-inner deliberately: content at one end, a single mark at the
-   other. The footer used to be centred, which made it the only centred block on
+   other. The footer used to be centered, which made it the only centered block on
    a site that is left-aligned everywhere else, and left the pi nowhere to sit.
    Pinned to the right it collided with the copyright line as soon as that line
    grew long enough to reach it. As flex siblings the two cannot overlap at any
@@ -895,7 +895,7 @@ a.tag:hover {
 
 /* The easter egg: a pi in the corner, after The Net. It deliberately breaks the
    rule that amber means "interactive": a thing meant to be stumbled upon cannot
-   advertise itself. Dimming --muted rather than inventing a colour keeps the
+   advertise itself. Dimming --muted rather than inventing a color keeps the
    palette closed, and hover restores the usual green to repay whoever went
    looking. The padding buys a tap target a 15px glyph could not; the negative
    margin lets that padding overhang so the artwork still lines up with the
@@ -968,9 +968,9 @@ a.tag:hover {
   margin-bottom: 0.9rem;
 }
 
-/* Colour is left to the base rules: a title that links takes the amber every
+/* Color is left to the base rules: a title that links takes the amber every
    link takes, and a title with no site behind it stays the heading green. Two
-   cards can therefore differ here, which is the point: the colour says whether
+   cards can therefore differ here, which is the point: the color says whether
    the card leads anywhere rather than how it happens to be styled. */
 .project-title {
   font-size: 1.05rem;

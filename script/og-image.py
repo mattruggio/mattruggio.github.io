@@ -111,8 +111,8 @@ def card(title=None, blurb=None, subtitle="rugg.io"):
     # Prompt: ~/ in amber, "matt" in text, "ruggio" in green -- same as the site h1.
     prompt_font = load("Bold", 38)
     x, y = PAD, PAD
-    for part, colour in (("~/", AMBER), ("matt", TEXT), ("ruggio", GREEN)):
-        draw.text((x, y), part, font=prompt_font, fill=colour)
+    for part, color in (("~/", AMBER), ("matt", TEXT), ("ruggio", GREEN)):
+        draw.text((x, y), part, font=prompt_font, fill=color)
         x += draw.textlength(part, font=prompt_font)
     # Block cursor.
     draw.rectangle([x + 8, y + 6, x + 8 + 18, y + 40], fill=GREEN)
@@ -131,7 +131,7 @@ def card(title=None, blurb=None, subtitle="rugg.io"):
 
     # A blurb sits under the title for posts whose title alone could be read as
     # being about something else. It is measured into the same block as the
-    # title so the pair stays optically centred rather than the title drifting
+    # title so the pair stays optically centered rather than the title drifting
     # up by half the blurb's height.
     blurb_font, blurb_lines, blurb_height, BLURB_GAP = None, [], 0, 26
     if blurb:
@@ -180,7 +180,7 @@ def project_card(name, tagline, accent=GREEN, out=None):
 
     # The ~/ is muted rather than amber. On the site header amber reads against
     # a green name, but here the accent varies per project, and an amber accent
-    # would collapse the prompt and the name into one colour. Muted keeps the
+    # would collapse the prompt and the name into one color. Muted keeps the
     # prompt as chrome and lets the name carry the identity in every case.
     draw.text((x, y), "~/", font=prompt_font, fill=MUTED)
     x2 = x + draw.textlength("~/", font=prompt_font)
@@ -238,7 +238,7 @@ def main():
     parser.add_argument("--project", nargs=2, metavar=("NAME", "TAGLINE"),
                         help="Render a home page project thumbnail")
     parser.add_argument("--accent", default="green", choices=["green", "amber", "accent"],
-                        help="Accent colour for --project")
+                        help="Accent color for --project")
     args = parser.parse_args()
 
     if args.favicons:

@@ -13,7 +13,7 @@
 
   Suits are drawn as inline SVG rather than written as characters. The site's
   fonts are subset to Latin, so U+2660..2667 are not in them; the browser would
-  fall back per glyph, and on a good number of systems that fallback is colour
+  fall back per glyph, and on a good number of systems that fallback is color
   emoji. SVG renders identically everywhere and inherits currentColor.
 */
 (function () {
