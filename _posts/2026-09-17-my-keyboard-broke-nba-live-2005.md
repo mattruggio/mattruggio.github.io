@@ -28,7 +28,7 @@ Here is the machine I used for this:
 | Display | LG HDR 4K, 3840 x 2160 at 60 Hz |
 | Operating system | Windows 11 Pro 25H2, build 26200.9445, 64-bit |
 
-The laptop in Part 1 ran the game on its integrated GPU, and that mattered enormously there. This time I wanted the discrete card to do the work, so the RTX 2060 drove the display throughout. The peripherals were a Corsair K70 CORE TKL keyboard, a Corsair M55 WL mouse, a Logitech F310 gamepad, an ASRock RGB lighting controller, and the onboard Intel wireless Bluetooth.
+The laptop in [Part 1](/2026/09/07/nba-live-2005-in-2026/) ran the game on its integrated GPU, and that mattered enormously there. This time I wanted the discrete card to do the work, so the RTX 2060 drove the display throughout. The peripherals were a Corsair K70 CORE TKL keyboard, a Corsair M55 WL mouse, a Logitech F310 gamepad, an ASRock RGB lighting controller, and the onboard Intel wireless Bluetooth.
 
 ## The Recipe Was Not a Recipe
 
@@ -74,7 +74,7 @@ Patched executables with SafeDisc removed are easy to find in the NBA Live commu
 
 ## What Transferred
 
-DXVK, which Part 1 treats as essential, is not part of the working setup on this machine at all. The RTX 2060 renders the game correctly through the native Direct3D 9 path, with none of the corruption that made the laptop unplayable. The fix I was most confident about turned out to be the one tied hardest to hardware I no longer had.
+DXVK, which [Part 1](/2026/09/07/nba-live-2005-in-2026/) treats as essential, is not part of the working setup on this machine at all. The RTX 2060 renders the game correctly through the native Direct3D 9 path, with none of the corruption that made the laptop unplayable. The fix I was most confident about turned out to be the one tied hardest to hardware I no longer had.
 
 | Fix | Laptop | Desktop |
 | --- | --- | --- |
@@ -87,7 +87,7 @@ That leaves the question I built the second machine to answer. Two PCs, a game w
 
 ## TL;DR
 
-The recipe from Part 1 did not transfer. SafeDisc startup failed until the game was pinned to one logical processor. Then DirectInput crashed parsing a modern keyboard that presents fifteen HID collections on its own, which a proxy `hid.dll` fixes by hiding every device except the gamepad. DXVK, essential on the laptop, was not needed here at all.
+The recipe from [Part 1](/2026/09/07/nba-live-2005-in-2026/) did not transfer. SafeDisc startup failed until the game was pinned to one logical processor. Then DirectInput crashed parsing a modern keyboard that presents fifteen HID collections on its own, which a proxy `hid.dll` fixes by hiding every device except the gamepad. DXVK, essential on the laptop, was not needed here at all.
 
 ## Domain Language
 
