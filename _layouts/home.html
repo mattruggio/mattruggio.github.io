@@ -49,7 +49,7 @@ layout: default
         projects and two leave the articles column shorter than it. Revisit
         the number whenever either column gains or loses an entry.
       {%- endcomment -%}
-      {% assign recent = site.posts | slice: 0, 3 %}
+      {% assign recent = site.posts | slice: 0, 2 %}
       {% include post-list.html posts=recent %}
 
       {% if site.posts.size > recent.size %}
