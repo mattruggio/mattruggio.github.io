@@ -429,14 +429,12 @@ rather than loaded as an icon font: the full release is 6.5 MB and the eight ico
 use total under 6 KB. They inherit `currentColor`, so hover states need no extra rules.
 Adding one is described in `_includes/icons/LICENSE.md`.
 
-A project with artwork of its own should use it, and both current cards do: RetroLive
-crops the founders render from retro.live, and hidshim shows two gamepads in front of a
-running game with the keyboard pushed away behind them, which is what the tool does. A
-game and an input filter are both visual things, and a wordmark says less about either
-than a picture does.
+A project with artwork of its own should use it, as RetroLive does: its card crops the
+founders render from retro.live. A game is a visual thing, and a wordmark says less about
+it than a picture does.
 
-Crop to 1200x630 and draw a 7px accent rule down the left edge, amber for RetroLive and
-green for hidshim. That rule is the only thing holding the set together once the cards
+Crop to 1200x630 and draw a 7px accent rule down the left edge, amber for RetroLive. That
+rule is the only thing holding the set together once the cards
 stop sharing one generated treatment, and it is why a photographic card and a generated
 one still read as siblings. Save photographs as JPEG, and rebuild them from pixel data
 rather than re-saving: that is what drops camera metadata, and the Part 1 desk photo
