@@ -1,0 +1,143 @@
+---
+layout: default
+title: "YouTube Music playlist export"
+permalink: /ytm/
+description: "Export a public YouTube Music playlist as JSON: a music-shaped tracklist plus the raw API responses. Runs in your browser with your own YouTube Data API key."
+stylesheet: /assets/css/ytm.css
+script: /assets/js/ytm.js
+---
+<div class="wrapper wrapper-post">
+  <header class="post-header">
+    <p class="post-meta prompt">./ytm --export</p>
+    <h1 class="post-title">ytm</h1>
+    <p class="ytm-lede">
+      Export a public YouTube Music playlist as JSON: a tracklist shaped for
+      music, and the raw YouTube API responses it was built from. It runs in
+      your browser with your own YouTube Data API key, and talks to nothing but
+      Google's API.
+    </p>
+  </header>
+
+  {%- comment -%}
+    The key steps render open without JavaScript, and the script folds them
+    behind a toggle only once a key is saved in this browser. A first-time
+    visitor always sees them; a returning one is not made to scroll past them.
+    Everything the script touches is addressed by data-ytm attributes, the same
+    seam /blackjack/ uses with data-bj.
+  {%- endcomment -%}
+  <section class="ytm-steps" id="ytm-steps" data-ytm="steps">
+    <h2>Get an API key</h2>
+    <p>
+      Free, and a few minutes of clicking. No billing account is needed, and
+      the key stays in this browser.
+    </p>
+    <ol>
+      <li>
+        Sign in to the <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Console</a>
+        and <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">create a project</a>.
+        Any name works.
+      </li>
+      <li>
+        With that project selected, open
+        <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener">YouTube Data API v3</a>
+        and click <strong>Enable</strong>.
+      </li>
+      <li>
+        Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Credentials</a>,
+        click <strong>Create credentials</strong>, and choose <strong>API key</strong>.
+      </li>
+      <li>
+        Restrict the key, so that it is useless to anyone who finds it:
+        <ul>
+          <li>Under <strong>Application restrictions</strong>, choose <strong>Websites</strong> and add <code>https://rugg.io/*</code>.</li>
+          <li>Under <strong>API restrictions</strong>, choose <strong>Restrict key</strong> and select only <strong>YouTube Data API v3</strong>.</li>
+        </ul>
+      </li>
+      <li>Copy the key and paste it below.</li>
+    </ol>
+    <p class="ytm-steps-note">
+      Each key gets 10,000 quota units a day, and a playlist costs about one
+      unit per 50 tracks. Usage is on the project's
+      <a href="https://console.cloud.google.com/apis/api/youtube.googleapis.com/quotas" target="_blank" rel="noopener">quotas page</a>.
+      Google's own walkthrough is in the
+      <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank" rel="noopener">getting started guide</a>.
+    </p>
+  </section>
+
+  <noscript>
+    <p class="ytm-notice ytm-notice--warn">The export needs JavaScript. The steps above work without it.</p>
+  </noscript>
+
+  <p id="ytm-nojs" class="ytm-notice">Loading...</p>
+
+  <section id="ytm" class="ytm" hidden>
+    <p class="ytm-toggle-row">
+      <button type="button" class="ytm-btn" data-ytm="stepsToggle" aria-controls="ytm-steps" aria-expanded="true" hidden>hide key setup</button>
+    </p>
+
+    <form class="ytm-form" data-ytm="form" novalidate>
+      <div class="ytm-field">
+        <label for="ytm-key">api key</label>
+        <input id="ytm-key" class="ytm-input" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" data-ytm="key" />
+      </div>
+
+      <div class="ytm-key-row">
+        <label class="ytm-check">
+          <input type="checkbox" data-ytm="remember" />
+          remember key in this browser
+        </label>
+        <button type="button" class="ytm-btn" data-ytm="forget">forget key</button>
+      </div>
+
+      <div class="ytm-field">
+        <label for="ytm-list">playlist url or id</label>
+        <input id="ytm-list" class="ytm-input" type="text" inputmode="url" autocomplete="off" spellcheck="false" autocapitalize="off"
+               placeholder="https://music.youtube.com/playlist?list=..." data-ytm="list" />
+      </div>
+
+      <div class="ytm-actions">
+        <button type="submit" class="ytm-btn" data-ytm="retrieve">retrieve</button>
+      </div>
+
+      {%- comment -%}
+        Progress and errors both land here. polite, not assertive: a page count
+        ticking up is worth hearing but never worth interrupting for.
+      {%- endcomment -%}
+      <p class="ytm-status" data-ytm="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <section class="ytm-results" data-ytm="results" hidden>
+      <div class="ytm-playlist">
+        <img class="ytm-cover" data-ytm="cover" alt="" width="480" height="360" hidden />
+        <div>
+          <h2 class="ytm-title" data-ytm="title"></h2>
+          <p class="ytm-meta" data-ytm="meta"></p>
+        </div>
+      </div>
+
+      <section class="ytm-pane" aria-labelledby="ytm-music-head">
+        <div class="ytm-pane-head">
+          <h3 id="ytm-music-head">music</h3>
+          <span class="ytm-pane-actions">
+            <button type="button" class="ytm-btn" data-ytm-copy="music">copy</button>
+            <button type="button" class="ytm-btn" data-ytm-download="music">download</button>
+          </span>
+        </div>
+        <p class="ytm-pane-note">The playlist and its tracks, with artists, album, duration, and thumbnails.</p>
+        <pre class="ytm-json" data-ytm-output="music" tabindex="0" aria-label="Music JSON"></pre>
+      </section>
+
+      <section class="ytm-pane" aria-labelledby="ytm-raw-head">
+        <div class="ytm-pane-head">
+          <h3 id="ytm-raw-head">raw</h3>
+          <span class="ytm-pane-actions">
+            <button type="button" class="ytm-btn" data-ytm-copy="raw">copy</button>
+            <button type="button" class="ytm-btn" data-ytm-download="raw">download</button>
+          </span>
+        </div>
+        <p class="ytm-pane-note">Every API response body, untouched, grouped by call. Your key is not in it.</p>
+        <pre class="ytm-json" data-ytm-output="raw" tabindex="0" aria-label="Raw JSON"></pre>
+      </section>
+    </section>
+  </section>
+</div>

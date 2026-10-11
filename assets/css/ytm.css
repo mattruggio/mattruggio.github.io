@@ -1,0 +1,239 @@
+/*
+  YouTube Music playlist export. Loaded only by /ytm/ via the layout's
+  `stylesheet` front matter hook, like blackjack.css, so none of this reaches
+  any other page.
+
+  Buttons follow /blackjack/: bracketed amber text, because amber means
+  interactive everywhere on this site. No new colors: errors borrow the
+  palette's existing red (--syn-var), as .notfound-err and the blackjack table
+  already do.
+*/
+
+.ytm-lede {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Key setup ──────────────────────────────────────
+   Open until the script decides otherwise, so it reads fine with JavaScript
+   off. Same left rule as the blackjack house rules. */
+.ytm-steps {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 0.94rem;
+  border-left: 2px solid var(--green-dim);
+  padding-left: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ytm-steps h2 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: var(--green);
+  margin: 0 0 0.6rem;
+}
+
+.ytm-steps ol { padding-left: 1.3rem; margin: 0.75rem 0 1rem; }
+.ytm-steps ul { padding-left: 1.2rem; margin: 0.35rem 0 0; }
+.ytm-steps li { margin-bottom: 0.45rem; }
+.ytm-steps strong { color: var(--text); font-weight: 600; }
+.ytm-steps-note { margin-bottom: 0; }
+
+/* ── Notices and status ─────────────────────────────── */
+.ytm-notice {
+  font-family: var(--font-mono);
+  font-size: 0.94rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.ytm-notice--warn { color: var(--syn-var); }
+
+.ytm-status {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-height: 1.5em;
+  margin: 0.75rem 0 0;
+}
+
+.ytm-status--ok { color: var(--green); }
+.ytm-status--error { color: var(--syn-var); }
+
+/* ── Buttons ─────────────────────────────────────────── */
+.ytm-btn {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  background: none;
+  border: 0;
+  padding: 0.3rem 0;
+  color: var(--amber);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.ytm-btn::before { content: '[ '; }
+.ytm-btn::after  { content: ' ]'; }
+
+.ytm-btn::before,
+.ytm-btn::after {
+  white-space: pre;
+  color: var(--muted);
+}
+
+.ytm-btn:hover:not(:disabled) { color: var(--green); }
+
+.ytm-btn:disabled,
+.ytm-btn:disabled::before,
+.ytm-btn:disabled::after {
+  color: var(--border);
+  cursor: not-allowed;
+}
+
+.ytm-toggle-row { margin: 0 0 1rem; }
+
+/* ── Form ───────────────────────────────────────────── */
+.ytm {
+  font-family: var(--font-mono);
+}
+
+.ytm-form {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  padding: 1.25rem 1.25rem 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.ytm-field + .ytm-field,
+.ytm-key-row + .ytm-field { margin-top: 1rem; }
+
+.ytm-field label {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.4rem;
+}
+
+.ytm-input {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.7rem;
+}
+
+.ytm-input::placeholder { color: var(--muted); opacity: 0.7; }
+
+.ytm-input:focus {
+  outline: none;
+  border-color: var(--green-dim);
+}
+
+.ytm-key-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.ytm-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.ytm-check input { accent-color: var(--green); }
+
+.ytm-actions { margin-top: 1rem; }
+
+/* ── Results ────────────────────────────────────────── */
+.ytm-playlist {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Thumbnails come back 4:3 or 16:9 depending on size; a fixed box with
+   object-fit keeps the header steady whichever one arrives. */
+.ytm-cover {
+  width: 7.5rem;
+  height: 5.6rem;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.ytm-title {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  color: var(--green);
+  margin: 0 0 0.3rem;
+}
+
+.ytm-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.ytm-pane + .ytm-pane { margin-top: 2rem; }
+
+.ytm-pane-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+.ytm-pane-head h3 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.ytm-pane-actions {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.ytm-pane-note {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0.6rem 0 0;
+}
+
+/* Capped in height so a 5,000-track raw payload scrolls inside its own box
+   rather than turning the page into a mile of JSON. */
+.ytm-json {
+  max-height: 28rem;
+  overflow: auto;
+  font-size: 0.8rem;
+  margin: 0.75rem 0 0;
+}
+
+.ytm-json:focus-visible {
+  outline: 1px solid var(--green-dim);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .ytm-form { padding: 1rem; }
+  .ytm-cover { width: 5.5rem; height: 4.1rem; }
+}
