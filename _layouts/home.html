@@ -114,6 +114,33 @@ layout: default
       {% if site.data.projects.size == 0 %}
       <p class="text-muted prompt">No projects yet.</p>
       {% endif %}
+
+      {%- comment -%}
+        Tools are things that run on this site rather than products that live
+        elsewhere, so they sit under projects rather than among them. Links
+        stay in the same tab for the same reason. The heading is skipped
+        entirely while _data/tools.yml is empty, rather than announcing nothing.
+      {%- endcomment -%}
+      {% if site.data.tools.size > 0 %}
+      <h2 class="section-heading section-heading--sub">tools</h2>
+      <ul class="project-list">
+        {% for tool in site.data.tools %}
+        <li class="project-item">
+          <h3 class="project-title">
+            <a href="{{ tool.path | relative_url }}">{{ tool.title }}</a>
+          </h3>
+          <p class="project-description">{{ tool.description }}</p>
+          {% if tool.tech.size > 0 %}
+          <p class="tag-row">
+            {% for item in tool.tech %}
+            <span class="tag tag--static">{{ item }}</span>
+            {% endfor %}
+          </p>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </section>
   </div>
 </div>

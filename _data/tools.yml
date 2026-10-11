@@ -1,0 +1,8 @@
+# Tools shown on the home page, beneath projects. Order here is the order rendered.
+#
+# Unlike projects, tools live on this site: `path` is a site-relative URL and the
+# link opens in the same tab. `tech` is optional. See "Adding a tool" in README.md.
+- title: "YouTube Music export"
+  description: "Export a public YouTube Music playlist as a JSON tracklist, using your own YouTube Data API key."
+  path: "/ytm/"
+  tech: [javascript, youtube-api]

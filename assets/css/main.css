@@ -428,6 +428,11 @@ main { flex: 1; }
   border-bottom: 1px solid var(--border);
 }
 
+/* A second heading further down the same column, such as tools under
+   projects. The gap separates it from the last entry above, which draws no
+   bottom rule of its own. */
+.section-heading--sub { margin-top: 2.5rem; }
+
 /* Weight is reset because these sit inside the h2, which is bold, and would
    otherwise inherit it and read heavier than the other links they sit among. */
 .section-link {
