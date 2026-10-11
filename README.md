@@ -283,12 +283,32 @@ end: the title then renders as plain text and the thumbnail is left unlinked.
 If the list ever outgrows a column, promoting these back into a collection with real
 project pages is the natural next step.
 
+## Adding a tool
+
+Tools are pages that run on this site, such as `/ytm/`. They render in a `tools` section
+beneath projects in the same home page column. Add an entry to `_data/tools.yml`:
+
+```yaml
+- title: "Tool Name"
+  description: "A sentence or two shown on the entry."
+  path: "/tool-name/"
+  tech: [javascript] # optional
+```
+
+`path` is site-relative and goes through `relative_url`, and the link opens in the same
+tab, because a tool is part of this site rather than somewhere else. Entries have no
+thumbnail. The `tools` heading is not rendered at all while the file is empty.
+
+Adding an entry makes the projects column taller, so re-check the balance described under
+[Structure](#structure) and adjust the articles cap if the columns drift apart.
+
 ## Structure
 
 ```
 _config.yml            site configuration
 CONTENT-LICENSE.md     what the MIT license does and does not cover
 _data/projects.yml     projects shown on the home page
+_data/tools.yml        tools shown beneath projects on the home page
 _drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
 _layouts/              page templates (default, home, post, tag)
@@ -299,12 +319,16 @@ _includes/diagrams/    post diagrams, built as HTML and themed via CSS variables
 _plugins/              build-time Ruby hooks (see below)
 assets/css/main.css    retro-terminal theme, @font-face, and the Rouge theme
 assets/css/blackjack.css  styles for /blackjack/ only, loaded per page
-assets/js/blackjack.js    the blackjack game, the only script on the site
+assets/js/blackjack.js    the blackjack game
+assets/css/ytm.css     styles for /ytm/ only, loaded per page
+assets/js/ytm.js       the YouTube Music playlist export (see below)
 assets/fonts/          self-hosted woff2 files (see its LICENSE.md)
 assets/images/         project graphics and social cards
 script/og-image.py     social card and favicon generator
+script/ytm.test.js     node --test suite for the helpers in assets/js/ytm.js
 404.html               terminal-styled not-found page
 blackjack.html         the blackjack table (see below)
+ytm.html               the YouTube Music playlist export (see below)
 index.md               home page whoami block
 articles.html          every post, newest first, at /articles/
 tags.html              index of every tag, linked from the articles heading
@@ -360,8 +384,9 @@ ruby -e 'require "rouge"; puts Rouge::Formatters::HTML.new.format(
 
 ## Blackjack
 
-`/blackjack/` is a game of blackjack, styled like the rest of the site. It is the only
-page with JavaScript, the only page with its own stylesheet, and it talks to nothing.
+`/blackjack/` is a game of blackjack, styled like the rest of the site. Along with
+[`/ytm/`](#youtube-music-export), it is one of only two pages with JavaScript and their
+own stylesheet, and unlike `/ytm/` it talks to nothing.
 
 **It is an easter egg.** Nothing links to it except the dim π in the lower right of the
 footer, a nod to the disc in *The Net*. The page carries `noindex: true` and
@@ -401,6 +426,68 @@ amber, because amber means interactive everywhere on this site.
 The game markup is addressed entirely through `data-bj` attributes, so the seam between
 template and script is obvious from either side, and the DOM is built with `textContent`
 and `createElement` rather than `innerHTML`.
+
+## YouTube Music export
+
+`/ytm/` exports a public YouTube Music playlist as JSON. It is listed under tools on the
+home page and is indexed normally. Like `/blackjack/`, it loads its own
+`assets/css/ytm.css` and `assets/js/ytm.js` through the `stylesheet` and `script` front
+matter keys, addresses its markup through `data-ytm` attributes, and builds the DOM with
+`textContent`.
+
+**Bring your own key.** The page calls the official YouTube Data API v3 straight from the
+browser with an API key the visitor pastes in. Scraping YouTube pages instead runs into rate
+limits and bot checks; the API is metered by a free 10,000 units a day per key, and a
+playlist costs about one unit per 50 tracks (one `playlists.list`, one `playlistItems.list`
+per 50 items, one `videos.list` per 50 durations). Google answers these requests with CORS
+headers, so no server is involved. The key is stored in `localStorage` only when "remember
+key" is ticked, and "forget key" removes it. The page lists the steps for getting a key,
+with links into the Cloud Console. They are open by default and fold away once a key is
+saved.
+
+To test against a local build, add `http://localhost:4000/*` and
+`http://127.0.0.1:4000/*` to the key's website restrictions alongside `https://rugg.io/*`.
+
+**Two outputs.** `raw` holds the API response bodies exactly as returned, grouped as
+`{ playlists, playlistItems: [pages], videos: [batches] }`. Request URLs are never kept,
+so the key cannot end up in anything copied or downloaded. `music` is derived from `raw`
+alone by `shape()`:
+
+```json
+{
+  "id": "PL...", "title": "...", "owner": "...", "url": "https://music.youtube.com/playlist?list=PL...",
+  "thumbnailUrl": "...", "trackCount": 42,
+  "tracks": [
+    { "number": 1, "title": "...", "artist": "A, B", "artists": ["A", "B"], "album": "...",
+      "duration": "4:13", "durationSeconds": 253, "thumbnailUrl": "...",
+      "url": "https://music.youtube.com/watch?v=...", "videoId": "..." }
+  ],
+  "skipped": 0, "exportedAt": "..."
+}
+```
+
+Private and deleted entries are counted in `skipped` rather than listed, and the remaining
+tracks are numbered from 1. `/ytm/?list=PL...` prefills the playlist field.
+
+**Artists are inferred.** The API has no artist field, so `toTrack()` tries, in order:
+the `Title · Artist · Artist` line and following album paragraph that YouTube writes into
+auto-generated "Topic" uploads; for Topic uploads without one, the title as-is with the
+channel as artist (never dash-split, since "Song - Live" is a title); an `Artist - Title`
+split for everything else, with bracketed noise like `(Official Video)` removed; and
+finally the uploading channel, minus ` - Topic` and `VEVO`. `feat.` and `ft.` names move
+from the title into `artists`. Ampersands are left alone, because they are as often part of
+one act's name as a join between two.
+
+**Thumbnails** are the largest `i.ytimg.com` image available. They are 16:9 or 4:3, so
+square album art can arrive letterboxed. The square art YouTube Music shows is not exposed
+by the API.
+
+**Tests.** The helpers above `init()` are pure, and the script exports them when loaded by
+Node. Any Node 18 or newer runs them with no dependencies:
+
+```bash
+node --test script/ytm.test.js
+```
 
 ## Analytics
 
