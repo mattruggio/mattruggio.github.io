@@ -3,6 +3,10 @@
   `stylesheet` front matter hook, like blackjack.css, so none of this reaches
   any other page.
 
+  The page uses the plain .wrapper rather than .wrapper-post, so the form and
+  the JSON panes span the same width as the footer. Only the prose (the lede
+  and the key steps) is held to the reading measure.
+
   Buttons follow /blackjack/: bracketed amber text, because amber means
   interactive everywhere on this site. No new colors: errors borrow the
   palette's existing red (--syn-var), as .notfound-err and the blackjack table
@@ -12,6 +16,7 @@
 .ytm-lede {
   color: var(--muted);
   margin: 0;
+  max-width: var(--measure);
 }
 
 /* ── Key setup ──────────────────────────────────────
@@ -24,6 +29,7 @@
   border-left: 2px solid var(--green-dim);
   padding-left: 1.1rem;
   margin-bottom: 1.5rem;
+  max-width: var(--measure);
 }
 
 .ytm-steps h2 {
