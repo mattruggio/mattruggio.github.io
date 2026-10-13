@@ -309,6 +309,7 @@ _config.yml            site configuration
 CONTENT-LICENSE.md     what the MIT license does and does not cover
 _data/projects.yml     projects shown on the home page
 _data/tools.yml        tools shown beneath projects on the home page
+_mixtapes/             generated mixtape pages, one per playlist (see below)
 _drafts/               unpublished posts, including the syntax test page
 _posts/                published blog posts
 _layouts/              page templates (default, home, post, tag)
@@ -322,20 +323,25 @@ assets/css/blackjack.css  styles for /blackjack/ only, loaded per page
 assets/js/blackjack.js    the blackjack game
 assets/css/ytm.css     styles for /ytm/ only, loaded per page
 assets/js/ytm.js       the YouTube Music playlist export (see below)
+assets/css/mixtapes.css  jewel cases and tracklists for the mixtape pages
+assets/images/mixtapes/  generated square covers, one per mixtape
 assets/fonts/          self-hosted woff2 files (see its LICENSE.md)
 assets/images/         project graphics and social cards
 script/og-image.py     social card and favicon generator
 script/ytm.test.js     node --test suite for the helpers in assets/js/ytm.js
+script/mixtapes.js     refreshes _mixtapes/ from YouTube (see below)
+script/mixtapes.test.js  node --test suite for script/mixtapes.js
 404.html               terminal-styled not-found page
 blackjack.html         the blackjack table (see below)
 ytm.html               the YouTube Music playlist export (see below)
+mixtapes.html          every mixtape, newest first, at /mixtapes/
 index.md               home page whoami block
 articles.html          every post, newest first, at /articles/
 tags.html              index of every tag, linked from the articles heading
 ```
 
 The home page is a landing page rather than an archive: the `whoami` block, then writing
-and projects side by side. It has no nav bar, since the `~/mattruggio` hero acts as the
+and projects side by side, then the newest mixtapes across the full width. It has no nav bar, since the `~/mattruggio` hero acts as the
 header. Posts get a slim sticky header linking back home.
 
 **The articles column is capped at three posts.** It sits beside the projects column, so an
@@ -385,8 +391,8 @@ ruby -e 'require "rouge"; puts Rouge::Formatters::HTML.new.format(
 ## Blackjack
 
 `/blackjack/` is a game of blackjack, styled like the rest of the site. Along with
-[`/ytm/`](#youtube-music-export), it is one of only two pages with JavaScript and their
-own stylesheet, and unlike `/ytm/` it talks to nothing.
+[`/ytm/`](#youtube-music-export), it is one of only two pages with JavaScript, and
+unlike `/ytm/` it talks to nothing.
 
 **It is an easter egg.** Nothing links to it except the dim π in the lower right of the
 footer, a nod to the disc in *The Net*. The page carries `noindex: true` and
@@ -487,6 +493,110 @@ Node. Any Node 18 or newer runs them with no dependencies:
 
 ```bash
 node --test script/ytm.test.js
+```
+
+## Mixtapes
+
+`/mixtapes/` shows the playlists on the YouTube channel as CD jewel cases: the cover is the
+front insert, the hinge carries the number, and the disc peeks out from behind. Each one has
+its own page at `/mixtapes/NNN/` with the tracklist on a back tray card, and the newest
+three (two on narrow screens) sit full width beneath the home page columns. There is no
+JavaScript, and the site never calls YouTube: everything is a committed snapshot.
+
+**A playlist is a mixtape when it is public and titled `mix.NNN.<title>.keep`,** where
+`NNN` is three digits starting at `001`. The number orders them (highest is newest) and is
+the URL, so renaming a mix keeps its link. The title is shown with underscores as spaces
+(`mix.014.south_beach_radio.keep` shows as "south beach radio"), case unchanged. Private
+and unlisted playlists are skipped, since an API key cannot see them.
+
+### Setting up the key (once)
+
+The script needs a YouTube Data API v3 key in `YT_API_KEY`. It is read from the
+environment, or from a `.env` file at the repository root. `.env` is gitignored, and Jekyll
+skips dotfiles, so it is never committed or built into the site:
+
+```bash
+echo 'YT_API_KEY=AIza...' > .env
+```
+
+This must be a **different key from the one used on `/ytm/`**. That key is restricted to
+websites, and Google rejects website-restricted keys outside a browser. In the
+[Credentials](https://console.cloud.google.com/apis/credentials) page of the same project,
+create a second key and set:
+
+- **Application restrictions:** *None*
+- **API restrictions:** *YouTube Data API v3* only
+
+The free quota is 10,000 units a day, and a full refresh costs about three per mixtape.
+
+### Refreshing
+
+Run this after adding, renaming, reordering, or re-covering a mix on YouTube. It needs Node
+20.12 or newer (for its built-in `.env` loading) and no `npm install`. Cropping and
+resizing covers uses macOS `sips`; on other systems the original images are kept and CSS
+crops them.
+
+1. From the repository root, run the script:
+
+   ```bash
+   node script/mixtapes.js
+   ```
+
+   Node is managed by asdf and this repository does not pin a version, so if `node` is not
+   found, name one: `ASDF_NODEJS_VERSION=24.19.0 node script/mixtapes.js`.
+
+   It prints one line per mix and ends with a summary of what was added, updated, and
+   removed, and roughly how much quota was used.
+
+2. Review what changed:
+
+   ```bash
+   git status
+   git diff --stat _mixtapes assets/images/mixtapes
+   ```
+
+3. Preview it. A `jekyll serve` that was already running before `_config.yml` gained the
+   `mixtapes` collection must be restarted, or it fails with `Cannot sort a null object`.
+
+   ```bash
+   bundle exec jekyll serve
+   ```
+
+   Then check <http://127.0.0.1:4000/mixtapes/>, a mix page, and the home page.
+
+4. Commit `_mixtapes/` and `assets/images/mixtapes/` together, then push to deploy.
+
+**What it does.** It finds every matching playlist on the channel, fetches its tracks with
+the same code as [`/ytm/`](#youtube-music-export), and writes:
+
+- `_mixtapes/NNN.md`, a Jekyll collection document whose front matter is JSON (which YAML
+  reads as-is). Do not edit the front matter; it is replaced on every refresh.
+- `assets/images/mixtapes/NNN.jpg`, the square cover uploaded in YouTube Music, resized to
+  600px with macOS `sips`. The Data API does not expose uploaded covers, so the script
+  reads it from the public playlist page's `og:image`, one page load per mix. A mix with no
+  uploaded cover falls back to its first track's thumbnail, center-cropped square. The
+  file is rewritten only when the image itself changes (its hash is kept as `cover_hash`),
+  since the cover URL is signed and changes daily.
+
+Every image and every word on these pages is served from this site. Nothing is loaded from
+YouTube at view time; the only YouTube references are the links to listen. Each track links
+to `watch?v=<track>&list=<playlist>`, which plays it inside the mix so the rest follows.
+
+A mix that is no longer public on the channel has both files deleted, and the script prints
+a warning naming it.
+
+If the script stops with "restricted to websites", the key in `.env` is the `/ytm/` key or
+another website-restricted one; use the unrestricted key described above. A failed run
+writes nothing for the mix it failed on, so fixing the cause and running it again is safe.
+
+**Notes.** Anything written below a document's closing `---` is kept across refreshes and
+renders under the tracklist, so a mix can carry a note. Prev and next links follow the
+file names, which is why they are the bare number.
+
+**Tests:**
+
+```bash
+node --test script/mixtapes.test.js
 ```
 
 ## Analytics

@@ -384,13 +384,14 @@
       })
       .then(function (res) {
         return res.json().catch(function () { return null; }).then(function (body) {
-          if (!res.ok) throw new Error(describeError(res.status, body, window.location.origin));
+          if (!res.ok) throw new Error(describeError(res.status, body, typeof window === 'object' ? window.location.origin : null));
           return body;
         });
       });
   }
 
   async function fetchPlaylist(id, key, progress) {
+    progress = progress || function () {};
     var raw = { playlists: null, playlistItems: [], videos: [] };
 
     progress('Looking up the playlist.');
@@ -454,7 +455,8 @@
     artistFromChannel: artistFromChannel,
     toTrack: toTrack,
     shape: shape,
-    describeError: describeError
+    describeError: describeError,
+    fetchPlaylist: fetchPlaylist
   };
 
   if (typeof module === 'object' && module.exports) {

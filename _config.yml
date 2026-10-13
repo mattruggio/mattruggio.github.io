@@ -57,8 +57,24 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
 
+# Mixtapes are generated, not written: script/mixtapes.js snapshots the
+# `mix.NNN.<title>.keep` playlists on YouTube into _mixtapes/NNN.md, so edit
+# the playlist and refresh rather than editing the front matter by hand. Only
+# the body below the front matter is yours, and it survives a refresh. URLs
+# use the number alone so renaming a mix does not break its link.
+collections:
+  mixtapes:
+    output: true
+    permalink: /mixtapes/:name/
+
 # Projects are listed on the home page from _data/projects.yml.
 defaults:
+  - scope:
+      path: ""
+      type: "mixtapes"
+    values:
+      layout: "mixtape"
+      stylesheet: /assets/css/mixtapes.css
   # Social sharing card. jekyll-seo-tag reads `image` from the *page*, never from
   # a top-level site key, so the default has to be applied here. Any page or post
   # can override it with its own `image:` in front matter. Supplying width/height

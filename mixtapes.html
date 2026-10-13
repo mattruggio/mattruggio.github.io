@@ -1,0 +1,34 @@
+---
+layout: default
+title: "Mixtapes"
+permalink: /mixtapes/
+description: "Mixtapes by Matt Ruggio: hand-built YouTube Music playlists, newest first."
+stylesheet: /assets/css/mixtapes.css
+---
+{%- comment -%}
+  Newest first, by number. The numbers are zero-padded strings, so a plain
+  sort orders them correctly.
+{%- endcomment -%}
+{% assign mixes = site.mixtapes | sort: 'number' | reverse %}
+<div class="wrapper">
+  <header class="post-header">
+    <p class="post-meta prompt">ls ~/mixtapes</p>
+    <h1 class="post-title">mixtapes</h1>
+    <p class="post-meta">{{ mixes.size }} mix{% unless mixes.size == 1 %}es{% endunless %}, newest first</p>
+  </header>
+
+  {% if mixes.size > 0 %}
+  <ul class="jewel-grid">
+    {% for mix in mixes %}
+    <li>{% include jewel-case.html mix=mix eager=forloop.first %}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-muted prompt">No mixtapes yet.</p>
+  {% endif %}
+
+  <hr />
+  <p>
+    <a class="arrow-link arrow-link--next" href="{{ site.youtube_url }}" target="_blank" rel="noopener">more on youtube music</a>
+  </p>
+</div>

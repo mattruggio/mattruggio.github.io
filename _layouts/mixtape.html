@@ -1,0 +1,70 @@
+---
+layout: default
+---
+{%- comment -%}
+  One mixtape, laid out as an opened CD: the case and disc on one side, the
+  back tray card with the tracklist on the other, between its two spines.
+  Everything here comes from front matter written by script/mixtapes.js.
+  The body, when there is one, is a hand-written note and renders as prose.
+{%- endcomment -%}
+<div class="wrapper">
+  <header class="post-header">
+    <p class="post-meta prompt">cd ~/mixtapes/{{ page.number }}</p>
+    <h1 class="post-title"><span class="text-amber">mix.{{ page.number }}</span> {{ page.mix_name }}</h1>
+    <p class="post-meta">{{ page.track_count }} tracks &middot; {{ page.runtime }}</p>
+  </header>
+
+  <div class="mixtape">
+    <div class="mixtape-front">
+      {% include jewel-case.html mix=page link=false eager=true %}
+      <p class="mixtape-listen-row">
+        <a class="mixtape-listen" href="{{ page.url_music }}" target="_blank" rel="noopener">listen on youtube music</a>
+      </p>
+    </div>
+
+    <section class="mixtape-back" aria-labelledby="mixtape-tracklist">
+      <span class="mixtape-spine" aria-hidden="true">mix.{{ page.number }} &middot; {{ page.mix_name }}</span>
+      <div class="mixtape-card">
+        <h2 class="mixtape-card-title" id="mixtape-tracklist">tracklist</h2>
+        <ol class="mixtape-tracks">
+          {%- for track in page.tracks %}
+          <li class="mixtape-track">
+            <span class="mixtape-track-number">{% if track.number < 10 %}0{% endif %}{{ track.number }}</span>
+            <span class="mixtape-track-main">
+              <a class="mixtape-track-title" href="{{ track.url }}" target="_blank" rel="noopener">{{ track.title }}</a>
+              {%- if track.artist and track.artist != '' %}
+              <span class="mixtape-track-artist">{{ track.artist }}</span>
+              {%- endif %}
+            </span>
+            <span class="mixtape-track-duration">{{ track.duration }}</span>
+          </li>
+          {%- endfor %}
+        </ol>
+        <p class="mixtape-total">total <span>{{ page.runtime }}</span></p>
+      </div>
+      <span class="mixtape-spine" aria-hidden="true">mix.{{ page.number }} &middot; {{ page.mix_name }}</span>
+    </section>
+  </div>
+
+  {% if content != '' %}
+  <div class="post-content mixtape-notes">
+    {{ content }}
+  </div>
+  {% endif %}
+
+  <hr />
+  <nav class="mixtape-nav" aria-label="More mixtapes">
+    <span>
+      {%- if page.previous %}
+      <a class="arrow-link arrow-link--prev" href="{{ page.previous.url | relative_url }}">mix.{{ page.previous.number }}</a>
+      {%- endif %}
+    </span>
+    <a class="arrow-link" href="{{ '/mixtapes/' | relative_url }}">all mixtapes</a>
+    <span>
+      {%- if page.next %}
+      <a class="arrow-link arrow-link--next" href="{{ page.next.url | relative_url }}">mix.{{ page.next.number }}</a>
+      {%- endif %}
+    </span>
+  </nav>
+  <p class="mixtape-refreshed text-muted">tracklist as of {{ page.refreshed_at | date: '%B %-d, %Y' }}</p>
+</div>

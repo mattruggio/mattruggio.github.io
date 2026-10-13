@@ -143,4 +143,32 @@ layout: default
       {% endif %}
     </section>
   </div>
+
+  {%- comment -%}
+    Full width below both columns rather than inside one, so it never
+    changes their balance. The newest three by number, like the capped
+    article list; /mixtapes/ has the rest. The stylesheet comes from
+    index.md's front matter, since this layout only renders there.
+  {%- endcomment -%}
+  {% assign mixes = site.mixtapes | sort: 'number' | reverse %}
+  {% if mixes.size > 0 %}
+  <section class="home-mixtapes">
+    <h2 class="section-heading">
+      mixtapes
+      <span class="section-links">
+        <a class="section-link" href="{{ '/mixtapes/' | relative_url }}">{% include icons/list.svg %}all</a>
+      </span>
+    </h2>
+    <ul class="jewel-grid">
+      {% for mix in mixes limit: 3 %}
+      <li>{% include jewel-case.html mix=mix %}</li>
+      {% endfor %}
+    </ul>
+    {% if mixes.size > 3 %}
+    <p class="post-list-more">
+      <a class="arrow-link arrow-link--next" href="{{ '/mixtapes/' | relative_url }}">all {{ mixes.size }} mixtapes</a>
+    </p>
+    {% endif %}
+  </section>
+  {% endif %}
 </div>

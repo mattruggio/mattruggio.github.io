@@ -1,5 +1,6 @@
 ---
 layout: home
+stylesheet: /assets/css/mixtapes.css
 ---
 
 name

@@ -1,0 +1,31 @@
+{%- comment -%}
+  One mixtape as a CD jewel case: the cover is the front insert under the
+  plastic, the hinge carries the spine number, and the disc sits behind the
+  case with an edge showing. Purely decorative parts are aria-hidden; the
+  accessible name comes from the title line.
+
+  include.mix   a document from site.mixtapes
+  include.link  false to render without a link (the detail page)
+  include.eager true to load the cover eagerly (above the fold)
+{%- endcomment -%}
+{%- assign mix = include.mix -%}
+{%- if include.link == false -%}{%- assign tag = 'div' -%}{%- else -%}{%- assign tag = 'a' -%}{%- endif -%}
+<{{ tag }} class="jewel"{% if tag == 'a' %} href="{{ mix.url | relative_url }}"{% endif %}>
+  <span class="jewel-case">
+    <span class="jewel-disc" aria-hidden="true"><span class="jewel-disc-face"></span></span>
+    <span class="jewel-front">
+      <span class="jewel-hinge" aria-hidden="true">mix.{{ mix.number }}</span>
+      {%- if mix.cover %}
+      <img class="jewel-cover" src="{{ mix.cover | relative_url }}" alt=""
+           width="{{ mix.image.width | default: 600 }}" height="{{ mix.image.height | default: 600 }}"
+           {% unless include.eager %}loading="lazy" {% endunless %}decoding="async" />
+      {%- else %}
+      <span class="jewel-cover jewel-cover--blank" aria-hidden="true">mix.{{ mix.number }}</span>
+      {%- endif %}
+    </span>
+  </span>
+  {%- unless include.link == false %}
+  <span class="jewel-title"><span class="jewel-number">mix.{{ mix.number }}</span> {{ mix.mix_name }}</span>
+  <span class="jewel-meta">{{ mix.track_count }} tracks &middot; {{ mix.runtime }}</span>
+  {%- endunless %}
+</{{ tag }}>
